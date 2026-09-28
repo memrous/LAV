@@ -1,0 +1,38 @@
+<!-- TODO(verify): section padding; reference/crossroads.png (1440×840 frame) has ~160px above the heading and ~300px below the cards -->
+<section class="py-space-2xl lg:pb-40 lg:pt-40" aria-labelledby="crossroad-title">
+  <div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+    <h2 id="crossroad-title" class="font-display text-display-md font-bold text-text-primary md:text-display-lg lg:text-display-xl">
+      Vše důležité na jednom místě
+    </h2>
+
+    <!-- Design is a 4-column grid (302px columns at 1440) with the 3 cards in the first three columns. -->
+    <!-- TODO(verify): the design shows gradient cards, no background photos; none of src/img fits, so no images are used. -->
+    <ul class="mt-space-lg grid grid-cols-1 gap-space-sm md:grid-cols-3 md:gap-space-md lg:mt-space-xl xl:grid-cols-4">
+      <li class="crossroad-card--light relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/70 p-space-lg shadow-[0_24px_48px_-16px_rgba(18,19,42,0.18)]">
+        <!-- TODO(verify): titles look like Schibsted Grotesk Regular (~28px) in the design; only the Bold weight is self-hosted -->
+        <h3 class="font-display text-[1.75rem] font-bold leading-tight tracking-[-0.02em] text-text-primary">Nábor 2026/27</h3>
+        <!-- TODO(verify): link target. The ::after overlay makes the whole card clickable. -->
+        <a href="#" class="inline-flex h-11 items-center gap-space-sm self-start rounded-radius-full bg-button-accent-bg px-space-md text-body text-button-accent-text transition after:absolute after:inset-0 after:rounded-[1.25rem] hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          Přihlásit se
+          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+        </a>
+      </li>
+
+      <li class="crossroad-card--blue relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/30 p-space-lg shadow-[0_24px_48px_-16px_rgba(18,19,42,0.18)]">
+        <h3 class="font-display text-[1.75rem] font-bold leading-tight tracking-[-0.02em] text-text-inverse">Naši akademici</h3>
+        <a href="#" class="group inline-flex items-center gap-space-sm self-start rounded-radius-sm text-body text-text-inverse after:absolute after:inset-0 after:rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-transparent">
+          <span class="group-hover:underline">Poznat tým</span>
+          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5 transition-transform group-hover:translate-x-1"})
+        </a>
+      </li>
+
+      <li class="crossroad-card--dark relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/20 p-space-lg shadow-[0_24px_48px_-16px_rgba(18,19,42,0.18)]">
+        <h3 class="font-display text-[1.75rem] font-bold leading-tight tracking-[-0.02em] text-text-inverse">Akce a závody</h3>
+        <a href="#" class="group inline-flex items-center gap-space-sm self-start rounded-radius-sm text-body text-text-inverse after:absolute after:inset-0 after:rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-transparent">
+          <span class="group-hover:underline">Kalendář akcí</span>
+          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5 transition-transform group-hover:translate-x-1"})
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>

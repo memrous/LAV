@@ -1,0 +1,32 @@
+{
+  "name": "lav",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp dev",
+    "build": "gulp build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "autoprefixer": "^10.6.1",
+    "browser-sync": "^3.0.4",
+    "gulp": "^5.0.1",
+    "gulp-file-include": "^2.3.0",
+    "gulp-imagemin": "^9.2.0",
+    "gulp-postcss": "^10.0.0",
+    "gulp-sass": "^6.0.1",
+    "gulp-svg-sprite": "^2.0.3",
+    "parcel": "^2.16.4",
+    "postcss": "^8.5.28",
+    "sass": "^1.105.0",
+    "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "swiper": "^14.3.0",
+    "three": "^0.186.1"
+  }
+}

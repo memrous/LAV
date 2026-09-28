@@ -1,0 +1,14 @@
+@@if (false) {
+Sprite icon. The sprite (generated from src/icons/) is inlined once per page by components/sprite.html.
+
+Usage (path is relative to the including file):
+  include('./components/icon.html', {"name": "search", "class": "h-5 w-5"})       from src/*.html
+  include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5 rotate-180"})  from src/components/*.html
+  (prefix the call with @@)
+
+- name:  file name in src/icons/ without .svg, case-sensitive (Group-1, arrow-right, ...)
+- class: always pass it (at least a size), otherwise the literal placeholder ends up in the output
+- Icons use currentColor, so set the color on the icon or its parent (text-*). logo / logo-nobg keep their own colors.
+- Decorative only (aria-hidden). For a meaningful icon, give the parent link/button an aria-label or sr-only text.
+}
+<svg class="@@class" aria-hidden="true" focusable="false"><use href="#sprite-@@name"></use></svg>

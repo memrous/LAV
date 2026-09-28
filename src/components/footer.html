@@ -1,0 +1,104 @@
+<!-- Footer. Copy and layout read from reference/Homepage.png (y ≈ 5280–6341); no separate footer.png exists. -->
+<!-- TODO(verify): top padding; in the design the navy fades in from the shader zone above -->
+<footer class="site-footer overflow-hidden pb-space-lg pt-space-2xl text-white lg:pt-40">
+  <div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+    <a href="index.html" class="inline-block rounded-radius-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#17264f]">
+      <!-- White logo lockup; viewBox crops the standalone mark contained in the same file (see header). -->
+      <svg class="h-11 w-auto" viewBox="0 0 362 95" role="img" aria-labelledby="footer-logo-title">
+        <title id="footer-logo-title">Labe Aréna – Labská akademie veslování</title>
+        <use href="#sprite-logo-nobg" width="486" height="95"></use>
+      </svg>
+    </a>
+
+    <!-- 4 columns at 1440: 284px wide, 48px gaps (x = 80 / 412 / 744 / 1076) -->
+    <div class="mt-space-lg grid grid-cols-1 gap-x-12 gap-y-space-xl sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <p class="text-body text-white/60">
+          Labská akademie veslování, z. s.<br>
+          Labe Aréna Ústeckého kraje<br>
+          Přístavní 1, 400 07 Ústí nad Labem
+        </p>
+        <!-- TODO(verify): social profile URLs -->
+        <ul class="mt-space-md flex gap-space-xs" aria-label="Sociální sítě">
+          <li>
+            <a href="https://www.instagram.com/labskaakademie/" target="_blank" rel="noopener" aria-label="Instagram (otevře se v novém okně)" class="flex h-9 w-9 items-center justify-center rounded-radius-sm border border-white/20 bg-white/5 transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              @@include('./icon.html', {"name": "Group", "class": "h-5 w-5"})
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Facebook" class="flex h-9 w-9 items-center justify-center rounded-radius-sm border border-white/20 bg-white/5 transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              @@include('./icon.html', {"name": "Group-1", "class": "h-5 w-5"})
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <nav aria-labelledby="footer-web">
+        <h2 id="footer-web" class="font-label text-label font-bold uppercase tracking-[0.08em] text-white/70">Web</h2>
+        <!-- TODO(verify): link targets -->
+        <ul class="mt-space-sm grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-space-lg gap-y-space-xs text-body">
+          @@for (var i = 0; i < 7; i++) {
+          <li><a href="#" class="rounded-radius-sm text-white/90 hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a></li>
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="font-label text-label font-bold uppercase tracking-[0.08em] text-white/70">Kontakt</h2>
+        <address class="mt-space-sm not-italic">
+          <ul class="space-y-space-xs text-body">
+            <li class="flex items-center gap-space-xs">
+              @@include('./icon.html', {"name": "mail", "class": "h-4 w-4 shrink-0 text-white/80"})
+              <a href="mailto:info@lav-usti.cz" class="rounded-radius-sm text-white/90 hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">info@lav-usti.cz</a>
+            </li>
+            <li class="flex items-center gap-space-xs">
+              @@include('./icon.html', {"name": "phone", "class": "h-4 w-4 shrink-0 text-white/80"})
+              <!-- TODO(verify): placeholder number from the design -->
+              <a href="tel:+420000000000" class="rounded-radius-sm text-white/90 hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">+420 000 000 000</a>
+            </li>
+            <li class="flex items-center gap-space-xs text-white/90">
+              @@include('./icon.html', {"name": "location-pin", "class": "h-4 w-4 shrink-0 text-white/80"})
+              Labe Aréna, Ústí nad Labem
+            </li>
+          </ul>
+        </address>
+      </div>
+
+      <nav aria-labelledby="footer-members">
+        <h2 id="footer-members" class="font-label text-label font-bold uppercase tracking-[0.08em] text-white/70">Pro členy</h2>
+        <ul class="mt-space-sm space-y-space-xs text-body">
+          @@for (var i = 0; i < 3; i++) {
+          <li><a href="#" class="rounded-radius-sm text-white/90 hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">`+["KIS — přihlášení", "Dokumenty", "Rozpis tréninků"][i]+`</a></li>
+          }
+        </ul>
+        <a href="#" class="mt-space-md inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-white px-space-md text-body text-text-primary transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#17264f]">
+          Přihlásit se na nábor
+          @@include('./icon.html', {"name": "arrow-up-right", "class": "h-4 w-4"})
+        </a>
+      </nav>
+    </div>
+
+    <hr class="mt-space-lg border-white/15">
+
+    <!-- Wordmark: 1200px wide at 1440 (x 138–1338), cap height 477px → ~665px Schibsted Grotesk; scales with viewport. -->
+    <p class="site-footer__wordmark mt-space-2xl select-none text-center font-display font-bold leading-none text-white lg:mt-[7.5rem]" aria-hidden="true">LAV</p>
+
+    <div class="mt-space-xl flex flex-col gap-space-sm text-[0.8125rem] text-white/60 lg:mt-[7rem] lg:flex-row lg:items-center lg:justify-between lg:gap-space-lg">
+      <p>© 2026 Labská akademie veslování, z. s. Všechna práva vyhrazena.</p>
+      <nav aria-label="Právní informace">
+        <!-- TODO(verify): link targets -->
+        <ul class="flex flex-wrap gap-x-space-md gap-y-space-xs">
+          <li><a href="#" class="rounded-radius-sm hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Ochrana údajů</a></li>
+          <li><a href="#" class="rounded-radius-sm hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Podmínky</a></li>
+          <li><a href="#" class="rounded-radius-sm hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Cookies</a></li>
+        </ul>
+      </nav>
+      <p class="flex items-center gap-space-xs">
+        Vyrobeno v
+        <!-- TODO(replace with eSports logo): no asset in src/img or src/icons; text stand-in -->
+        <span class="font-bold italic text-white">eSports</span>
+        v roce 2026
+      </p>
+    </div>
+  </div>
+</footer>

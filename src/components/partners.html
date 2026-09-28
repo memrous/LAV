@@ -1,0 +1,41 @@
+<!-- Layout from reference/partners.png: one row of full-colour logos on light cards. TODO(verify): section padding -->
+<section class="overflow-hidden py-space-2xl lg:pb-40 lg:pt-space-2xl" aria-labelledby="partners-title">
+  <div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+    <h2 id="partners-title" class="text-center font-display text-display-md font-bold text-text-primary md:text-display-lg lg:text-display-xl">
+      Děkujeme partnerům
+    </h2>
+  </div>
+
+  <!-- Marquee (same pattern as the Instagram section): track = logo set ×2, animated to -50%.
+       Card 196px + 24px gap = 220px slot; 13 logos → set 2860px, track 5720px.
+       Order follows the screenshot; the set starts with Ústí nad Labem so that at t=0 its card peeks in at the
+       left edge (x -148…48) and Národní sportovní agentura starts at x=72, as in the design.
+       Logos load eagerly (13 small PNGs, ~190 KB) so no card scrolls in empty.
+       TODO(verify): Figma cards are 193–196px wide (hug); a uniform 196px keeps the -50% math exact. -->
+  <div class="partners-row mt-space-lg">
+    <div class="partners-track ml-[-148px]">
+      <ul class="flex" role="list">
+        @@for (var i = 0; i < 13; i++) {
+        <li class="mr-space-md flex h-24 w-[12.25rem] shrink-0 items-center justify-center rounded-radius-md border border-[#dfe3ea] bg-[#f6f9fb]">
+          <img
+            src="img/logo-`+["ustni-nad-labem", "nsa", "cvs", "cez", "spolchemie", "krajska-zdravotni", "severoceske-doly", "labe-arena", "metrostav", "dpmul", "komunitni-nadace", "orlen-unipetrol", "ustecky-kraj"][i]+`.png"
+            alt="`+["Ústí nad Labem", "Národní sportovní agentura", "Český veslařský svaz", "ČEZ", "Spolchemie", "Krajská zdravotní – nemocnice Ústeckého kraje", "Severočeské doly a.s.", "Labe Aréna", "Metrostav", "Dopravní podnik města Ústí nad Labem", "Ústecká komunitní nadace", "ORLEN Unipetrol", "Ústecký kraj"][i]+`"
+            width="400"
+            height="192"
+            decoding="async"
+            class="h-[4.5rem] w-[9.375rem] object-contain"
+          >
+        </li>
+        }
+      </ul>
+      <!-- Duplicate set for the seamless loop, hidden from assistive tech -->
+      <ul class="flex" aria-hidden="true">
+        @@for (var i = 0; i < 13; i++) {
+        <li class="mr-space-md flex h-24 w-[12.25rem] shrink-0 items-center justify-center rounded-radius-md border border-[#dfe3ea] bg-[#f6f9fb]">
+          <img src="img/logo-`+["ustni-nad-labem", "nsa", "cvs", "cez", "spolchemie", "krajska-zdravotni", "severoceske-doly", "labe-arena", "metrostav", "dpmul", "komunitni-nadace", "orlen-unipetrol", "ustecky-kraj"][i]+`.png" alt="" width="400" height="192" decoding="async" class="h-[4.5rem] w-[9.375rem] object-contain">
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

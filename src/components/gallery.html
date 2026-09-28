@@ -1,0 +1,29 @@
+<!-- TODO(verify): section padding measured from reference/gallery.png (1440 frame: heading top ~255px, photos end ~115px before the bottom) -->
+<section class="overflow-hidden py-space-2xl lg:pb-28 lg:pt-64" aria-labelledby="gallery-title">
+  <div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+    <h2 id="gallery-title" class="text-center font-display text-display-md font-bold text-text-primary md:text-display-lg lg:text-display-xl">
+      Ze života akademie
+    </h2>
+
+    <!-- Full-bleed drag carousel: the swiper sits in the page container (first photo aligns with the gutter)
+         and overflows both viewport edges; the section clips it. -->
+    <div class="swiper js-gallery mt-space-md !overflow-visible">
+      <!-- TODO(replace with real gallery photos): only gallery-1..3 exist, cycled 4× to fill the row -->
+      <ul class="swiper-wrapper">
+        @@for (var i = 0; i < 12; i++) {
+        <li class="swiper-slide !w-60 sm:!w-72 lg:!w-[18.875rem]">
+          <img
+            src="img/gallery-`+(i % 3 + 1)+`.jpg"
+            alt="`+["Ženská osmiveslice na závodní trati", "Skifařka během závodu", "Dvojskif na závodní trati"][i % 3]+`"
+            width="1200"
+            height="800"
+            loading="lazy"
+            draggable="false"
+            class="aspect-square w-full select-none rounded-radius-md object-cover"
+          >
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

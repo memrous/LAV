@@ -1,0 +1,74 @@
+<!-- Source: reference/social.png does not exist; layout read from reference/Homepage.png (y ≈ 3180–3880). -->
+<!-- TODO(verify): section padding -->
+<section class="overflow-hidden py-space-2xl lg:pb-40 lg:pt-space-2xl" aria-labelledby="instagram-title">
+  <div class="mx-auto max-w-container px-space-sm text-center md:px-space-xl xl:px-space-2xl">
+    <p class="font-label text-label font-bold uppercase text-text-primary">Instagram</p>
+    <h2 id="instagram-title" class="mt-space-xs font-display text-display-md font-bold text-text-primary md:text-display-lg lg:text-display-xl">
+      @labskaakademie
+    </h2>
+  </div>
+
+  <!-- Marquee: each track holds the tile set twice and moves -50% in 30s (linear, infinite), paused on hover.
+       Set = 10 tiles × 196px (172 tile + 24 gap) = 1960px, wide enough for viewports up to 1960px.
+       Start offsets reproduce the design at t=0: row 1 first full tile at x=99 → -97px, row 2 at x=14 → -182px
+       (row 2 sits 85px left of row 1, i.e. +111px within the 196px tile pitch). -->
+  <!-- feed-1..6 cycle continuously across both rows: tile i (0-based, row 1 = 0–9, row 2 = 10–19) uses feed-((i % 6) + 1).
+       Each row's duplicate set repeats that row's sequence exactly (required for the seamless loop). -->
+  <!-- TODO(better alt text): alts describe what the photos show; replace with real post captions -->
+  <!-- Rows are written out separately: gulp-file-include cannot nest "for" blocks when the inner block uses its own loop variable. -->
+  <div class="mt-space-md space-y-space-md">
+    <!-- Row 1 -->
+    <div class="instagram-row">
+      <div class="instagram-track ml-[-97px]">
+        <ul class="flex" role="list">
+          @@for (var i = 0; i < 10; i++) {
+          <li class="relative mr-space-md h-[10.75rem] w-[10.75rem] shrink-0">
+            <img src="img/feed-`+(i % 6 + 1)+`.jpg" alt="`+["Vesla připravená na trávě", "Skifař při tréninku na řece", "Veslař ve skifu u zeleného břehu", "Řeka s mostem a budovou na kopci", "Posádka čtyřky na vodě", "Loděnice u vody"][i % 6]+`" width="800" height="800" loading="lazy" class="h-full w-full rounded-radius-sm object-cover">
+            @@include('./icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
+          </li>
+          }
+        </ul>
+        <!-- Duplicate set for the seamless loop, hidden from assistive tech -->
+        <ul class="flex" aria-hidden="true">
+          @@for (var i = 0; i < 10; i++) {
+          <li class="relative mr-space-md h-[10.75rem] w-[10.75rem] shrink-0">
+            <img src="img/feed-`+(i % 6 + 1)+`.jpg" alt="" width="800" height="800" loading="lazy" class="h-full w-full rounded-radius-sm object-cover">
+            @@include('./icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+    <!-- Row 2 -->
+    <div class="instagram-row">
+      <div class="instagram-track ml-[-182px]">
+        <ul class="flex" role="list">
+          @@for (var i = 10; i < 20; i++) {
+          <li class="relative mr-space-md h-[10.75rem] w-[10.75rem] shrink-0">
+            <img src="img/feed-`+(i % 6 + 1)+`.jpg" alt="`+["Vesla připravená na trávě", "Skifař při tréninku na řece", "Veslař ve skifu u zeleného břehu", "Řeka s mostem a budovou na kopci", "Posádka čtyřky na vodě", "Loděnice u vody"][i % 6]+`" width="800" height="800" loading="lazy" class="h-full w-full rounded-radius-sm object-cover">
+            @@include('./icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
+          </li>
+          }
+        </ul>
+        <!-- Duplicate set for the seamless loop, hidden from assistive tech -->
+        <ul class="flex" aria-hidden="true">
+          @@for (var i = 10; i < 20; i++) {
+          <li class="relative mr-space-md h-[10.75rem] w-[10.75rem] shrink-0">
+            <img src="img/feed-`+(i % 6 + 1)+`.jpg" alt="" width="800" height="800" loading="lazy" class="h-full w-full rounded-radius-sm object-cover">
+            @@include('./icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-space-xl text-center">
+    <!-- TODO(verify): profile URL derived from the handle in the heading -->
+    <a href="https://www.instagram.com/labskaakademie/" target="_blank" rel="noopener" class="inline-flex items-center gap-space-sm rounded-radius-sm text-button text-text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">
+      Sledovat
+      <span class="sr-only">(Instagram, otevře se v novém okně)</span>
+      @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+    </a>
+  </div>
+</section>

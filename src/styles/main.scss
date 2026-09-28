@@ -1,0 +1,179 @@
+// Swiper core layout (modules are styled below with Tailwind tokens)
+@use '../../node_modules/swiper/swiper';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Fonts: self-hosted from src/fonts (Google Fonts woff2, latin + latin-ext for Czech).
+$fonts: (
+  ('Inter', 500, 'inter-500'),
+  ('Play', 700, 'play-700'),
+  ('Schibsted Grotesk', 700, 'schibsted-grotesk-700'),
+);
+
+@each $family, $weight, $file in $fonts {
+  @font-face {
+    font-family: $family;
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    src: url('../fonts/#{$file}-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+      U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+
+  @font-face {
+    font-family: $family;
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    src: url('../fonts/#{$file}-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+      U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-surface-page font-body font-medium text-text-primary antialiased;
+  }
+}
+
+@layer components {
+  // Static soft edge on the hero photo (stand-in for the future dissolve effect).
+  .hero-photo-mask {
+    mask-image: linear-gradient(to right, transparent 0%, #000 30%), linear-gradient(to top, transparent 0%, #000 25%),
+      linear-gradient(to bottom, transparent 0%, #000 22%);
+    mask-composite: intersect;
+  }
+
+  .hero-pagination {
+    .swiper-pagination-bullet {
+      @apply block h-2 w-2 cursor-pointer rounded-radius-full bg-text-primary/25 transition-all;
+    }
+
+    .swiper-pagination-bullet:focus-visible {
+      @apply outline-none ring-2 ring-button-primary-bg ring-offset-2;
+    }
+
+    .swiper-pagination-bullet-active {
+      @apply w-6 bg-button-primary-bg;
+    }
+  }
+}
+
+// Outside @layer so Tailwind doesn't purge them (classes are only added by Swiper at runtime).
+// Hides pagination/arrows when there is nothing to scroll (desktop: 3 of 3 cards visible).
+.swiper-pagination-lock,
+.swiper-button-lock {
+  display: none;
+}
+
+// Rozcestník card backgrounds. The design uses gradients (no photos); colors sampled from
+// reference/crossroads.png. TODO(verify): exact gradient stops/angles from Figma.
+@layer components {
+  .crossroad-card--light {
+    background:
+      radial-gradient(circle at 0% 100%, #a8cfec 0%, transparent 55%),
+      linear-gradient(135deg, #d6e7f5 0%, #d6dfee 60%, #d9e6ef 100%);
+  }
+
+  .crossroad-card--blue {
+    background:
+      radial-gradient(circle at 100% 100%, #292f65 0%, transparent 60%),
+      linear-gradient(to bottom, #88bbe1 0%, #3d86be 100%);
+  }
+
+  .crossroad-card--dark {
+    background:
+      radial-gradient(circle at 100% 100%, #216599 0%, transparent 50%),
+      radial-gradient(circle at 100% 0%, #0f1762 0%, transparent 60%),
+      linear-gradient(to bottom, #1b2151 0%, #0e1e3f 100%);
+  }
+}
+
+// "Aktuálně v akademii" bento. Colors sampled from reference/Homepage.png (y ≈ 2560–3200).
+// TODO(verify): exact gradient stops from Figma.
+@layer components {
+  .right-now-results {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 55%, rgba(61, 78, 130, 0.9) 0%, transparent 100%),
+      radial-gradient(circle at 100% 100%, #285197 0%, transparent 55%),
+      radial-gradient(circle at 100% 0%, #101b66 0%, transparent 60%),
+      linear-gradient(to bottom, #212058 0%, #14214f 100%);
+  }
+
+  // Progress bars: static fill (the screenshot is a still, no animation shown).
+  .right-now-bar {
+    @apply h-4 overflow-hidden rounded-radius-full bg-white/20;
+  }
+
+  .right-now-bar > span {
+    @apply block h-full rounded-radius-full;
+  }
+}
+
+// Instagram marquee: track = tile set ×2, so -50% lands exactly on the start of the copy (seamless).
+// Same 30s linear loop at every breakpoint; hover pauses the row (touch devices simply keep running).
+@keyframes instagram-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.instagram-track {
+  display: flex;
+  width: max-content;
+  animation: instagram-marquee 30s linear infinite;
+}
+
+.instagram-row:hover .instagram-track {
+  animation-play-state: paused;
+}
+
+// Reduced motion (e.g. Windows "Animation effects" off): drastically slower instead of static.
+@media (prefers-reduced-motion: reduce) {
+  .instagram-track {
+    animation-duration: 120s;
+  }
+}
+
+// Partners marquee: same pattern and keyframes as Instagram (translateX(-50%) of a doubled track).
+// Duration keeps the same on-screen speed as Instagram (1960px / 30s = 65.33px/s):
+// set = 13 × (196 + 24) = 2860px → 2860 / 65.33 = 43.78s. Same at every breakpoint.
+.partners-track {
+  display: flex;
+  width: max-content;
+  animation: instagram-marquee 43.78s linear infinite;
+}
+
+.partners-row:hover .partners-track {
+  animation-play-state: paused;
+}
+
+// Reduced motion: 4× slower, same as Instagram.
+@media (prefers-reduced-motion: reduce) {
+  .partners-track {
+    animation-duration: 175.12s;
+  }
+}
+
+// Footer: background image from the design (src/img/footer-bg.jpg, 2880×900). Navy fallback while it loads.
+.site-footer {
+  background: #17264f url('../img/footer-bg.jpg') center / cover no-repeat;
+}
+
+// "LAV" wordmark: ink 1200px wide at 1440 (x 138–1338), cap height 477px → 684px (47.5vw), capped at the 1440 frame.
+// line-height ≈ cap height so the box hugs the letters (spacing then matches the design); negative tracking closes A–V;
+// small negative margin compensates the L's left side bearing so the ink sits where the design has it.
+.site-footer__wordmark {
+  font-size: min(47.5vw, 42.75rem);
+  line-height: 0.72;
+  letter-spacing: -0.06em;
+  margin-left: -0.046em;
+}

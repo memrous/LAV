@@ -1,0 +1,86 @@
+<!-- TODO(verify): header sits over the hero (absolute). Sticky/scroll behaviour not specified. -->
+<header class="absolute inset-x-0 top-0 z-30">
+  <div class="mx-auto flex h-[4.5rem] max-w-container items-center justify-between gap-space-md px-space-sm md:px-space-xl xl:px-space-2xl">
+    <a href="index.html" class="shrink-0 rounded-radius-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">
+      <!-- logo.svg holds the full lockup (0–362) plus a standalone mark (410–486); the viewBox crops to the lockup shown in the header. -->
+      <svg class="h-9 w-auto sm:h-11" viewBox="0 0 362 95" role="img" aria-labelledby="logo-title">
+        <title id="logo-title">Labe Aréna – Labská akademie veslování</title>
+        <use href="#sprite-logo" width="486" height="95"></use>
+      </svg>
+    </a>
+
+    <!-- Desktop -->
+    <div class="hidden items-center gap-space-lg xl:flex">
+      <nav aria-label="Hlavní navigace">
+        <ul class="flex items-center gap-space-md min-[1400px]:gap-space-xl">
+          @@for (var i = 0; i < ["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"].length; i++) {
+          <li>
+            <!-- TODO(verify): link targets -->
+            <a href="#" class="rounded-radius-sm text-body text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a>
+          </li>
+          }
+        </ul>
+      </nav>
+
+      <!-- TODO(verify): KIS link target -->
+      <a href="#" class="inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-button-accent-bg px-space-md text-body text-button-accent-text transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+        KIS
+        @@include('./icon.html', {"name": "key", "class": "h-5 w-5"})
+      </a>
+    </div>
+
+    <ul class="hidden items-center gap-space-xs xl:flex" aria-label="Sociální sítě">
+      <li>
+        <!-- TODO(verify): social profile URLs -->
+        <a href="#" aria-label="Instagram" class="flex h-9 w-9 items-center justify-center rounded-radius-sm border border-surface-icon-border bg-surface-icon transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          @@include('./icon.html', {"name": "Group", "class": "h-5 w-5"})
+        </a>
+      </li>
+      <li>
+        <a href="#" aria-label="Facebook" class="flex h-9 w-9 items-center justify-center rounded-radius-sm border border-surface-icon-border bg-surface-icon transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          @@include('./icon.html', {"name": "Group-1", "class": "h-5 w-5"})
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile / tablet: <details> gives a working toggle without JS. TODO(verify): no mobile design provided. -->
+    <details class="group xl:hidden">
+      <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-radius-sm border border-surface-icon-border bg-surface-icon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg [&::-webkit-details-marker]:hidden">
+        <span class="sr-only">Menu</span>
+        @@include('./icon.html', {"name": "menu", "class": "h-6 w-6 group-open:hidden"})
+        @@include('./icon.html', {"name": "close", "class": "hidden h-5 w-5 group-open:block"})
+      </summary>
+
+      <div class="absolute inset-x-space-sm top-[4.5rem] rounded-radius-md border border-surface-card-border bg-surface-page p-space-md shadow-xl md:inset-x-space-xl">
+        <nav aria-label="Hlavní navigace (mobilní)">
+          <ul class="flex flex-col">
+            @@for (var i = 0; i < ["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"].length; i++) {
+            <li>
+              <a href="#" class="block rounded-radius-sm py-space-xs text-button text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a>
+            </li>
+            }
+          </ul>
+        </nav>
+
+        <div class="mt-space-md flex items-center justify-between gap-space-sm">
+          <a href="#" class="inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-button-accent-bg px-space-md text-body text-button-accent-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+            KIS
+            @@include('./icon.html', {"name": "key", "class": "h-5 w-5"})
+          </a>
+          <ul class="flex items-center gap-space-xs" aria-label="Sociální sítě">
+            <li>
+              <a href="#" aria-label="Instagram" class="flex h-11 w-11 items-center justify-center rounded-radius-sm border border-surface-icon-border bg-surface-icon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg">
+                @@include('./icon.html', {"name": "Group", "class": "h-5 w-5"})
+              </a>
+            </li>
+            <li>
+              <a href="#" aria-label="Facebook" class="flex h-11 w-11 items-center justify-center rounded-radius-sm border border-surface-icon-border bg-surface-icon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg">
+                @@include('./icon.html', {"name": "Group-1", "class": "h-5 w-5"})
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
