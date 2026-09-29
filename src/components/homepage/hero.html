@@ -1,13 +1,14 @@
-<section class="relative isolate overflow-hidden pb-space-xl pt-[4.5rem] lg:pb-space-2xl lg:pt-[11.5rem]" aria-labelledby="hero-title">
-  <!-- Hero photo. Static soft edges only; dissolve/shader effect comes later. -->
+<section class="js-hero relative isolate overflow-hidden pb-space-xl pt-[4.5rem] lg:pb-space-2xl lg:pt-[11.5rem]" aria-labelledby="hero-title">
+  <!-- Hero photo. hero.parcel.js layers the WebGL water (canvas.hero-water) over it and drives the 0.3× parallax;
+       with prefers-reduced-motion or without WebGL only this static photo is shown. Soft edges mask photo + canvas. -->
   <!-- TODO(verify): photo box (top 40px, right edge, ~61% width, 16:10) measured from reference/Hero.png -->
-  <div class="relative -z-10 aspect-[16/10] w-full lg:absolute lg:right-0 lg:top-space-xl lg:w-[61%]">
+  <div class="js-hero-photo hero-photo hero-photo-mask relative -z-10 aspect-[16/10] w-full lg:absolute lg:right-0 lg:top-space-xl lg:w-[61%]">
     <img
       src="img/hero-article.jpg"
       alt="Juniorská osmiveslice během závodu na řece"
       width="1600"
       height="1000"
-      class="hero-photo-mask h-full w-full object-cover"
+      class="h-full w-full object-cover"
       fetchpriority="high"
     >
   </div>
@@ -16,19 +17,25 @@
     <div class="-mt-space-lg lg:mt-0">
       <time datetime="2026-09-12" class="font-label text-label font-bold text-text-secondary">12. 9. 2026</time>
 
-      <h1 id="hero-title" class="mt-space-sm max-w-[45rem] font-display text-display-md font-bold text-text-primary md:text-display-lg lg:mt-space-lg lg:text-display-xl">
+      <h1 id="hero-title" class="js-hero-title hero-title mt-space-sm max-w-[45rem] font-display text-display-md font-bold text-text-primary md:text-display-lg lg:mt-space-lg lg:text-display-xl">
         Tři medaile z Mistrovství ČR juniorů
       </h1>
 
       <div class="mt-space-md flex flex-wrap gap-space-sm lg:mt-space-lg">
         <!-- TODO(verify): link targets -->
-        <a href="#" class="inline-flex h-14 items-center gap-space-sm rounded-radius-full bg-button-primary-bg px-space-lg text-button text-button-primary-text transition hover:bg-button-primary-bg/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+        <a href="#" class="pill-press inline-flex h-14 items-center gap-space-sm rounded-radius-full bg-button-primary-bg px-space-lg text-button text-button-primary-text transition hover:bg-button-primary-bg/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
           Číst článek
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+          <span class="arrow-mask h-5 w-5">
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+          </span>
         </a>
-        <a href="#" class="inline-flex h-14 items-center gap-space-sm rounded-radius-full border border-button-secondary-border px-space-lg text-button text-text-primary transition hover:bg-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+        <a href="#" class="pill-press inline-flex h-14 items-center gap-space-sm rounded-radius-full border border-button-secondary-border px-space-lg text-button text-text-primary transition hover:bg-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
           Všechny články
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+          <span class="arrow-mask h-5 w-5">
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+          </span>
         </a>
       </div>
 
@@ -78,14 +85,17 @@
         <div class="flex gap-space-xs">
           <button type="button" class="js-hero-articles-prev flex h-11 w-11 items-center justify-center rounded-radius-full border border-surface-icon-border bg-surface-icon transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg disabled:cursor-default [&.swiper-button-disabled]:opacity-40">
             <span class="sr-only">Předchozí článek</span>
-            @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5 rotate-180"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5 rotate-180"})
           </button>
           <button type="button" class="js-hero-articles-next flex h-11 w-11 items-center justify-center rounded-radius-full border border-surface-icon-border bg-surface-icon transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg disabled:cursor-default [&.swiper-button-disabled]:opacity-40">
             <span class="sr-only">Další článek</span>
-            @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
           </button>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Hero motion (water shader + title reveal). Own Parcel entry so the script travels with this partial. -->
+<script type="module" src="js/hero.parcel.js"></script>

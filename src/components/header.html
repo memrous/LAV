@@ -1,5 +1,7 @@
-<!-- TODO(verify): header sits over the hero (absolute). Sticky/scroll behaviour not specified. -->
-<header class="absolute inset-x-0 top-0 z-30">
+<!-- Sticky over the hero; -mb pulls the following content up under it (hero keeps its own top padding).
+     Not `fixed`: .page-scene uses container-type, which makes it the containing block for fixed children.
+     Transparent → Light after scrollY > 80 px: main.parcel.js toggles .site-header--scrolled (styles in main.scss). -->
+<header class="js-site-header site-header sticky inset-x-0 top-0 z-30 -mb-[4.5rem]">
   <div class="mx-auto flex h-[4.5rem] max-w-container items-center justify-between gap-space-md px-space-sm md:px-space-xl xl:px-space-2xl">
     <a href="index.html" class="shrink-0 rounded-radius-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">
       <!-- logo.svg holds the full lockup (0–362) plus a standalone mark (410–486); the viewBox crops to the lockup shown in the header. -->
@@ -16,14 +18,14 @@
           @@for (var i = 0; i < ["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"].length; i++) {
           <li>
             <!-- TODO(verify): link targets -->
-            <a href="#" class="rounded-radius-sm text-body text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a>
+            <a href="#" class="link-underline rounded-radius-sm text-body text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a>
           </li>
           }
         </ul>
       </nav>
 
       <!-- TODO(verify): KIS link target -->
-      <a href="#" class="inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-button-accent-bg px-space-md text-body text-button-accent-text transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+      <a href="#" class="pill-press inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-button-accent-bg px-space-md text-body text-button-accent-text transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
         KIS
         @@include('./icon.html', {"name": "key", "class": "h-5 w-5"})
       </a>
@@ -56,14 +58,14 @@
           <ul class="flex flex-col">
             @@for (var i = 0; i < ["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"].length; i++) {
             <li>
-              <a href="#" class="block rounded-radius-sm py-space-xs text-button text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a>
+              <a href="#" class="block rounded-radius-sm py-space-xs text-button text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg"><span class="link-underline">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</span></a>
             </li>
             }
           </ul>
         </nav>
 
         <div class="mt-space-md flex items-center justify-between gap-space-sm">
-          <a href="#" class="inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-button-accent-bg px-space-md text-body text-button-accent-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          <a href="#" class="pill-press inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-button-accent-bg px-space-md text-body text-button-accent-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
             KIS
             @@include('./icon.html', {"name": "key", "class": "h-5 w-5"})
           </a>

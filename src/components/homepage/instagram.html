@@ -24,7 +24,7 @@
           @@for (var i = 0; i < 10; i++) {
           <li class="relative mr-space-md h-[10.75rem] w-[10.75rem] shrink-0">
             <img src="img/feed-`+(i % 6 + 1)+`.jpg" alt="`+["Vesla připravená na trávě", "Skifař při tréninku na řece", "Veslař ve skifu u zeleného břehu", "Řeka s mostem a budovou na kopci", "Posádka čtyřky na vodě", "Loděnice u vody"][i % 6]+`" width="800" height="800" loading="lazy" class="h-full w-full rounded-radius-sm object-cover">
-            @@include('./icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
+            @@include('../icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
           </li>
           }
         </ul>
@@ -33,7 +33,7 @@
           @@for (var i = 0; i < 10; i++) {
           <li class="relative mr-space-md h-[10.75rem] w-[10.75rem] shrink-0">
             <img src="img/feed-`+(i % 6 + 1)+`.jpg" alt="" width="800" height="800" loading="lazy" class="h-full w-full rounded-radius-sm object-cover">
-            @@include('./icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
+            @@include('../icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
           </li>
           }
         </ul>
@@ -46,7 +46,7 @@
           @@for (var i = 10; i < 20; i++) {
           <li class="relative mr-space-md h-[10.75rem] w-[10.75rem] shrink-0">
             <img src="img/feed-`+(i % 6 + 1)+`.jpg" alt="`+["Vesla připravená na trávě", "Skifař při tréninku na řece", "Veslař ve skifu u zeleného břehu", "Řeka s mostem a budovou na kopci", "Posádka čtyřky na vodě", "Loděnice u vody"][i % 6]+`" width="800" height="800" loading="lazy" class="h-full w-full rounded-radius-sm object-cover">
-            @@include('./icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
+            @@include('../icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
           </li>
           }
         </ul>
@@ -55,7 +55,7 @@
           @@for (var i = 10; i < 20; i++) {
           <li class="relative mr-space-md h-[10.75rem] w-[10.75rem] shrink-0">
             <img src="img/feed-`+(i % 6 + 1)+`.jpg" alt="" width="800" height="800" loading="lazy" class="h-full w-full rounded-radius-sm object-cover">
-            @@include('./icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
+            @@include('../icon.html', {"name": "Group", "class": "absolute right-space-xs top-space-xs h-5 w-5 text-white drop-shadow"})
           </li>
           }
         </ul>
@@ -65,10 +65,13 @@
 
   <div class="mt-space-xl text-center">
     <!-- TODO(verify): profile URL derived from the handle in the heading -->
-    <a href="https://www.instagram.com/labskaakademie/" target="_blank" rel="noopener" class="inline-flex items-center gap-space-sm rounded-radius-sm text-button text-text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">
-      Sledovat
+    <a href="https://www.instagram.com/labskaakademie/" target="_blank" rel="noopener" class="inline-flex items-center gap-space-sm rounded-radius-sm text-button text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">
+      <span class="link-underline">Sledovat</span>
       <span class="sr-only">(Instagram, otevře se v novém okně)</span>
-      @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+      <span class="arrow-mask h-5 w-5">
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+      </span>
     </a>
   </div>
 </section>

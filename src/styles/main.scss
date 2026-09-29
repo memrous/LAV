@@ -63,6 +63,76 @@ $fonts: (
   }
 }
 
+// ---------------------------------------------------------------------------------------------------------------
+// Hero motion (animace/01-hero-river.png + 08-reduced-motion.png). Outside @layer: the state classes and the canvas
+// are only created by JS at runtime.
+
+// Water layer: photo + WebGL canvas move together; hero.parcel.js sets --hero-parallax = 0.3 × scrollY per frame.
+// Never set under reduced motion, so the photo stays put.
+.hero-photo {
+  transform: translate3d(0, var(--hero-parallax, 0px), 0);
+}
+
+.hero-water {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: hero-water-in 0.6s ease-out both; // soft hand-over from the static photo underneath
+}
+
+@keyframes hero-water-in {
+  from {
+    opacity: 0;
+  }
+}
+
+// Title reveal: hidden until hero.parcel.js has split it into masked words (avoids a flash of the static title).
+// Failsafe: if the script never runs, the title shows up on its own after 2 s.
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title:not(.is-revealed) {
+    visibility: hidden;
+    animation: hero-title-failsafe 0s 2s forwards;
+  }
+}
+
+@keyframes hero-title-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
+// SplitText word masks (overflow: clip). The padding gives Czech diacritics (Ř, Č, ů) and descenders room inside the
+// clip at the tight display line-height; the negative margin cancels it so the layout doesn't change.
+.hero-title__word-mask {
+  padding-block: 0.14em 0.1em;
+  margin-block: -0.14em -0.1em;
+}
+
+// Header Transparent → Light after scrollY > 80 px (class toggled in main.parcel.js): 300 ms ease-out.
+.site-header {
+  border-bottom: 1px solid transparent;
+  transition-property: background-color, border-color, backdrop-filter, -webkit-backdrop-filter;
+  transition-duration: 300ms;
+  transition-timing-function: ease-out;
+}
+
+.site-header--scrolled {
+  background-color: rgb(255 255 255 / 0.72);
+  border-bottom-color: rgb(18 19 42 / 0.08); // hairline, text-primary at low alpha
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+// Reduced motion: the state change still happens (it isn't motion), just as a quick ≤150 ms crossfade (spec 08).
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition-duration: 150ms;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+
 // Outside @layer so Tailwind doesn't purge them (classes are only added by Swiper at runtime).
 // Hides pagination/arrows when there is nothing to scroll (desktop: 3 of 3 cards visible).
 .swiper-pagination-lock,
@@ -93,6 +163,122 @@ $fonts: (
   }
 }
 
+// Rozcestník motion (animace/03-sticky-title-cards.png; reduced motion per 08-reduced-motion.png).
+// Outside @layer: .is-drifting is only added at runtime.
+
+// Pinned title: md+ only (768px). Below that the section is a plain stack and sticky makes no sense.
+@media (min-width: 768px) {
+  .crossroad-title {
+    position: sticky;
+    top: 96px; // 72px header + 24px
+  }
+}
+
+.crossroad-card {
+  isolation: isolate; // drift/grain layers sit at z-index -1: above the card gradient, below the text
+  overflow: clip; // clips the oversized drift layer; focus rings are inside the padding, so nothing is cut
+  box-shadow: 0 24px 48px -16px rgb(18 19 42 / 0.18);
+  transition:
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out;
+
+  // Grain drift: a soft radial light spot on an oversized layer that drifts across the card and back (12 s loop,
+  // ease-in-out on both halves). Animated with transform, not background-position: same look, but it stays on the
+  // compositor instead of repainting the gradient every frame.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 42% 42%, var(--drift-light) 0%, transparent 22%),
+      radial-gradient(circle at 60% 60%, var(--drift-shade) 0%, transparent 18%);
+    animation: crossroad-drift 12s ease-in-out infinite;
+    animation-play-state: paused; // runs only while the card is on screen (.is-drifting, main.parcel.js)
+  }
+
+  // Static film grain over the card (SVG fractal noise), blended so it reads on light and dark cards alike.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  &.is-drifting::before {
+    animation-play-state: running;
+  }
+}
+
+// TODO(verify): spot colors per card, chosen to match each card's gradient (the spec frames are schematic).
+.crossroad-card--light {
+  --drift-light: rgb(255 255 255 / 0.75);
+  --drift-shade: rgb(136 187 225 / 0.35);
+}
+
+.crossroad-card--blue {
+  --drift-light: rgb(214 231 245 / 0.55);
+  --drift-shade: rgb(34 30 83 / 0.35);
+}
+
+.crossroad-card--dark {
+  --drift-light: rgb(61 134 190 / 0.45);
+  --drift-shade: rgb(14 30 63 / 0.5);
+}
+
+@keyframes crossroad-drift {
+  0%,
+  100% {
+    transform: translate(-18%, -14%);
+  }
+
+  50% {
+    transform: translate(16%, 14%);
+  }
+}
+
+// Hover lift: mouse hover (only on devices that really hover, so taps don't leave cards stuck) and keyboard focus
+// on the card link. Two rules on purpose: a browser without :has() would otherwise drop the hover rule as well.
+@mixin crossroad-card-lifted {
+  transform: translateY(-8px) rotate(-2deg);
+  box-shadow: 0 40px 64px -20px rgb(18 19 42 / 0.32);
+}
+
+@media (hover: hover) {
+  .crossroad-card:hover {
+    @include crossroad-card-lifted;
+  }
+}
+
+.crossroad-card:has(a:focus-visible) {
+  @include crossroad-card-lifted;
+}
+
+// Reduced motion: no drift and no lift/tilt; only the shadow change stays, as a ≤150 ms crossfade.
+@media (prefers-reduced-motion: reduce) {
+  .crossroad-card {
+    transition-duration: 150ms;
+  }
+
+  .crossroad-card::before,
+  .crossroad-card.is-drifting::before {
+    animation: none;
+  }
+
+  .crossroad-card:hover {
+    transform: none;
+  }
+
+  .crossroad-card:has(a:focus-visible) {
+    transform: none;
+  }
+}
+
 // "Aktuálně v akademii" bento. Colors sampled from reference/Homepage.png (y ≈ 2560–3200).
 // TODO(verify): exact gradient stops from Figma.
 @layer components {
@@ -113,6 +299,131 @@ $fonts: (
     @apply block h-full rounded-radius-full;
   }
 }
+
+// Bento motion (animace/04-bento-widgets.png; reduced motion per 08-reduced-motion.png). Outside @layer: .is-armed /
+// .is-visible are only added by main.parcel.js. Without JS or under reduced motion nothing is armed, so the cards,
+// numbers and bars simply render at their final state.
+@media (prefers-reduced-motion: no-preference) {
+  // Fade + rise: 24 px → 0, 500 ms ease-out-quart; --reveal-delay = 80 ms stagger within one intersection batch.
+  .js-right-now.is-armed .right-now-card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 500ms cubic-bezier(0.25, 1, 0.5, 1) var(--reveal-delay, 0ms),
+      transform 500ms cubic-bezier(0.25, 1, 0.5, 1) var(--reveal-delay, 0ms);
+  }
+
+  .js-right-now.is-armed .right-now-card.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  // Bars grow from the left edge: scaleX 0 → 1, 900 ms ease-out, 100 ms stagger per bar (after the card's delay).
+  .js-right-now.is-armed .right-now-bar > span {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 900ms ease-out var(--reveal-delay, 0ms);
+  }
+
+  .js-right-now.is-armed .right-now-bar:nth-child(2) > span {
+    transition-delay: calc(var(--reveal-delay, 0ms) + 100ms);
+  }
+
+  .js-right-now.is-armed .is-visible .right-now-bar > span {
+    transform: scaleX(1);
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Global micro-interactions (animace/05-links-buttons.png). Reduced motion keeps every state change but makes it
+// near-instant (50 ms): these are feedback cues, the hover/focus exception in 08-reduced-motion.png.
+
+// Arrow-mask link: two copies of the icon in an overflow-clipped box; on hover/focus-visible of the link the first
+// slides out to the right while the second slides in from the left. 350 ms ease-in-out-cubic.
+// Markup: <span class="arrow-mask h-5 w-5"> + the same sprite icon twice. --diagonal: for arrow-up-right (↗).
+.arrow-mask {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  overflow: hidden;
+
+  > svg {
+    transition: transform 350ms cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  > svg + svg {
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.arrow-mask--diagonal > svg + svg {
+  transform: translate(-100%, 100%);
+}
+
+a:is(:hover, :focus-visible) .arrow-mask {
+  > svg:first-child {
+    transform: translateX(100%);
+  }
+
+  > svg + svg {
+    transform: none;
+  }
+}
+
+a:is(:hover, :focus-visible) .arrow-mask--diagonal > svg:first-child {
+  transform: translate(100%, -100%);
+}
+
+// Underline grows from the left: 1 px hairline (::after, currentColor), scaleX 0 → 1, 250 ms ease-out.
+// Goes on the link itself or on a span holding the link text (when the link also has an icon).
+.link-underline {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 250ms ease-out;
+    pointer-events: none;
+  }
+}
+
+a.link-underline:is(:hover, :focus-visible)::after,
+a:is(:hover, :focus-visible) .link-underline::after {
+  transform: scaleX(1);
+}
+
+// Pill press: scale(0.98) while pressed, 120 ms ease-out. The explicit list replaces Tailwind's `transition`
+// utility on these buttons (same 150 ms for the hover color/filter changes, only transform gets its own timing).
+.pill-press {
+  transition:
+    transform 120ms ease-out,
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pill-press:active,
+a:active > .pill-press {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow-mask > svg,
+  .link-underline::after,
+  .pill-press {
+    transition-duration: 50ms;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
 
 // Instagram marquee: track = tile set ×2, so -50% lands exactly on the start of the copy (seamless).
 // Same 30s linear loop at every breakpoint; hover pauses the row (touch devices simply keep running).
@@ -143,23 +454,23 @@ $fonts: (
   }
 }
 
-// Partners marquee: same pattern and keyframes as Instagram (translateX(-50%) of a doubled track).
-// Duration keeps the same on-screen speed as Instagram (1960px / 30s = 65.33px/s):
-// set = 13 × (196 + 24) = 2860px → 2860 / 65.33 = 43.78s. Same at every breakpoint.
+// Partners marquee (animace/07-footer.png): same pattern and keyframes as Instagram (translateX(-50%) of a doubled
+// track), 40 s linear loop. Set = 13 × (196 + 24) = 2860px → 2860 / 40 = 71.5px/s (Instagram: 1960 / 30 = 65.33px/s).
+// -50% of the track is always exactly one set, so the loop stays seamless at any duration. Same at every breakpoint.
 .partners-track {
   display: flex;
   width: max-content;
-  animation: instagram-marquee 43.78s linear infinite;
+  animation: instagram-marquee 40s linear infinite;
 }
 
 .partners-row:hover .partners-track {
   animation-play-state: paused;
 }
 
-// Reduced motion: 4× slower, same as Instagram.
+// Reduced motion: static row at its start position (spec 08).
 @media (prefers-reduced-motion: reduce) {
   .partners-track {
-    animation-duration: 175.12s;
+    animation: none;
   }
 }
 

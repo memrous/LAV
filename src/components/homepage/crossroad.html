@@ -1,36 +1,54 @@
 <!-- TODO(verify): section padding; reference/crossroads.png (1440×840 frame) has ~160px above the heading and ~300px below the cards -->
+<!-- Sticky title + cards (animace/03-sticky-title-cards.png): from md (768px) the heading is pinned in the left column
+     (sticky, top 96px = 72px header + 24px) while the stacked cards scroll past in the right one. The cards column
+     sets the section height (3 × 16:10 cards), so the title stays pinned for ~1100px of scroll at 1440.
+     Below md everything stacks in normal flow. Hover/grain-drift styles: .crossroad-card in main.scss. -->
 <section class="py-space-2xl lg:pb-40 lg:pt-40" aria-labelledby="crossroad-title">
-  <div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
-    <h2 id="crossroad-title" class="font-display text-display-md font-bold text-text-primary md:text-display-lg lg:text-display-xl">
-      Vše důležité na jednom místě
-    </h2>
+  <div class="mx-auto grid max-w-container grid-cols-1 gap-space-lg px-space-sm md:grid-cols-2 md:gap-space-xl md:px-space-xl lg:grid-cols-12 lg:gap-space-md xl:px-space-2xl">
+    <div class="lg:col-span-5">
+      <h2 id="crossroad-title" class="crossroad-title font-display text-display-md font-bold text-text-primary md:text-display-lg lg:text-display-xl">
+        Vše důležité na jednom místě
+      </h2>
+    </div>
 
-    <!-- Design is a 4-column grid (302px columns at 1440) with the 3 cards in the first three columns. -->
     <!-- TODO(verify): the design shows gradient cards, no background photos; none of src/img fits, so no images are used. -->
-    <ul class="mt-space-lg grid grid-cols-1 gap-space-sm md:grid-cols-3 md:gap-space-md lg:mt-space-xl xl:grid-cols-4">
-      <li class="crossroad-card--light relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/70 p-space-lg shadow-[0_24px_48px_-16px_rgba(18,19,42,0.18)]">
+    <ul class="flex flex-col gap-space-sm md:gap-space-md lg:col-span-6 lg:col-start-7">
+      <li class="js-crossroad-card crossroad-card crossroad-card--light relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/70 p-space-lg md:aspect-[16/10]">
         <!-- TODO(verify): titles look like Schibsted Grotesk Regular (~28px) in the design; only the Bold weight is self-hosted -->
         <h3 class="font-display text-[1.75rem] font-bold leading-tight tracking-[-0.02em] text-text-primary">Nábor 2026/27</h3>
         <!-- TODO(verify): link target. The ::after overlay makes the whole card clickable. -->
-        <a href="#" class="inline-flex h-11 items-center gap-space-sm self-start rounded-radius-full bg-button-accent-bg px-space-md text-body text-button-accent-text transition after:absolute after:inset-0 after:rounded-[1.25rem] hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
-          Přihlásit se
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+        <!-- The pill visuals sit on the inner span: a transform/filter on the <a> itself would make it the containing
+             block of its card-wide ::after overlay (press/hover would shrink the click area to the button). -->
+        <a href="#" class="group inline-flex self-start rounded-radius-full text-body text-button-accent-text after:absolute after:inset-0 after:rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          <span class="pill-press inline-flex h-11 items-center gap-space-sm rounded-radius-full bg-button-accent-bg px-space-md group-hover:brightness-95">
+            Přihlásit se
+            <span class="arrow-mask h-5 w-5">
+              @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+              @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+            </span>
+          </span>
         </a>
       </li>
 
-      <li class="crossroad-card--blue relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/30 p-space-lg shadow-[0_24px_48px_-16px_rgba(18,19,42,0.18)]">
+      <li class="js-crossroad-card crossroad-card crossroad-card--blue relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/30 p-space-lg md:aspect-[16/10]">
         <h3 class="font-display text-[1.75rem] font-bold leading-tight tracking-[-0.02em] text-text-inverse">Naši akademici</h3>
         <a href="#" class="group inline-flex items-center gap-space-sm self-start rounded-radius-sm text-body text-text-inverse after:absolute after:inset-0 after:rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-transparent">
-          <span class="group-hover:underline">Poznat tým</span>
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5 transition-transform group-hover:translate-x-1"})
+          <span class="link-underline">Poznat tým</span>
+          <span class="arrow-mask h-5 w-5">
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+          </span>
         </a>
       </li>
 
-      <li class="crossroad-card--dark relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/20 p-space-lg shadow-[0_24px_48px_-16px_rgba(18,19,42,0.18)]">
+      <li class="js-crossroad-card crossroad-card crossroad-card--dark relative flex min-h-[17.5rem] flex-col justify-between rounded-[1.25rem] border border-white/20 p-space-lg md:aspect-[16/10]">
         <h3 class="font-display text-[1.75rem] font-bold leading-tight tracking-[-0.02em] text-text-inverse">Akce a závody</h3>
         <a href="#" class="group inline-flex items-center gap-space-sm self-start rounded-radius-sm text-body text-text-inverse after:absolute after:inset-0 after:rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-transparent">
-          <span class="group-hover:underline">Kalendář akcí</span>
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5 transition-transform group-hover:translate-x-1"})
+          <span class="link-underline">Kalendář akcí</span>
+          <span class="arrow-mask h-5 w-5">
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+          </span>
         </a>
       </li>
     </ul>

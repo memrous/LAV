@@ -7,25 +7,25 @@
     </h2>
 
     <!-- Desktop: 520 / 410 / 302 px columns at 1440 (fr values = measured widths), gaps 24 × 16. -->
-    <div class="mt-space-lg grid grid-cols-1 gap-space-sm md:grid-cols-2 md:gap-x-space-md lg:grid-cols-[520fr_410fr_302fr] lg:grid-rows-[repeat(2,minmax(10.75rem,auto))]">
+    <div class="js-right-now mt-space-lg grid grid-cols-1 gap-space-sm md:grid-cols-2 md:gap-x-space-md lg:grid-cols-[520fr_410fr_302fr] lg:grid-rows-[repeat(2,minmax(10.75rem,auto))]">
 
       <!-- Results -->
-      <article class="right-now-results flex min-h-[20rem] flex-col rounded-[1.25rem] border border-white/15 p-space-lg text-text-inverse shadow-[0_24px_48px_-16px_rgba(18,19,42,0.3)] md:col-span-2 lg:col-span-1 lg:row-span-2 lg:min-h-0">
+      <article class="right-now-card right-now-results flex min-h-[20rem] flex-col rounded-[1.25rem] border border-white/15 p-space-lg text-text-inverse shadow-[0_24px_48px_-16px_rgba(18,19,42,0.3)] md:col-span-2 lg:col-span-1 lg:row-span-2 lg:min-h-0">
         <h3 class="font-label text-label font-bold uppercase text-white/60">MČR juniorů · Račice</h3>
 
         <!-- TODO(verify): sample results, will come from live data -->
         <dl class="mt-space-xl flex flex-wrap gap-x-16 gap-y-space-md lg:mt-auto">
           <div class="flex flex-col-reverse">
             <dt class="mt-space-xs font-label text-label font-bold uppercase tracking-[0.1em] text-white/70">Zlato</dt>
-            <dd class="font-display text-[2.875rem] font-bold leading-none">1</dd>
+            <dd class="font-display text-[2.875rem] font-bold leading-none" data-count-to="1">1</dd>
           </div>
           <div class="flex flex-col-reverse">
             <dt class="mt-space-xs font-label text-label font-bold uppercase tracking-[0.1em] text-white/70">Stříbro</dt>
-            <dd class="font-display text-[2.875rem] font-bold leading-none">2</dd>
+            <dd class="font-display text-[2.875rem] font-bold leading-none" data-count-to="2">2</dd>
           </div>
           <div class="flex flex-col-reverse">
             <dt class="mt-space-xs font-label text-label font-bold uppercase tracking-[0.1em] text-white/70">Finále A</dt>
-            <dd class="font-display text-[2.875rem] font-bold leading-none">5</dd>
+            <dd class="font-display text-[2.875rem] font-bold leading-none" data-count-to="5">5</dd>
           </div>
         </dl>
 
@@ -37,14 +37,17 @@
         </div>
 
         <!-- TODO(verify): link targets in this section -->
-        <a href="#" class="mt-space-md inline-flex items-center gap-space-2xs self-start rounded-radius-sm text-body hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-button-primary-bg">
-          Všechny výsledky
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+        <a href="#" class="mt-space-md inline-flex items-center gap-space-2xs self-start rounded-radius-sm text-body focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-button-primary-bg">
+          <span class="link-underline">Všechny výsledky</span>
+          <span class="arrow-mask h-4 w-4">
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+          </span>
         </a>
       </article>
 
       <!-- Nearest event (the design shows no image here) -->
-      <article class="flex flex-col rounded-[1.25rem] border border-white bg-white/75 p-space-md shadow-[0_24px_48px_-16px_rgba(18,19,42,0.15)] backdrop-blur-md">
+      <article class="right-now-card flex flex-col rounded-[1.25rem] border border-white bg-white/75 p-space-md shadow-[0_24px_48px_-16px_rgba(18,19,42,0.15)] backdrop-blur-md">
         <h3 class="font-label text-label font-bold uppercase text-text-secondary">Nejbližší akce</h3>
         <div class="mt-space-sm flex items-center gap-space-sm">
           <!-- TODO(verify): year assumed 2026 -->
@@ -57,38 +60,47 @@
             <p class="text-body text-text-secondary">Labe Aréna, Račice · 9:00</p>
           </div>
         </div>
-        <a href="#" class="mt-auto inline-flex items-center gap-space-2xs self-start rounded-radius-sm pt-space-md text-body text-text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
-          Program
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+        <a href="#" class="mt-auto inline-flex items-center gap-space-2xs self-start rounded-radius-sm pt-space-md text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          <span class="link-underline">Program</span>
+          <span class="arrow-mask h-4 w-4">
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+          </span>
         </a>
       </article>
 
       <!-- Birthday (desktop: 3rd column, both rows) -->
-      <article class="flex flex-col rounded-[1.25rem] border border-white bg-white/75 p-space-lg shadow-[0_24px_48px_-16px_rgba(18,19,42,0.15)] backdrop-blur-md order-last md:col-span-2 lg:order-none lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-1">
+      <article class="right-now-card flex flex-col rounded-[1.25rem] border border-white bg-white/75 p-space-lg shadow-[0_24px_48px_-16px_rgba(18,19,42,0.15)] backdrop-blur-md order-last md:col-span-2 lg:order-none lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-1">
         <div class="flex h-14 w-14 items-center justify-center rounded-radius-full bg-white text-text-primary">
-          @@include('./icon.html', {"name": "cake", "class": "h-6 w-6"})
+          @@include('../icon.html', {"name": "cake", "class": "h-6 w-6"})
         </div>
         <h3 class="mt-space-xl font-label text-[0.8125rem] font-bold uppercase leading-5 tracking-[0.1em] text-text-secondary">Dnes slaví narozeniny</h3>
         <!-- TODO(verify): names are sample data (later generated from the member list). Design weight looks Regular; only Bold is self-hosted. -->
         <p class="mt-space-xs font-display text-[1.375rem] font-bold leading-snug text-text-primary">Adéla Nováková<br>a Jakub Malý</p>
         <p class="mt-space-xs text-body text-text-secondary">Přejeme všechno nejlepší!</p>
-        <a href="#" class="mt-auto inline-flex items-center gap-space-sm self-start rounded-radius-sm pt-space-xl text-body text-text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
-          Všichni akademici
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+        <a href="#" class="mt-auto inline-flex items-center gap-space-sm self-start rounded-radius-sm pt-space-xl text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          <span class="link-underline">Všichni akademici</span>
+          <span class="arrow-mask h-5 w-5">
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+          </span>
         </a>
       </article>
 
       <!-- River status -->
-      <article class="flex flex-col rounded-[1.25rem] border border-white bg-white/75 p-space-md shadow-[0_24px_48px_-16px_rgba(18,19,42,0.15)] backdrop-blur-md lg:col-start-2 lg:row-start-2">
+      <article class="right-now-card flex flex-col rounded-[1.25rem] border border-white bg-white/75 p-space-md shadow-[0_24px_48px_-16px_rgba(18,19,42,0.15)] backdrop-blur-md lg:col-start-2 lg:row-start-2">
         <h3 class="font-label text-label font-bold uppercase text-text-secondary">Stav Labe · dnes</h3>
         <!-- TODO(verify): sample values, will come from a live data source -->
         <p class="mt-space-sm flex flex-wrap items-baseline gap-x-space-md">
           <span class="font-display text-[2.875rem] font-bold leading-none text-text-primary">14 °C</span>
           <span class="text-body text-text-secondary">hladina 1,9 m</span>
         </p>
-        <a href="#" class="mt-auto inline-flex items-center gap-space-2xs self-start rounded-radius-sm pt-space-md text-body text-text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
-          Stav vody
-          @@include('./icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+        <a href="#" class="mt-auto inline-flex items-center gap-space-2xs self-start rounded-radius-sm pt-space-md text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          <span class="link-underline">Stav vody</span>
+          <span class="arrow-mask h-4 w-4">
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+            @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+          </span>
         </a>
       </article>
     </div>
