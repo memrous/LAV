@@ -9,17 +9,21 @@
 <body>
   @@include('./components/sprite.html')
 
-  @@include('./components/header.html')
+  <!-- One static scene image behind everything above the footer (styles: .page-scene in main.scss). -->
+  <div class="page-scene">
+    <div class="page-scene__bottom" aria-hidden="true"></div>
 
-  <main>
-    @@include('./components/hero.html')
-    @@include('./components/gallery.html')
-    @@include('./components/crossroad.html')
-    @@include('./components/right-now.html')
-    @@include('./components/instagram.html')
-    @@include('./components/partners.html')
-    @@include('./components/transition-placeholder.html')
-  </main>
+    @@include('./components/header.html')
+
+    <main>
+      @@include('./components/hero.html')
+      @@include('./components/gallery.html')
+      @@include('./components/crossroad.html')
+      @@include('./components/right-now.html')
+      @@include('./components/instagram.html')
+      @@include('./components/partners.html')
+    </main>
+  </div>
 
   @@include('./components/footer.html')
 

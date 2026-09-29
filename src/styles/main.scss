@@ -163,6 +163,89 @@ $fonts: (
   }
 }
 
+// Page scene: one static image behind header + main (src/img/scene/bg-scene-a.jpg = scene/bg-scene-a.png
+// cropped to 1440×5200, where the footer starts in reference/Homepage.png). Scaled ONLY by width (s = 100cqw / 1440),
+// never by content height, and split at source row 4411 (a clean row where the line runs vertically at x 240–252):
+//   - top piece (::before, rows 0–4411) anchored to the top  → boathouse always at the same scaled position;
+//   - bottom piece (.page-scene__bottom, rows 4411–5200: rocks + navy transition) anchored to the bottom → always
+//     sits directly on the footer;
+//   - whatever space content needs in between is filled by $scene-strip: a 1440×1 median of rows 4300–4500
+//     (field color, side strips and the vertical line, no objects), repeated vertically, so the line continues.
+// The scene is capped at the content width (max-w-container = 90rem = 1440px) and centered like the content, so
+// above 1440 it stays 1:1 and aligned with the sections; the sides outside it get the image's edge color.
+// aspect-ratio keeps the wrapper at least one full scaled image tall; there the two pieces meet exactly and the
+// scene is shown unmodified. Both pieces use the same URL, so the image is downloaded once.
+$scene-image: url('../img/scene/bg-scene-a.jpg');
+$scene-max-w: 90rem; // = theme.maxWidth.container in tailwind.config.js
+$scene-edge: #c4d1d9; // dominant color of the image's left/right edge columns
+$scene-strip: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAABCAIAAACnup5zAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIKSURBVFhH7dfbbtMwGABg3pUCCwP2CNwhkKDAbrhBIMQoHawbiJGpOdEkbtMmsZ20TdIkPTdb2z0FSl2yrKbSOgEXKNIny4fkl3//N/YNFXvXhDwFuWny5eFlnhL/4qrooiVLcZ8OngJwB1gdNQVsCnfU2GrkKwIpZEax4nQUy1PbAXBC4PSB06+6g5o7qHlDrTPS/HHDHzeCiR5MjDAywwh2TwnUO4NEf5pAicGMhjcynFuDmT2cbyL9/SyxiLPsXA/uT2mod0Yjh2MuzoowgokZRro/1v2x5g4Uy2cBPOCUz2Vl/0QuslLxu/Thm7D3lXt/VH5XYt98Yl8XuYdP3ua2H91kHueYpzkmn2Pyt+4+u72dv3Pv+db9F8yDl1s7u8zO7qu9Q9HwylqLbzii4UlmR8GBjH3VCpVmF7R7SUFJNY1gQvaTLmVSUILOFPen9JmsQxXlj2mOztNlbY4urAz/rfNMJpPJZDKZzCboC9V/b06z1wzpa/Dft3qlX4d+JtAPooVT2I1QL4LdyAwnsBsZwUi1fbYKv0i1QwEcidWSAEq8WuLVA17Z5+UiV/l4IhVYsXDMF445UbdXHubyUltGrV99V0bObynUTAU5FehUYLsCWz/MmGS0JKNJCLot1K1yFXIa4jTM17FQx8mqpMetqNtiw4rbFMlokmhXtNhAYmXPy3RIvj8BJLJfd0402fwAAAAASUVORK5CYII=');
+
+.page-scene {
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size; // lets the pieces size themselves in cqw (= wrapper width, no scrollbar issue)
+  --scene-w: min(100cqw, #{$scene-max-w}); // for the pieces (cqw doesn't resolve on the container itself)
+  aspect-ratio: 1440 / 5200;
+  background: $scene-edge $scene-strip center top / min(100%, #{$scene-max-w}) 1px repeat-y;
+
+  // Viewport ≥ 1440: the scene no longer grows, so the minimum height is the unscaled image.
+  @media (min-width: 1440px) {
+    aspect-ratio: auto;
+    min-height: calc(#{$scene-max-w} * 5200 / 1440);
+  }
+
+  // Once there is side fill, soften the image's left/right edges into it (hides trees/shadows cut by the edge).
+  @media (min-width: 1500px) {
+    &::before,
+    .page-scene__bottom {
+      mask-image: linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: -1;
+    width: var(--scene-w);
+    height: calc(var(--scene-w) * 4411 / 1440);
+    margin-inline: auto;
+    background: $scene-image center top / 100% auto no-repeat;
+  }
+
+  // Fade the scene's bottom (navy #1f1b51 + its soft light band at the sides) into the top row of the footer
+  // gradient so it reads as one continuous fade. Scales with the scene; eased mask stops avoid a visible band start.
+  // Colors sampled from the rendered footer top edge. TODO(verify) against Figma.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -1px; // -1px: covers the fractional last row where the light fallback color peeks through
+    z-index: -1;
+    height: max(7.5rem, var(--scene-w) * 300 / 1440); // full width (the footer is), height follows the scene
+    background: linear-gradient(to right, #111c46, #142051 50%, #182b64);
+    // Top ~half stays nearly clear (doesn't cut into the scene); most of the opacity sits in the bottom 40%.
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(0 0 0 / 0.06) 30%,
+      rgb(0 0 0 / 0.2) 50%,
+      rgb(0 0 0 / 0.55) 65%,
+      rgb(0 0 0 / 0.85) 78%,
+      #000 88%
+    );
+  }
+}
+
+.page-scene__bottom {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  width: var(--scene-w);
+  height: calc(var(--scene-w) * (5200 - 4411) / 1440);
+  margin-inline: auto;
+  background: $scene-image center bottom / 100% auto no-repeat;
+}
+
 // Footer: background image from the design (src/img/footer-bg.jpg, 2880×900). Navy fallback while it loads.
 .site-footer {
   background: #17264f url('../img/footer-bg.jpg') center / cover no-repeat;
