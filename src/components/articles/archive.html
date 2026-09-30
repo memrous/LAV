@@ -1,0 +1,22 @@
+<!-- "Archiv": year toggle + 2-column list (1 column ≤ 768), 24 px gaps. Items come from archive-item.html.
+     Design shows "2026" pressed while the listed items are from 2025 – kept as designed (TODO(verify)).
+     Year switching comes with the articles JS (next step). Photos are placeholders from src/img. -->
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm pb-space-2xl md:px-space-xl min-[1025px]:mt-12 min-[1025px]:pb-24 xl:px-space-2xl" aria-labelledby="articles-archive-title">
+  <h2 id="articles-archive-title" class="articles-h2">Archiv</h2>
+
+  <div role="group" aria-label="Rok" class="articles-pills mt-space-md">
+    @@for (var i = 0, years = ["2026", "2025", "2024", "2023"]; i < years.length; i++) {
+    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`">`+years[i]+`</button>
+    }
+  </div>
+
+  <!-- TODO(verify): article URLs -->
+  <div class="mt-space-md grid gap-space-md min-[769px]:grid-cols-2">
+    @@include('./archive-item.html', {"href": "#", "img": "img/event-1.jpg", "alt": "Diváci na nábřeží při závodech na řece", "datetime": "2025-12-12", "date": "12. 12. 2025", "category": "Ze života", "title": "Vánoční regata a rozloučení se sezónou"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-3.jpg", "alt": "Veslař v kšiltovce během tréninku", "datetime": "2025-09-27", "date": "27. 9. 2025", "category": "Závody", "title": "Akademie na Mistrovství ČR družstev"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/gallery-2.jpg", "alt": "Skifařka při tréninku na řece", "datetime": "2025-11-03", "date": "3. 11. 2025", "category": "Soustředění", "title": "Zimní příprava: ergometry a bazén"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-4.jpg", "alt": "Řeka Labe se zeleným břehem", "datetime": "2025-09-06", "date": "6. 9. 2025", "category": "Závody", "title": "Stříbro z Primátorek 2025"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/article-1.jpg", "alt": "Juniorská čtyřka ve veslici na startu", "datetime": "2025-10-18", "date": "18. 10. 2025", "category": "Akademie", "title": "Nová posilovna v Labe Aréně otevřena"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-1.jpg", "alt": "Vesla s červenobílými listy srovnaná na trávě", "datetime": "2025-08-15", "date": "15. 8. 2025", "category": "Nábor", "title": "Nábor 2025/26: první tréninky"})
+  </div>
+</section>

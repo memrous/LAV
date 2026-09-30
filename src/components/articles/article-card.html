@@ -1,0 +1,19 @@
+@@if (false) {
+Article card for the "Všechny články" grid (design/clanky/Content.png: image 410×240, r 12).
+Params: href, img (path from dist root), alt, datetime (ISO), date, category, title.
+Whole card is clickable: one <a> on the title, stretched over the card by .stretched-link.
+}
+<article class="relative">
+  <img
+    src="@@img"
+    alt="@@alt"
+    width="410"
+    height="240"
+    loading="lazy"
+    class="aspect-[41/24] w-full rounded-radius-md object-cover"
+  >
+  @@include('./meta.html', {"datetime": "@@datetime", "date": "@@date", "category": "@@category", "class": "mt-space-sm"})
+  <h3 class="articles-title mt-space-xs line-clamp-2">
+    <a href="@@href" class="stretched-link">@@title</a>
+  </h3>
+</article>

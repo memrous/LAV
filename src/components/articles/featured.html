@@ -1,0 +1,33 @@
+<!-- Featured article (design/clanky/Content.png: image 760×480 r 12, 48 px gap, text column vertically centered).
+     Whole card clickable via the "Číst článek" link (.stretched-link) – the only <a> in the card.
+     Stacks (image on top) up to 1024 px. -->
+<section class="mx-auto mt-space-xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-12 xl:px-space-2xl" aria-labelledby="articles-featured-title">
+  <article class="relative grid items-center gap-space-md min-[1025px]:grid-cols-[minmax(0,760fr)_minmax(0,472fr)] min-[1025px]:gap-12">
+    <!-- Above the fold: not lazy-loaded. -->
+    <img
+      src="img/hero-article.jpg"
+      alt="Juniorská osmiveslice během závodu na řece"
+      width="760"
+      height="480"
+      class="aspect-[19/12] w-full rounded-radius-md object-cover"
+    >
+
+    <div class="min-[1025px]:max-w-[26rem]">
+      <h2 id="articles-featured-title" class="font-display text-[1.75rem] font-bold leading-[1.1] tracking-[-0.03em] text-text-primary md:text-display-md">
+        Tři medaile z Mistrovství ČR juniorů
+      </h2>
+      <p class="mt-space-sm text-[1.125rem] leading-[1.6] text-text-secondary">
+        Osma juniorů zlatá, skif a dvojskif se stříbrem a bronzem v Račicích.
+      </p>
+      @@include('./meta.html', {"datetime": "2026-09-12", "date": "12. 9. 2026", "category": "Závody", "class": "mt-space-md"})
+      <!-- TODO(verify): article URL -->
+      <a href="#" class="stretched-link mt-space-sm inline-flex items-center gap-space-xs text-body text-text-primary">
+        Číst článek
+        <span class="arrow-mask h-4 w-4">
+          @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+          @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+        </span>
+      </a>
+    </div>
+  </article>
+</section>

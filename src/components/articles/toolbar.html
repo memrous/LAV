@@ -1,0 +1,22 @@
+<!-- Toolbar: search + category filter. Markup only; filtering comes with the articles JS (next step).
+     Pills are toggle buttons (aria-pressed); .articles-pill styles the pressed state. -->
+<div class="mx-auto flex max-w-container flex-col gap-space-sm px-space-sm md:px-space-xl min-[769px]:flex-row min-[769px]:items-center min-[769px]:justify-between xl:px-space-2xl">
+  <div role="search" class="relative w-full min-[769px]:w-[22.5rem] min-[769px]:shrink-0">
+    <label for="articles-search" class="sr-only">Hledat článek</label>
+    @@include('../icon.html', {"name": "search", "class": "pointer-events-none absolute left-space-sm top-1/2 h-5 w-5 -translate-y-1/2 text-[#6b7280]"})
+    <input
+      id="articles-search"
+      type="search"
+      name="q"
+      placeholder="Hledat článek…"
+      autocomplete="off"
+      class="h-14 w-full rounded-radius-full border border-surface-icon-border bg-white pl-11 pr-space-md text-button text-text-primary placeholder:text-[#5b6479] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg"
+    >
+  </div>
+
+  <div role="group" aria-label="Kategorie" class="articles-pills">
+    @@for (var i = 0, cats = ["Vše", "Závody", "Soustředění", "Akademie", "Nábor"]; i < cats.length; i++) {
+    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`">`+cats[i]+`</button>
+    }
+  </div>
+</div>

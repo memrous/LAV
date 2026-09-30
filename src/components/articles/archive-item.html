@@ -1,0 +1,21 @@
+@@if (false) {
+Archive list item (design/clanky/Content.png: thumbnail 200×140, r 12, text vertically centered, 24 px gap).
+Params: href, img (path from dist root), alt, datetime (ISO), date, category, title.
+Whole item is clickable: one <a> on the title, stretched over the item by .stretched-link.
+}
+<article class="relative flex items-center gap-space-sm sm:gap-space-md">
+  <img
+    src="@@img"
+    alt="@@alt"
+    width="200"
+    height="140"
+    loading="lazy"
+    class="aspect-[10/7] w-[7.5rem] shrink-0 rounded-radius-md object-cover sm:w-[12.5rem]"
+  >
+  <div class="min-w-0">
+    @@include('./meta.html', {"datetime": "@@datetime", "date": "@@date", "category": "@@category", "class": ""})
+    <h3 class="articles-title mt-space-xs line-clamp-3">
+      <a href="@@href" class="stretched-link">@@title</a>
+    </h3>
+  </div>
+</article>

@@ -1,5 +1,7 @@
 // Swiper core layout (modules are styled below with Tailwind tokens)
 @use '../../node_modules/swiper/swiper';
+// Articles listing page (all in @layer components, see the partial)
+@use 'articles';
 
 @tailwind base;
 @tailwind components;
@@ -396,6 +398,17 @@ a:is(:hover, :focus-visible) .arrow-mask--diagonal > svg:first-child {
 
 a.link-underline:is(:hover, :focus-visible)::after,
 a:is(:hover, :focus-visible) .link-underline::after {
+  transform: scaleX(1);
+}
+
+// Current page in the header nav (aria-current="page", set via the header include's `active` parameter):
+// permanent 2 px accent underline, 6 px below the text box (design/clanky/Desktop.png: y 52–53 in the 72 px bar).
+// #449AD3 sampled from the design; no matching color token in tailwind.config.js.
+a.link-underline[aria-current='page']::after,
+a[aria-current='page'] .link-underline::after {
+  bottom: -8px;
+  height: 2px;
+  background: #449ad3;
   transform: scaleX(1);
 }
 

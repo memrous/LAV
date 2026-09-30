@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Články | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  <!-- No .page-scene here: the articles page sits on the flat page color (body bg-surface-page, #D2E1EA). -->
+  @@include('./components/header.html', {"active": "Aktuality"})
+
+  <main>
+    @@include('./components/articles/head.html')
+    @@include('./components/articles/toolbar.html')
+    @@include('./components/articles/featured.html')
+    @@include('./components/articles/grid.html')
+    @@include('./components/articles/archive.html')
+  </main>
+
+  <!-- CTA: uvidime-se-na-labi (next step) -->
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>

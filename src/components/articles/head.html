@@ -1,0 +1,30 @@
+<!-- Page head (design/clanky/Page head.png, 1440×328 incl. the 72 px header, which overlaps it: header has -mb-[4.5rem]).
+     Illustration = right part of the export (x ≥ 620) flattened onto the page color: src/img/clanky/page-head.jpg (820×328,
+     1× – the export has no 2× source). Anchored to the right edge of the 1440 frame; left edge faded by .articles-head__art. -->
+<section class="relative isolate overflow-hidden pb-space-xl pt-[6.5rem] md:pt-[7.375rem] min-[1025px]:h-[20.5rem] min-[1025px]:pb-0" aria-labelledby="articles-title">
+  <div class="pointer-events-none absolute inset-0 -z-10 mx-auto max-w-container">
+    <img
+      src="img/clanky/page-head.jpg"
+      alt=""
+      width="820"
+      height="328"
+      class="articles-head__art"
+    >
+  </div>
+
+  <div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+    <nav aria-label="Drobečková navigace">
+      <ol class="flex items-center gap-space-xs text-body">
+        <li class="flex items-center gap-space-xs">
+          <a href="index.html" class="link-underline rounded-radius-sm text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">Domů</a>
+          @@include('../icon.html', {"name": "chevron-right", "class": "h-4 w-4 text-text-secondary"})
+        </li>
+        <li><span aria-current="page" class="text-text-primary">Články</span></li>
+      </ol>
+    </nav>
+
+    <h1 id="articles-title" class="articles-head__title mt-space-xs font-display font-bold text-text-primary">Články</h1>
+
+    <p class="mt-space-sm text-[1.125rem] leading-[1.5] text-text-secondary md:mt-space-lg">Závody, soustředění a život na Labi.</p>
+  </div>
+</section>

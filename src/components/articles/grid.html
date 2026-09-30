@@ -1,0 +1,23 @@
+<!-- "Všechny články": 3 / 2 / 1 columns (> 1024 / 769–1024 / ≤ 768), 24 px column gap, 48 px row gap.
+     Cards come from article-card.html. Photos are placeholders from src/img (TODO: real article photos).
+     "Načíst další články": markup only, loading comes with the articles JS (next step). -->
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-12 xl:px-space-2xl" aria-labelledby="articles-all-title">
+  <h2 id="articles-all-title" class="articles-h2">Všechny články</h2>
+
+  <!-- TODO(verify): article URLs -->
+  <div class="mt-space-md grid gap-x-space-md gap-y-space-xl min-[769px]:grid-cols-2 min-[769px]:gap-y-12 min-[1025px]:grid-cols-3">
+    @@include('./article-card.html', {"href": "#", "img": "img/article-1.jpg", "alt": "Juniorská čtyřka ve veslici na startu", "datetime": "2026-09-05", "date": "5. 9. 2026", "category": "Závody", "title": "Juniorská čtyřka zlatá na Primátorkách"})
+    @@include('./article-card.html', {"href": "#", "img": "img/feed-2.jpg", "alt": "Skifař při tréninku na klidné řece", "datetime": "2026-08-29", "date": "29. 8. 2026", "category": "Závody", "title": "Skifař Tomáš Hora míří na mistrovství Evropy"})
+    @@include('./article-card.html', {"href": "#", "img": "img/feed-5.jpg", "alt": "Posádka ve veslici pod zalesněným břehem", "datetime": "2026-08-21", "date": "21. 8. 2026", "category": "Akademie", "title": "Nová osma pro akademii: křest na Labi"})
+    @@include('./article-card.html', {"href": "#", "img": "img/gallery-1.jpg", "alt": "Osmiveslice na závodní dráze u bójí", "datetime": "2026-08-14", "date": "14. 8. 2026", "category": "Soustředění", "title": "Podzimní soustředění v Račicích"})
+    @@include('./article-card.html', {"href": "#", "img": "img/gallery-3.jpg", "alt": "Dvojskif na závodní trati", "datetime": "2026-08-07", "date": "7. 8. 2026", "category": "Nábor", "title": "Nábor 2026/27 začíná"})
+    @@include('./article-card.html', {"href": "#", "img": "img/feed-6.jpg", "alt": "Loděnice na břehu řeky", "datetime": "2026-08-01", "date": "1. 8. 2026", "category": "Ze života", "title": "Den otevřených dveří v loděnici"})
+  </div>
+
+  <div class="mt-space-md flex justify-center">
+    <button type="button" class="pill-press inline-flex h-14 items-center gap-space-xs rounded-radius-full border border-[#c5cbd6] px-space-lg text-button text-text-primary hover:bg-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+      Načíst další články
+      @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+    </button>
+  </div>
+</section>

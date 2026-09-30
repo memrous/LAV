@@ -1,0 +1,5 @@
+@@if (false) {
+Meta row (date • category), used by article-card.html, archive-item.html and featured.html.
+Params: datetime (ISO), date (as displayed), category (as displayed; uppercased by CSS), class (extra classes, may be "").
+}
+<p class="articles-meta @@class"><time datetime="@@datetime">@@date</time><span aria-hidden="true">•</span><span class="articles-meta__category">@@category</span></p>

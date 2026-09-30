@@ -1,0 +1,105 @@
+// Articles listing page (src/clanky.html, design/clanky/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place (utilities still win).
+
+// Colors sampled from design/clanky/Content.png; no matching tokens in tailwind.config.js.
+$articles-meta-date: #5b6479;
+$articles-meta-category: #4589bc; // accent blue (sampled #468abd)
+
+@layer components {
+  // Page head illustration: already faded into the page color at its left edge in the export; the mask keeps that
+  // edge soft wherever the image gets cut (narrow viewports), so there is never a hard seam.
+  // Position/size live here (not in utilities) so the breakpoint overrides below aren't beaten by utility classes.
+  .articles-head__art {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    max-width: none;
+    height: 100%;
+    mask-image: linear-gradient(to right, transparent, #000 35%);
+
+    // ≤ 1024: smaller and pushed right, so the rower sits beside/above the title instead of under it.
+    @media (max-width: 1024px) {
+      height: 15rem;
+      right: -4rem;
+    }
+
+    @media (max-width: 768px) {
+      height: 11rem;
+      right: -6rem;
+      opacity: 0.7;
+    }
+  }
+
+  // H1 "Články": Page head.png ink 83–338 px wide at 1440 → 80 px Schibsted Grotesk Bold. Scales down on small screens.
+  .articles-head__title {
+    font-size: clamp(3rem, 2rem + 4vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  // Section headings ("Všechny články", "Archiv"): 26 px. The design uses a lighter cut of Schibsted Grotesk that
+  // isn't self-hosted (only 700 is), so this uses Inter 500 to keep the weight. TODO(verify) / add the font.
+  .articles-h2 {
+    @apply text-[1.625rem] leading-[1.2] tracking-[-0.01em] text-text-primary;
+  }
+
+  // Card / archive titles: 20 px, same Inter 500 fallback as above.
+  .articles-title {
+    @apply text-[1.25rem] leading-[1.4] text-text-primary;
+  }
+
+  // Meta row: "12. 9. 2026 • ZÁVODY" – Play Bold 11 px, grey date, accent-blue category.
+  .articles-meta {
+    @apply flex flex-wrap items-center gap-x-space-xs font-label text-label font-bold uppercase tracking-[0.04em];
+    color: $articles-meta-date;
+  }
+
+  .articles-meta__category {
+    color: $articles-meta-category;
+  }
+
+  // Toggle pills (categories, archive years): white with a hairline border; pressed = navy fill, white text.
+  .articles-pills {
+    @apply flex gap-space-xs;
+
+    // ≤ 768: one horizontally scrollable row (no wrapping), bleeding to the screen edges.
+    @media (max-width: 768px) {
+      @apply -mx-space-sm overflow-x-auto px-space-sm py-space-2xs;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  .articles-pill {
+    @apply inline-flex h-9 shrink-0 cursor-pointer items-center rounded-radius-full border border-surface-icon-border bg-white px-space-sm font-label text-label font-bold tracking-[0.06em] text-text-secondary hover:border-text-secondary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page;
+
+    &[aria-pressed='true'] {
+      @apply border-button-primary-bg bg-button-primary-bg text-button-primary-text;
+    }
+  }
+
+  // Stretched link: one real <a> per card; its ::after covers the nearest positioned ancestor (the card), so the whole
+  // card is clickable without nested links. The focus ring is drawn on the ::after, i.e. around the whole card.
+  .stretched-link {
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      @apply rounded-radius-md;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:focus-visible::after {
+      @apply ring-2 ring-button-primary-bg ring-offset-4 ring-offset-surface-page;
+    }
+  }
+}
