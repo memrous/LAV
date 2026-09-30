@@ -1,0 +1,16 @@
+<!-- "Fotogalerie" (design/clanky_detail/lav.png): 4 / 2 / 1 columns (> 1024 / 769–1024 / ≤ 768), 302×202 tiles, 24 px gaps, r 12.
+     Markup only: lightbox (open photo, prev/next, keyboard) comes with the gallery JS in the next step.
+     Photos are placeholders from src/img. The design's ergometer, boathouse, bridge and "eight on glittering water" photos
+     don't exist in the project yet – substituted with other project photos (TODO: real gallery photos). -->
+<section class="mx-auto mt-space-xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-11 xl:px-space-2xl" aria-labelledby="article-gallery-title">
+  <!-- TODO(verify): "Všechny fotky" target (no gallery page yet) -->
+  @@include('./section-head.html', {"id": "article-gallery-title", "title": "Fotogalerie", "link": "Všechny fotky", "href": "#"})
+
+  <ul class="mt-space-xl grid gap-space-md min-[1025px]:mt-12 min-[769px]:grid-cols-2 min-[1025px]:grid-cols-4">
+    @@for (var i = 0, photos = [["gallery-1.jpg", "Osmiveslice na závodní dráze u bójí"], ["gallery-2.jpg", "Skifařka při tréninku na řece"], ["feed-3.jpg", "Trenér na loďce při tréninku"], ["gallery-3.jpg", "Dvojskif na závodní trati"], ["feed-1.jpg", "Vesla s červenobílými listy srovnaná na trávě"], ["event-1.jpg", "Diváci na nábřeží při závodech na řece"], ["feed-5.jpg", "Posádka ve veslici pod zalesněným břehem"], ["feed-6.jpg", "Loděnice na břehu řeky"]]; i < photos.length; i++) {
+    <li>
+      <img src="img/`+photos[i][0]+`" alt="`+photos[i][1]+`" width="302" height="202" loading="lazy" class="aspect-[151/101] w-full rounded-radius-md object-cover">
+    </li>
+    }
+  </ul>
+</section>

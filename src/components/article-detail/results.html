@@ -1,0 +1,27 @@
+<!-- "Výsledky akademie" (design/clanky_detail/lav.png): glass card, 24 px padding, 56 px rows with 1 px dividers, medal dot
+     (10 px) + discipline on the left, place (Play 11 px caps) on the right. Not rich text: a structured block after the body.
+     TODO(verify): the design colors the 3rd-place dot red (#e22447), not bronze – kept as designed. -->
+<section class="mt-space-md" aria-labelledby="article-results-title">
+  <h2 id="article-results-title" class="article-h2">Výsledky akademie</h2>
+
+  <ol class="article-card mt-space-md px-space-md py-space-md">
+    @@for (var i = 0, rows = [["Osma juniorů (JM8+)", "1. místo", "bg-button-accent-bg"], ["Skif juniorů (JM1x) — Tomáš Hora", "2. místo", "bg-[#c4cad5]"], ["Dvojskif juniorů (JM2x)", "3. místo", "bg-[#e22447]"]]; i < rows.length; i++) {
+    <li class="article-results__row">
+      <span class="h-2.5 w-2.5 shrink-0 rounded-radius-full `+rows[i][2]+`" aria-hidden="true"></span>
+      <span class="min-w-0 flex-1 text-button text-text-primary">`+rows[i][0]+`</span>
+      <span class="article-label shrink-0">`+rows[i][1]+`</span>
+    </li>
+    }
+  </ol>
+
+  <!-- TODO(verify): PDF URL and size. The design uses the camera icon here – kept as designed. -->
+  <a href="#" class="article-card group mt-space-md flex h-16 items-center gap-space-sm px-space-md text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+    @@include('../icon.html', {"name": "camera", "class": "h-5 w-5 shrink-0 text-[#69707f]"})
+    <span class="min-w-0 flex-1 truncate text-body"><span class="link-underline">Výsledková listina MČR juniorů 2026.pdf</span></span>
+    <span class="article-label shrink-0 tracking-[0.1em]">PDF · 1,2 MB</span>
+    <span class="arrow-mask arrow-mask--diagonal h-5 w-5 text-[#69707f]">
+      @@include('../icon.html', {"name": "arrow-up-right", "class": "h-5 w-5"})
+      @@include('../icon.html', {"name": "arrow-up-right", "class": "h-5 w-5"})
+    </span>
+  </a>
+</section>

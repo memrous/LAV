@@ -1,0 +1,61 @@
+// "Uvidíme se na Labi." CTA (src/components/cta-nabor.html, design/clanky/Footer block.png).
+// @use-d at the top of main.scss like _articles.scss, so it lands in @layer components (utilities still win).
+//
+// Scene = img/scene/bridge-*.{webp,jpg}: bridge.png (2880×1440) cropped to source rows 196–1090 → 2880×894, shown at
+// 1:2 (1440×447 at the 1440 frame, where the design places the image 1:1 with its top edge at y 256). Scaled by width
+// like the homepage scene, capped at max-w-container; below 1031 px a min height keeps room for heading + button and
+// the image is cover-cropped from the left, since the pylon sits at x 0–3.5 % (a centered crop would cut it off).
+//
+// Footer join: in the design the navy footer starts behind the bridge (logo 160 px below source row 900) and the deck
+// dissolves into it. Here the scene's last 190 source rows hang over the footer's top padding via a negative margin,
+// above the footer (the section is positioned, the footer is not), and fade out over the deck's top face (rows
+// 1020–1090), so the footer's own navy background takes over with no seam. The image is fully opaque down to the
+// footer's top edge, so no light gap can appear, whatever the rounding. Overlap = 190/894 of the scene height:
+// 95 px at 1440 (< lg:pt-40 = 160 px), 68 px at the min height (< pt-space-2xl = 80 px) – never over footer content.
+$cta-max-w: 90rem; // = theme.maxWidth.container in tailwind.config.js
+$cta-min-h: 20rem;
+
+@layer components {
+  .cta-nabor {
+    position: relative;
+    z-index: 1; // above the (static) footer in the overlap
+    container-type: inline-size; // cqw below = section width (no scrollbar issue); also stops margin collapsing
+  }
+
+  .cta-nabor__scene {
+    --cta-w: min(100cqw, #{$cta-max-w});
+    --cta-h: max(#{$cta-min-h}, var(--cta-w) * 894 / 2880);
+    position: relative;
+    height: var(--cta-h);
+    margin-bottom: calc(var(--cta-h) * -190 / 894);
+    pointer-events: none;
+    // Beyond 1440: sky + deck continue sideways. 1×447 strip = per-row average of source columns 1730–1780 (past the
+    // cables' end, before the tower; one crossing cable row patched out), so the sides carry no objects or streaks.
+    background: url('../img/scene/bridge-edge.png') 0 0 / 100% 100% no-repeat;
+    // Top: fade in from the page background (sky ≈ #D2E1EA, same approach as the page head art).
+    // Bottom: dissolve the deck into the footer.
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 12%,
+      #000 calc(100% - var(--cta-h) * 70 / 894),
+      transparent
+    );
+  }
+
+  .cta-nabor__img {
+    display: block;
+    width: 100%;
+    max-width: $cta-max-w;
+    height: 100%;
+    margin-inline: auto;
+    object-fit: cover;
+    object-position: left bottom;
+
+    // Once there is side fill, soften the image's edges into it (as .page-scene does). Short on the left: the pylon
+    // is only ~50 px wide there and must stay solid.
+    @media (min-width: 1500px) {
+      mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 4rem), transparent);
+    }
+  }
+}

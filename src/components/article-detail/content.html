@@ -1,0 +1,13 @@
+<!-- Body + left column (design/clanky_detail/lav.png): 12-column grid with 24 px gutters at > 1024 px, left column 3 cols
+     (300 px), body 9 cols (954 px at 1440). The body comes first in the DOM (reading order); the aside is placed left by the
+     grid. ≤ 1024: one column, aside below the body. -->
+<div class="mx-auto mt-space-xl grid max-w-container gap-y-space-xl px-space-sm md:px-space-xl min-[1025px]:mt-12 min-[1025px]:grid-cols-12 min-[1025px]:gap-x-space-md xl:px-space-2xl">
+  <div class="min-w-0 min-[1025px]:col-span-9 min-[1025px]:col-start-4 min-[1025px]:row-start-1">
+    @@include('./body.html')
+    @@include('./results.html')
+  </div>
+
+  <div class="min-[1025px]:col-span-3 min-[1025px]:col-start-1 min-[1025px]:row-start-1">
+    @@include('./aside.html')
+  </div>
+</div>

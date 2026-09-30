@@ -2,6 +2,10 @@
 @use '../../node_modules/swiper/swiper';
 // Articles listing page (all in @layer components, see the partial)
 @use 'articles';
+// Article detail page (all in @layer components, see the partial)
+@use 'article-detail';
+// "Uvidíme se na Labi." CTA above the footer (articles page)
+@use 'cta';
 
 @tailwind base;
 @tailwind components;

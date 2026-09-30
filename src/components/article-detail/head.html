@@ -1,0 +1,37 @@
+<!-- Article head (design/clanky_detail/Page head.png, 1440×368 incl. the 72 px header, which overlaps it: header has -mb-[4.5rem]).
+     Same rower illustration as the listing, 40 px lower in a taller head: src/img/scene/page-head-tall.jpg (820×368) =
+     page-head.jpg + the export's top 40 rows. Kept 368 px tall however long the title gets; .articles-head__art fades
+     its left edge and shrinks it ≤ 1024 (see _articles.scss).
+     Height follows the content (titles vary): 48 px from the meta row to the hero photo. -->
+<section class="relative isolate pb-space-lg pt-[6.5rem] md:pt-[7.375rem] min-[1025px]:pb-12" aria-labelledby="article-title">
+  <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[23rem] max-w-container overflow-hidden">
+    <img
+      src="img/scene/page-head-tall.jpg"
+      alt=""
+      width="820"
+      height="368"
+      class="articles-head__art"
+    >
+  </div>
+
+  <div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+    @@include('../breadcrumb.html', {"items": [["Domů", "index.html"], ["Články", "articles.html"]], "current": "Mistrovství ČR juniorů"})
+
+    <!-- 736 px = 7 of 12 columns: wraps like the design and stays clear of the illustration. -->
+    <h1 id="article-title" class="mt-space-sm max-w-[46rem] font-display text-display-md font-bold text-text-primary md:text-display-lg min-[1025px]:text-display-xl">
+      Tři medaile z Mistrovství ČR juniorů
+    </h1>
+
+    <!-- Meta: category first (with the accent dot), then date · author · reading time. -->
+    <p class="article-meta mt-5">
+      <span class="article-meta__category">Závody</span>
+      <span class="article-meta__details">
+        <time datetime="2026-09-12">12. 9. 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>Jan Novák</span>
+        <span aria-hidden="true">·</span>
+        <span>4 min čtení</span>
+      </span>
+    </p>
+  </div>
+</section>

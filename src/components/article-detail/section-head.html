@@ -1,0 +1,15 @@
+@@if (false) {
+Section heading row ("Fotogalerie" / "Další články", design/clanky_detail/lav.png): heading left, borderless pill link right
+(its 24 px padding puts the text 24 px in from the column edge, as in the design).
+Params: id (heading id), title, link (link text), href.
+}
+<div class="flex items-center justify-between gap-space-sm">
+  <h2 id="@@id" class="articles-h2">@@title</h2>
+  <a href="@@href" class="pill-press inline-flex h-12 shrink-0 items-center gap-space-xs rounded-radius-full px-space-md text-body text-text-primary hover:bg-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+    @@link
+    <span class="arrow-mask h-4 w-4">
+      @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+      @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+    </span>
+  </a>
+</div>

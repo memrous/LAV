@@ -1,0 +1,18 @@
+@@if (false) {
+Breadcrumb (design/clanky/Page head.png, design/clanky_detail/Page head.png): links separated by chevrons, last item is the
+current page (not a link).
+Params: items (array of [label, href] for the linked crumbs, in order), current (label of the current page).
+  include('../breadcrumb.html', {"items": [["Domů", "index.html"], ["Články", "articles.html"]], "current": "…"})
+  (prefix the call with @@)
+}
+<nav aria-label="Drobečková navigace">
+  <ol class="flex flex-wrap items-center gap-space-xs text-body">
+    @@for (var i = 0; i < items.length; i++) {
+    <li class="flex items-center gap-space-xs">
+      <a href="`+items[i][1]+`" class="link-underline rounded-radius-sm text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">`+items[i][0]+`</a>
+      @@include('./icon.html', {"name": "chevron-right", "class": "h-4 w-4 text-text-secondary"})
+    </li>
+    }
+    <li><span aria-current="page" class="text-text-primary">@@current</span></li>
+  </ol>
+</nav>

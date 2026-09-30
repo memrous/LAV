@@ -1,0 +1,24 @@
+<!-- "Uvidíme se na Labi." CTA above the footer (design/clanky/Footer block.png, top part; placement in lav.png).
+     The scene's navy bottom overlaps the footer's top padding and fades into it (see _cta.scss), so the footer itself
+     stays untouched. Not used on the homepage: that page has its own scene transition into the footer. -->
+<section class="cta-nabor mt-space-xl lg:mt-space-2xl" aria-labelledby="cta-nabor-title">
+  <!-- Decorative: bridge.png cropped to rows 196–1090 (the part visible in the design), 2× the 1440 display width. -->
+  <div class="cta-nabor__scene" aria-hidden="true">
+    <picture>
+      <source type="image/webp" srcset="img/scene/bridge-1440.webp 1440w, img/scene/bridge-2880.webp 2880w" sizes="(max-width: 1030px) 1031px, (min-width: 1440px) 1440px, 100vw">
+      <img class="cta-nabor__img" src="img/scene/bridge-2880.jpg" srcset="img/scene/bridge-1440.jpg 1440w, img/scene/bridge-2880.jpg 2880w" sizes="(max-width: 1030px) 1031px, (min-width: 1440px) 1440px, 100vw" width="2880" height="894" alt="" loading="lazy" decoding="async">
+    </picture>
+  </div>
+
+  <div class="absolute inset-x-0 top-0 flex flex-col items-center px-space-sm pt-space-sm text-center">
+    <h2 id="cta-nabor-title" class="font-display text-display-md font-bold text-text-primary md:text-display-lg lg:text-display-xl">Uvidíme se na Labi.</h2>
+    <!-- TODO(verify): link to the Uchazeči/nábor page when it exists -->
+    <a href="#" class="pill-press mt-space-md inline-flex h-14 items-center gap-space-xs rounded-radius-full bg-button-accent-bg px-space-lg text-button text-button-accent-text hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+      Přihlásit se na nábor
+      <span class="arrow-mask h-5 w-5">
+        @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+        @@include('./icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+      </span>
+    </a>
+  </div>
+</section>

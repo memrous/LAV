@@ -1,0 +1,12 @@
+<!-- "Další články" (design/clanky_detail/lav.png): same cards and grid as "Všechny články" on the listing
+     (3 / 2 / 1 columns at > 1024 / 769–1024 / ≤ 768). Cards = components/articles/article-card.html unchanged;
+     same demo data as the first three listing cards. -->
+<section class="mx-auto mt-space-xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-11 xl:px-space-2xl" aria-labelledby="article-related-title">
+  @@include('./section-head.html', {"id": "article-related-title", "title": "Další články", "link": "Všechny články", "href": "articles.html"})
+
+  <div class="mt-space-xl grid gap-x-space-md gap-y-space-xl min-[1025px]:mt-12 min-[769px]:grid-cols-2 min-[769px]:gap-y-12 min-[1025px]:grid-cols-3">
+    @@include('../articles/article-card.html', {"href": "article-detail.html", "img": "img/article-1.jpg", "alt": "Juniorská čtyřka ve veslici na startu", "datetime": "2026-09-05", "date": "5. 9. 2026", "category": "Závody", "title": "Juniorská čtyřka zlatá na Primátorkách"})
+    @@include('../articles/article-card.html', {"href": "article-detail.html", "img": "img/feed-2.jpg", "alt": "Skifař při tréninku na klidné řece", "datetime": "2026-08-29", "date": "29. 8. 2026", "category": "Závody", "title": "Skifař Tomáš Hora míří na mistrovství Evropy"})
+    @@include('../articles/article-card.html', {"href": "article-detail.html", "img": "img/feed-5.jpg", "alt": "Posádka ve veslici pod zalesněným břehem", "datetime": "2026-08-21", "date": "21. 8. 2026", "category": "Akademie", "title": "Nová osma pro akademii: křest na Labi"})
+  </div>
+</section>

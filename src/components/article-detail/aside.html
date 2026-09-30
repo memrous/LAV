@@ -1,0 +1,42 @@
+<!-- Left column (design/clanky_detail/lav.png, 300 px = 3 of 12 columns): Sdílet, Autor, back link, 24 px apart with 1 px
+     dividers. Below 1025 px it follows the body (see content.html). No JS in this step. -->
+<aside class="flex flex-col" aria-label="O článku">
+  <div>
+    <h2 class="article-label">Sdílet</h2>
+    <!-- TODO(verify): share URLs. Facebook = https://www.facebook.com/sharer/sharer.php?u=<absolute article URL> (needs the
+         final domain or JS). Instagram has no web share URL – the design shows it, so it is kept; decide target. -->
+    <ul class="mt-space-md flex gap-space-xs">
+      <li>
+        <a href="#" aria-label="Sdílet na Instagramu" class="flex h-9 w-9 items-center justify-center rounded-radius-sm border border-surface-icon-border bg-surface-icon transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          @@include('../icon.html', {"name": "Group", "class": "h-5 w-5"})
+        </a>
+      </li>
+      <li>
+        <a href="#" aria-label="Sdílet na Facebooku" class="flex h-9 w-9 items-center justify-center rounded-radius-sm border border-surface-icon-border bg-surface-icon transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2">
+          @@include('../icon.html', {"name": "Group-1", "class": "h-5 w-5"})
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mt-space-md border-t border-surface-icon-border pt-space-md">
+    <h2 class="article-label">Autor</h2>
+    <div class="mt-space-md flex items-start gap-space-sm">
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-radius-full bg-button-primary-bg font-label text-[0.8125rem] font-bold text-button-primary-text" aria-hidden="true">JN</span>
+      <p class="flex flex-col">
+        <span class="text-body leading-5 text-text-primary">Jan Novák</span>
+        <span class="text-[0.8125rem] leading-5 text-[#5b6479]">Trenér a PR akademie</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-space-md border-t border-surface-icon-border pt-space-md">
+    <a href="articles.html" class="pill-press inline-flex h-12 items-center gap-space-xs rounded-radius-full px-space-md text-body text-text-primary hover:bg-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+      Zpět na články
+      <span class="arrow-mask h-4 w-4">
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+      </span>
+    </a>
+  </div>
+</aside>
