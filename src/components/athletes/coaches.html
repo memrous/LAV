@@ -1,0 +1,12 @@
+<!-- "Tým trenérů": 3 / 2 / 1 columns (> 1024 / 769–1024 / ≤ 768), 24 px gaps. Cards come from coach-card.html.
+     The heading is bold display (36 px) while "Soupiska 2026/27" is the light 26 px style – both as in the design.
+     Bottom padding: 75 + the CTA's 80 px top margin = 155 px from the cards to the CTA scene, as in the design. -->
+<section class="mx-auto mt-space-xl max-w-container px-space-sm pb-space-xl md:px-space-xl min-[1025px]:pb-[4.6875rem] xl:px-space-2xl" aria-labelledby="athletes-coaches-title">
+  <h2 id="athletes-coaches-title" class="font-display text-[1.75rem] font-bold leading-[1.1] tracking-[-0.03em] text-text-primary md:text-display-md">Tým trenérů</h2>
+
+  <div class="mt-space-md grid gap-space-md min-[769px]:grid-cols-2 min-[1025px]:mt-12 min-[1025px]:grid-cols-3">
+    @@include('./coach-card.html', {"initials": "PD", "name": "Petr Dvořák", "role": "Hlavní trenér", "bio": "Bývalý reprezentant ČR ve skifu, dvojnásobný účastník mistrovství světa. Trenérem od roku 2012, licence A. Vede seniorskou a juniorskou skupinu akademie.", "email": "petr.dvorak@lav-usti.cz"})
+    @@include('./coach-card.html', {"initials": "LH", "name": "Lenka Horáková", "role": "Trenérka juniorek", "bio": "Mistryně ČR ve dvojskifu a bývalá členka juniorské reprezentace. V akademii trénuje od roku 2018, licence B. Vede dorostenky a juniorky a pořádá soustředění v Račicích.", "email": "lenka.horakova@lav-usti.cz"})
+    @@include('./coach-card.html', {"initials": "MS", "name": "Martin Sýkora", "role": "Kondiční trenér", "bio": "Absolvent FTVS UK, specialista na silovou a vytrvalostní přípravu veslařů. Sestavuje tréninkové plány pro všechny skupiny akademie a vede zimní přípravu v posilovně.", "email": "martin.sykora@lav-usti.cz"})
+  </div>
+</section>

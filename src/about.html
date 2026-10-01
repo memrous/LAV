@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>O akademii | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  <!-- No .page-scene here: like the other subpages, O akademii sits on the flat page color (body bg-surface-page, #D2E1EA). -->
+  @@include('./components/header.html', {"active": "O akademii"})
+
+  <main>
+    @@include('./components/page-head.html', {"id": "about-title", "title": "O akademii", "perex": "Kdo jsme, co děláme a proč.", "breadcrumb": "[['Domů', 'index.html']]", "current": "O akademii", "art": false})
+    @@include('./components/about/content.html')
+  </main>
+
+  @@include('./components/cta-nabor.html')
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>

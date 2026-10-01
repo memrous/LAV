@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Akce | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  <!-- No .page-scene here: like the other subpages, Akce sits on the flat page color (body bg-surface-page, #D2E1EA). -->
+  @@include('./components/header.html', {"active": "Akce"})
+
+  <main>
+    @@include('./components/page-head.html', {"id": "events-title", "title": "Akce a závody", "perex": "Termínová listina sezóny 2026/27.", "breadcrumb": "[['Domů', 'index.html']]", "current": "Akce"})
+    @@include('./components/events/toolbar.html')
+    @@include('./components/events/calendar.html')
+    @@include('./components/events/upcoming.html')
+    @@include('./components/events/season.html')
+  </main>
+
+  @@include('./components/cta-nabor.html')
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>

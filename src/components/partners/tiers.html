@@ -1,0 +1,44 @@
+<!-- Partner tiers (design/partneri/lav.png), each an H2 + a list of partner-item.html cards, ~102 px between tiers:
+     Generální partner (1 large card + description) | Hlavní partneři (3 / 3 / 1 columns) |
+     Partneři and Sportovní partneři (4 / 3 / 2 columns). Every logo is an existing src/img/logo-*.png.
+     TODO(verify): the design's Spolchemie logo is smaller (94 px wide) with a stray diagonal line – the existing file
+     is used at the tier's standard size. -->
+<section class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl" aria-labelledby="partners-general-title">
+  <h2 id="partners-general-title" class="articles-h2">Generální partner</h2>
+  <div class="mt-space-md grid items-center gap-space-md min-[1025px]:grid-cols-2">
+    <ul class="grid">
+      @@include('./partner-item.html', {"name": "Ústecký kraj", "logo": "ustecky-kraj", "size": "general", "loading": "eager"})
+    </ul>
+    <p class="max-w-[35rem] text-lg leading-[1.55] text-text-secondary">Ústecký kraj je zřizovatelem Labe Arény a generálním partnerem akademie.</p>
+  </div>
+</section>
+
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-[6.375rem] xl:px-space-2xl" aria-labelledby="partners-main-title">
+  <h2 id="partners-main-title" class="articles-h2">Hlavní partneři</h2>
+  <ul class="mt-space-md grid gap-space-sm min-[641px]:grid-cols-3 min-[769px]:gap-space-md min-[1025px]:gap-[1.625rem]">
+    @@include('./partner-item.html', {"name": "Labe Aréna", "logo": "labe-arena", "size": "main", "loading": "eager"})
+    @@include('./partner-item.html', {"name": "Ústí nad Labem", "logo": "ustni-nad-labem", "size": "main", "loading": "eager"})
+    @@include('./partner-item.html', {"name": "Národní sportovní agentura", "logo": "nsa", "size": "main", "loading": "eager"})
+  </ul>
+</section>
+
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-[6.375rem] xl:px-space-2xl" aria-labelledby="partners-partners-title">
+  <h2 id="partners-partners-title" class="articles-h2">Partneři</h2>
+  <ul class="partners-grid mt-space-md">
+    @@include('./partner-item.html', {"name": "ČEZ", "logo": "cez", "size": "standard", "loading": "lazy"})
+    @@include('./partner-item.html', {"name": "Spolchemie", "logo": "spolchemie", "size": "standard", "loading": "lazy"})
+    @@include('./partner-item.html', {"name": "Krajská zdravotní – nemocnice Ústeckého kraje", "logo": "krajska-zdravotni", "size": "standard", "loading": "lazy"})
+    @@include('./partner-item.html', {"name": "Severočeské doly a.s.", "logo": "severoceske-doly", "size": "standard", "loading": "lazy"})
+    @@include('./partner-item.html', {"name": "ORLEN Unipetrol", "logo": "orlen-unipetrol", "size": "standard", "loading": "lazy"})
+    @@include('./partner-item.html', {"name": "Metrostav", "logo": "metrostav", "size": "standard", "loading": "lazy"})
+    @@include('./partner-item.html', {"name": "Dopravní podnik města Ústí nad Labem", "logo": "dpmul", "size": "standard", "loading": "lazy"})
+    @@include('./partner-item.html', {"name": "Ústecká komunitní nadace", "logo": "komunitni-nadace", "size": "standard", "loading": "lazy"})
+  </ul>
+</section>
+
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-[6.375rem] xl:px-space-2xl" aria-labelledby="partners-sport-title">
+  <h2 id="partners-sport-title" class="articles-h2">Sportovní partneři</h2>
+  <ul class="partners-grid mt-space-md">
+    @@include('./partner-item.html', {"name": "Český veslařský svaz", "logo": "cvs", "size": "standard", "loading": "lazy"})
+  </ul>
+</section>

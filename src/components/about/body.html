@@ -1,0 +1,47 @@
+@@if (false) {
+Page body = CMS rich text in .article-body (styles in _article-detail.scss), with the About-page overrides from
+_about.scss (.about-body: bold display H2s, navy bullets, hairline quote box). Plain HTML, no classes, except the video
+block, which is a component (video.html), not rich text. H2 ids = targets of the "Obsah" links in aside.html.
+Texts exactly as in design/o_akademii/lav.png. Photos: placeholders cropped from the design (src/img/about/).
+}
+<div class="article-body about-body">
+  <p>Labská akademie veslování sdružuje nejlepší mladé veslaře Ústeckého kraje. Trénujeme na Labi v Ústí nad Labem a v Labe Aréně v Račicích.</p>
+
+  <h2 id="kdo-jsme">Kdo jsme</h2>
+
+  <p>Akademie je společný projekt Ústeckého kraje a Českého veslařského svazu. Sdružujeme talentované juniory a dorostence z klubů celého kraje a dáváme jim podmínky, které by jednotlivé oddíly samy nezajistily: profesionální trenéry, moderní lodní park, sportovní lékaře a zázemí Labe Arény Ústeckého kraje v Račicích.</p>
+
+  <p>Akademici zůstávají členy svých mateřských klubů. V týdnu trénují na Labi v Ústí nad Labem, o víkendech a na soustředěních se sjíždějí do Račic. Cílem je, aby každý z nich dosáhl na juniorskou reprezentaci a na start mistrovství světa.</p>
+
+  <h2 id="poslani">Poslání</h2>
+
+  <p>Posláním akademie je dát mladým veslařům z Ústeckého kraje šanci růst bez toho, aby museli odcházet do Prahy nebo zahraničí. Stavíme na čtyřech pilířích:</p>
+
+  <ul>
+    <li>Systematická příprava juniorů a dorostu</li>
+    <li>Spolupráce s mateřskými kluby</li>
+    <li>Vzdělávání trenérů</li>
+    <li>Reprezentace Ústeckého kraje</li>
+  </ul>
+
+  <figure>
+    <!-- TODO(verify): placeholder cropped from the design (1×, 954×540) – replace with the original photo. -->
+    <img src="img/about/boathouse.jpg" alt="Loděnice akademie: závodní lodě uložené v regálech" width="954" height="540" loading="lazy">
+    <figcaption>Loděnice akademie na Labi</figcaption>
+  </figure>
+
+  <h2 id="historie">Historie</h2>
+
+  <p>Akademie byla založena v roce <time datetime="2018">2018</time> Ústeckým krajem a Českým veslařským svazem jako první krajská veslařská akademie v Česku. První medaile z mistrovství republiky přišly v roce <time datetime="2020">2020</time>, o dva roky později první start na mistrovství světa juniorů. V roce <time datetime="2026">2026</time> má akademie 24 akademiků ze šesti klubů kraje.</p>
+
+  @@include('./video.html')
+
+  <h2 id="zazemi">Zázemí</h2>
+
+  <p>Domovskou vodou akademie je Labe v Ústí nad Labem, kde máme loděnici, ergo room s dvaceti trenažéry a posilovnu. Vrcholové soustředění a testování probíhají v Labe Aréně Ústeckého kraje v Račicích. Lodní park tvoří skify, dvojskify, párové čtyřky a dvě osmy; všechny lodě jsou mladší pěti let.</p>
+
+  <blockquote>
+    <p>„Chceme, aby se z Ústí jezdilo na mistrovství světa.“</p>
+    <footer>Jana Veselá, ředitelka akademie</footer>
+  </blockquote>
+</div>

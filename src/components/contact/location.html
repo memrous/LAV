@@ -1,0 +1,76 @@
+<!-- "Kde nás najdete" (design/kontakty/lav.png): details card 627×545 (hairline, r 20, 32 px padding, 24 px rhythm) | map
+     628×520 r 20; two columns with a 24 px gap, stacked ≤ 1024 (map below).
+     Organisation data = footer.html: same name, address and e-mail. Phone: the footer's placeholder, see the TODO there.
+     Map: the design shows an ILLUSTRATION, not a map (3D render of the arena with a pin). No third-party embed:
+     src/img/contact/map-labe-arena.jpg = that illustration cropped from the design (placeholder, 1×; its baked-in caption
+     removed and rendered as text below). "Navigovat" opens a Google Maps search for the address in a new window.
+     Candidate for a click-to-load live map in the JS step. -->
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-[6.125rem] xl:px-space-2xl" aria-labelledby="contact-location-title">
+  <h2 id="contact-location-title" class="articles-h2">Kde nás najdete</h2>
+
+  <div class="mt-space-md grid items-start gap-space-md min-[1025px]:grid-cols-2">
+    <div class="contact-location">
+      <p class="athletes-label">Loděnice a sídlo</p>
+      <h3 class="contact-location__title">Labe Aréna Ústeckého kraje</h3>
+
+      <address class="not-italic">
+        <p class="mt-space-md text-button text-text-secondary">Přístavní 1<br>400 07 Ústí nad Labem</p>
+
+        <ul class="contact-location__list">
+          <li class="contact-location__item">
+            @@include('../icon.html', {"name": "clock", "class": "h-5 w-5 shrink-0 text-text-secondary"})
+            <span class="sr-only">Otevírací doba:</span>
+            <dl class="contact-hours">
+              <div><dt>Po–Pá</dt> <dd><time datetime="14:00">14:00</time>–<time datetime="19:00">19:00</time></dd></div>
+              <div><dt>So</dt> <dd><time datetime="09:00">9:00</time>–<time datetime="12:00">12:00</time></dd></div>
+            </dl>
+          </li>
+          <li>
+            <a href="mailto:info@lav-usti.cz" class="contact-link">
+              @@include('../icon.html', {"name": "mail", "class": "h-5 w-5 shrink-0 text-text-secondary"})
+              <span class="sr-only">E-mail: </span><span class="link-underline">info@lav-usti.cz</span>
+            </a>
+          </li>
+          <li>
+            <!-- TODO(verify): placeholder number, same as footer.html. The design shows +420 475 123 456 here (also Ivana
+                 Marková's number above) – switch both page and footer once the real number is confirmed. -->
+            <a href="tel:+420000000000" class="contact-link">
+              @@include('../icon.html', {"name": "phone", "class": "h-5 w-5 shrink-0 text-text-secondary"})
+              <span class="sr-only">Telefon: </span><span class="link-underline">+420 000 000 000</span>
+            </a>
+          </li>
+        </ul>
+      </address>
+
+      <div class="contact-location__divider">
+        <h4 class="athletes-label">Fakturační údaje</h4>
+        <!-- TODO(verify): IČ 12 34 56 78 looks like a placeholder; the design shows no DIČ or bank account. -->
+        <dl class="contact-billing">
+          <div><dt class="sr-only">Název</dt> <dd>Labská akademie veslování, z. s.</dd></div>
+          <div><dt>IČ</dt> <dd>12 34 56 78</dd></div>
+          <div><dt class="sr-only">Registrace</dt> <dd>zapsán u KS v Ústí nad Labem</dd></div>
+        </dl>
+      </div>
+
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Labe%20Ar%C3%A9na%2C%20P%C5%99%C3%ADstavn%C3%AD%201%2C%20%C3%9Ast%C3%AD%20nad%20Labem" target="_blank" rel="noopener" aria-label="Navigovat – Labe Aréna, Přístavní 1, Ústí nad Labem v Google Mapách (otevře se v novém okně)" class="contact-location__nav pill-press">
+        <span class="link-underline">Navigovat</span>
+        <span class="arrow-mask arrow-mask--diagonal h-5 w-5">
+          @@include('../icon.html', {"name": "arrow-up-right", "class": "h-5 w-5"})
+          @@include('../icon.html', {"name": "arrow-up-right", "class": "h-5 w-5"})
+        </span>
+      </a>
+    </div>
+
+    <figure class="contact-map">
+      <img
+        src="img/contact/map-labe-arena.jpg"
+        alt="Ilustrační mapa areálu Labe Aréna Ústeckého kraje v Ústí nad Labem s vyznačenou loděnicí"
+        width="628"
+        height="520"
+        loading="lazy"
+        class="contact-map__img"
+      >
+      <figcaption class="contact-map__caption">Ilustrační mapa · Labe Aréna Ústeckého kraje</figcaption>
+    </figure>
+  </div>
+</section>

@@ -1,0 +1,129 @@
+// O akademii page (src/about.html, design/o_akademii/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place (utilities still win). Builds on .article-body / .article-label (_article-detail.scss); only the
+// differences from the article detail live here.
+
+$about-muted: #69707f; // document icons / arrows (as on the article detail's attachment)
+$about-divider: #dce0e8;
+
+@layer components {
+  // ---------------------------------------------------------------------------------------------------------------
+  // "Obsah": 14 px links, 28 px rows, 10 px indent; the active one primary with a 2 px navy bar on the left.
+  .about-toc {
+    @apply mt-space-sm grid;
+  }
+
+  .about-toc__link {
+    @apply block border-l-2 border-transparent py-1 pl-2.5 text-body leading-5 text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg;
+
+    &.is-active {
+      @apply border-button-primary-bg text-text-primary;
+    }
+  }
+
+  .about-download {
+    @apply inline-flex items-center gap-space-xs rounded-radius-sm text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Body overrides (.article-body.about-body): H2 = bold display 36 px with more air above; navy dot bullets;
+  // the quote is a hairline box without the glass fill.
+  @mixin about-h2 {
+    @apply font-display text-display-md font-bold text-text-primary;
+    scroll-margin-top: 6rem; // in-page links from "Obsah" land below the header
+  }
+
+  .about-h2 {
+    @include about-h2;
+  }
+
+  .about-body {
+    // Lead: 18 / 28 here (the article detail's is 20 px).
+    > p:first-child {
+      @apply text-lg leading-[1.55];
+    }
+
+    h2 {
+      @include about-h2;
+      margin-top: 2.25rem;
+    }
+
+    ul {
+      @apply list-none pl-0;
+    }
+
+    ul > li {
+      @apply relative pl-3.5;
+
+      &::before {
+        content: '';
+        @apply absolute left-0 top-[0.6875rem] h-1.5 w-1.5 rounded-radius-full bg-button-primary-bg;
+      }
+    }
+
+    li + li {
+      margin-top: 0.5rem;
+    }
+
+    blockquote {
+      border: 1px solid rgb(255 255 255 / 0.8);
+      border-radius: 1.25rem;
+      background: none;
+      box-shadow: none;
+      padding-bottom: 2.625rem; // the design leaves more air under the source than the article detail
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Video: poster r 12 + 72 px white play button (navy CSS triangle) with the label 16 px below, centered on the poster.
+  .about-video {
+    @apply relative overflow-hidden rounded-radius-md;
+  }
+
+  // Specific enough to beat `.article-body img` (rounded, auto height).
+  .about-body .about-video__poster {
+    @apply block aspect-[954/536] w-full rounded-none object-cover;
+  }
+
+  .about-video__controls {
+    @apply absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-space-sm pt-12;
+  }
+
+  .about-video__play {
+    @apply relative flex h-[4.5rem] w-[4.5rem] cursor-pointer items-center justify-center rounded-radius-full bg-white shadow-[0_12px_24px_-8px_rgba(18,19,42,0.35)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-button-primary-bg;
+
+    &::before {
+      content: '';
+      margin-left: 0.25rem; // optical centering of the triangle
+      border-style: solid;
+      border-width: 0.5rem 0 0.5rem 0.8125rem;
+      border-color: transparent transparent transparent theme('colors.button.primary-bg');
+    }
+  }
+
+  // Beats `.article-body a` (always underlined, primary color): white label, underline only on hover/focus.
+  .about-body .about-video__label {
+    @apply whitespace-nowrap text-body text-white no-underline hover:underline focus-visible:ring-white focus-visible:ring-offset-0;
+    text-shadow: 0 1px 2px rgb(18 19 42 / 0.4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-video__play {
+      @apply transition-none hover:scale-100;
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // "Dokumenty": hairline card r 20, 24 px sides, 57 px rows with 1 px dividers.
+  .about-docs {
+    @apply rounded-[1.25rem] border border-white/80 p-space-md;
+  }
+
+  .about-docs > li + li {
+    border-top: 1px solid $about-divider;
+  }
+
+  .about-doc {
+    @apply flex h-14 items-center gap-space-sm rounded-radius-sm text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg;
+  }
+}

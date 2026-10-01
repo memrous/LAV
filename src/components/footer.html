@@ -38,7 +38,7 @@
         <!-- TODO(verify): link targets -->
         <ul class="mt-space-sm grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-space-lg gap-y-space-xs text-body">
           @@for (var i = 0; i < 7; i++) {
-          <li><a href="#" class="link-underline rounded-radius-sm text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a></li>
+          <li><a href="`+(i === 1 ? "athletes.html" : i === 2 ? "about.html" : i === 4 ? "events.html" : i === 5 ? "partners.html" : i === 6 ? "contact.html" : "#")+`" class="link-underline rounded-radius-sm text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a></li>
           }
         </ul>
       </nav>

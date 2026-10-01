@@ -1,0 +1,150 @@
+// Partneři page (src/partners.html, design/partneri/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place. Reuses .articles-h2 / .athletes-label, .pill-press / .arrow-mask (main.scss) and the page head.
+
+$partners-muted: #5b6479; // ↗ marker (same grey as the other labels)
+
+@layer components {
+  // ---------------------------------------------------------------------------------------------------------------
+  // Compact page head (page-head.html with "size": "compact", design/partneri/Page head.png): 308 px tall at 1440,
+  // H1 60 px instead of 80, the rower illustration 20 px higher. Selectors are more specific than the head's utility
+  // classes (min-[1025px]:h-[20.5rem], inset-0), which would otherwise win over this layer.
+  section.page-head--compact {
+    @media (min-width: 1025px) {
+      height: 19.25rem;
+
+      > div:first-child {
+        top: -1.25rem;
+      }
+
+      // The design puts the smaller H1 8 px lower and the perex 8 px closer to it (perex stays where it is).
+      .articles-head__title {
+        margin-top: 1rem;
+      }
+
+      h1 + p {
+        margin-top: 1.5rem;
+      }
+    }
+
+    .articles-head__title {
+      font-size: clamp(2.5rem, 1.75rem + 2.75vw, 3.75rem);
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Partner card: white, r 12, logo centered in a fixed box (object-fit: contain), ↗ marker 16 px top-right.
+  // Card / logo box per tier (data-size): general 626×198 / 316×152, main 410×158 / 234×112, standard 302×126 / 166×80.
+  .partner-card {
+    @apply relative flex h-[7.875rem] items-center justify-center rounded-radius-md bg-white px-space-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page;
+    transition:
+      transform 200ms ease-out,
+      box-shadow 200ms ease-out;
+
+    // ≤ 768 (2 columns, ~165 px cards on phones): less side padding, so wide logos don't shrink to nothing.
+    @media (max-width: 768px) {
+      @apply px-3;
+    }
+  }
+
+  .partner-card__logo {
+    @apply h-20 w-[10.375rem] max-w-full object-contain;
+  }
+
+  .partner-card[data-size='main'] {
+    @apply h-[9.875rem];
+
+    .partner-card__logo {
+      @apply h-28 w-[14.625rem];
+    }
+  }
+
+  .partner-card[data-size='general'] {
+    @apply h-[12.375rem];
+
+    .partner-card__logo {
+      @apply h-[9.5rem] w-[19.75rem];
+    }
+
+    // ≤ 768 the top tier stays the largest card, just a bit lower.
+    @media (max-width: 768px) {
+      @apply h-40;
+
+      .partner-card__logo {
+        @apply h-32;
+      }
+    }
+  }
+
+  .partner-card__arrow {
+    @apply absolute right-3.5 top-3.5;
+    color: $partners-muted;
+    transition:
+      transform 200ms ease-out,
+      color 200ms ease-out;
+  }
+
+  // Logo grids for "Partneři" / "Sportovní partneři": 4 / 3 / 2 columns (> 1024 / 769–1024 / ≤ 768).
+  // 26 px gaps at > 1024 (300 px cards at 1440, as in the design).
+  .partners-grid {
+    @apply grid grid-cols-2 gap-space-sm min-[769px]:grid-cols-3 min-[769px]:gap-space-md min-[1025px]:grid-cols-4 min-[1025px]:gap-[1.625rem];
+  }
+
+  // Hover (no hover in the design, logos are full color – no grayscale): lift + soft shadow, the ↗ turns primary and
+  // nudges out. Keyboard focus gets the same plus the focus ring. Only on devices that really hover.
+  @mixin partner-card-active {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px -12px rgb(18 19 42 / 0.18);
+
+    .partner-card__arrow {
+      @apply text-text-primary;
+      transform: translate(2px, -2px);
+    }
+  }
+
+  @media (hover: hover) {
+    .partner-card:hover {
+      @include partner-card-active;
+    }
+  }
+
+  // Ring + lift shadow in one declaration: the mixin's box-shadow would otherwise replace Tailwind's ring (also a
+  // box-shadow). 2 px page-color gap, 2 px navy ring, like focus-visible:ring-2 ring-offset-2 elsewhere.
+  .partner-card:focus-visible {
+    @include partner-card-active;
+    box-shadow:
+      0 0 0 2px theme('colors.surface.page'),
+      0 0 0 4px theme('colors.button.primary-bg'),
+      0 16px 32px -12px rgb(18 19 42 / 0.18);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partner-card,
+    .partner-card__arrow {
+      transition-duration: 150ms;
+    }
+
+    .partner-card:hover,
+    .partner-card:focus-visible,
+    .partner-card:hover .partner-card__arrow,
+    .partner-card:focus-visible .partner-card__arrow {
+      transform: none;
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // "Staňte se partnerem akademie": hairline box r 20, 48 px padding, text left / button right; stacks ≤ 768.
+  .partners-become {
+    @apply flex items-center justify-between gap-space-lg rounded-[1.25rem] border border-white/80 p-12;
+
+    @media (max-width: 768px) {
+      @apply flex-col items-start p-space-md;
+    }
+  }
+
+  // Navy pill: 56 px, white text + sliding arrow, soft navy shadow (design).
+  .partners-become__btn {
+    @apply inline-flex h-14 shrink-0 items-center gap-space-xs rounded-radius-full bg-button-primary-bg px-space-lg text-button text-button-primary-text hover:brightness-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page;
+    box-shadow: 0 12px 24px -8px rgb(34 30 83 / 0.35);
+  }
+}

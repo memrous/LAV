@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adéla Nováková | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  <!-- No .page-scene here: like the listing, the detail sits on the flat page color (body bg-surface-page, #D2E1EA). -->
+  @@include('./components/header.html', {"active": "Akademici"})
+
+  <main>
+    <article>
+      @@include('./components/athlete-detail/head.html')
+      @@include('./components/athlete-detail/profile.html')
+      @@include('./components/athlete-detail/results.html')
+      @@include('./components/athlete-detail/gallery.html')
+    </article>
+    @@include('./components/athlete-detail/others.html')
+  </main>
+
+  @@include('./components/cta-nabor.html')
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>

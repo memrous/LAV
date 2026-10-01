@@ -1,0 +1,146 @@
+// Athlete detail page (src/athlete-detail.html, design/akademici_detail/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place (utilities still win). Reuses from the article detail: .article-card (glass card), .article-label,
+// .article-meta, .article-body; from the listings: .articles-head__*, .articles-h2, .athlete-card.
+
+// Sampled from design/akademici_detail/lav.png (same values as the article detail; its variables are module-private).
+$athlete-muted: #5b6479; // results year
+$athlete-divider: #dce0e8; // rows in the facts and results cards
+$athlete-medal-silver: #c4cad5;
+$athlete-medal-bronze: #e22447; // the design's 3rd-place dot is red, not bronze – TODO(verify)
+
+@layer components {
+  // Portrait: 628×720 r 16 at 1440. ≤ 1024 it sits above the cards as a landscape crop (the photo is landscape anyway).
+  .athlete-portrait {
+    @apply aspect-[628/720] w-full rounded-2xl object-cover object-[20%_50%];
+
+    @media (max-width: 1024px) {
+      @apply aspect-[16/10] object-[30%_50%];
+    }
+  }
+
+  // "Osobní údaje": dt left (14 px secondary), dd right (16 px primary), 56 px rows, 1 px dividers between them.
+  .athlete-facts__row {
+    @apply flex h-14 items-center justify-between gap-space-sm;
+
+    // 56 px row + 1 px divider = 57 px pitch, as in the design.
+    & + & {
+      height: 3.5625rem;
+      border-top: 1px solid $athlete-divider;
+    }
+
+    dt {
+      @apply text-body text-text-secondary;
+    }
+
+    dd {
+      @apply text-right text-button text-text-primary;
+    }
+  }
+
+  // Bio = CMS rich text in .article-body, but the design sets it as plain 16 / 24 secondary text, not the 20 px lead.
+  .athlete-bio.article-body > p:first-child {
+    @apply text-button text-text-secondary;
+  }
+
+  // Results card = horizontal scroll container (focusable, see results.html). Keeps the card's radius while scrolling.
+  // relative: makes it the containing block of the visually hidden (absolute) caption/th texts – otherwise they
+  // escape the overflow box and widen the page on phones.
+  .athlete-results {
+    @apply relative overflow-x-auto px-space-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page;
+    overscroll-behavior-x: contain;
+  }
+
+  .athlete-results__table {
+    @apply w-full min-w-[40rem] border-collapse text-left;
+
+    // Header row exists for assistive tech only (the design has none): no height, no padding.
+    th {
+      @apply p-0;
+    }
+
+    td {
+      @apply h-[4.5rem] whitespace-nowrap align-middle;
+    }
+
+    // 72 px row + 1 px divider = 73 px pitch, as in the design.
+    tbody tr + tr td {
+      height: 4.5625rem;
+      border-top: 1px solid $athlete-divider;
+    }
+  }
+
+  // Year column: 88 px (the dot sits at x + 88), Play Bold 11 px muted.
+  .athlete-results__year {
+    @apply w-[5.5rem] min-w-[5.5rem] font-label text-label font-bold tracking-[0.04em];
+    color: $athlete-muted;
+  }
+
+  // Event: 10 px medal dot, 24 px gap, 16 px primary text. Takes the free width.
+  .athlete-results__event {
+    @apply w-full text-button text-text-primary;
+  }
+
+  .athlete-results__medal {
+    @apply mr-space-md inline-block h-2.5 w-2.5 rounded-radius-full align-middle;
+    margin-top: -0.125rem; // optical centering on the text's x-height
+
+    &--gold {
+      @apply bg-button-accent-bg;
+    }
+
+    &--silver {
+      background: $athlete-medal-silver;
+    }
+
+    &--bronze {
+      background: $athlete-medal-bronze;
+    }
+  }
+
+  .athlete-results__discipline {
+    @apply pl-space-md pr-space-md text-right text-body text-text-secondary;
+  }
+
+  .athlete-results__place {
+    @apply pr-0.5 text-right font-label text-label font-bold uppercase tracking-[0.04em] text-text-primary;
+  }
+
+  // Gallery thumbnails: 302×202 r 12. The link is the hover/focus target; lightbox comes with the JS step.
+  .athlete-gallery__link {
+    @apply block overflow-hidden rounded-radius-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4 focus-visible:ring-offset-surface-page;
+  }
+
+  .athlete-gallery__img {
+    @apply aspect-[302/202] w-full object-cover;
+    transition: transform 400ms ease-out;
+  }
+
+  // Hover (not in the design): the same slow zoom as the athlete card photo. Only on devices that really hover.
+  @media (hover: hover) {
+    .athlete-gallery__link:hover .athlete-gallery__img {
+      transform: scale(1.04);
+    }
+  }
+
+  .athlete-gallery__link:focus-visible .athlete-gallery__img {
+    transform: scale(1.04);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .athlete-gallery__img,
+    .athlete-gallery__link:hover .athlete-gallery__img,
+    .athlete-gallery__link:focus-visible .athlete-gallery__img {
+      transform: none;
+    }
+  }
+
+  // "Další akademici": the listing's athlete card, but shorter (302×364) and without the boat label, as in the design.
+  .athlete-others .athlete-card {
+    aspect-ratio: 302 / 364;
+  }
+
+  .athlete-others .athlete-card__boat {
+    display: none;
+  }
+}

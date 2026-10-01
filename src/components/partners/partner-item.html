@@ -1,0 +1,17 @@
+@@if (false) {
+Partner logo card (design/partneri/lav.png): white card r 12, logo centered, ↗ marker top-right; the whole card is the
+link to the partner's website (new window, same convention as the footer social links). One partial for every tier.
+Params (all required):
+  name    – partner name (img alt + link label)
+  logo    – file stem in src/img, e.g. "cez" for img/logo-cez.png (all logo PNGs share one 400×192 canvas, logo
+            fitted into its inner 320×128, so one box per tier keeps them optically balanced like the design)
+  size    – "general" (626×198 card, logo box 316×152) | "main" (410×158, 234×112) | "standard" (302×126, 166×80)
+  loading – "eager" (above the fold at 1440×900: general + main tier) | "lazy"
+}
+<li>
+  <!-- TODO(verify): partner website URL -->
+  <a href="#" target="_blank" rel="noopener" aria-label="@@name (otevře se v novém okně)" class="partner-card" data-size="@@size">
+    <img src="img/logo-@@logo.png" alt="@@name" width="400" height="192" loading="@@loading" decoding="async" class="partner-card__logo">
+    @@include('../icon.html', {"name": "arrow-up-right", "class": "partner-card__arrow h-4 w-4"})
+  </a>
+</li>

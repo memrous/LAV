@@ -1,0 +1,23 @@
+@@if (false) {
+Coach card for "Tým trenérů" (design/akademici/lav.png: 410×386, r 16, white hairline, 32 px padding). One partial for
+every coach. Not a link itself; only the e-mail is.
+Params (all required):
+  initials – shown in the avatar (decorative, the name follows)
+  name     – full name
+  role     – as displayed (uppercased by CSS), e.g. "Hlavní trenér"
+  bio      – short text
+  email    – address (also the mailto: target)
+}
+<article class="athletes-coach">
+  <span class="athletes-coach__avatar" aria-hidden="true">@@initials</span>
+  <h3 class="articles-title mt-4">@@name</h3>
+  <p class="athletes-label mt-4">@@role</p>
+  <p class="mb-space-sm mt-4 text-body text-text-secondary">@@bio</p>
+  <!-- mt-auto: dividers line up across the row whatever the bio length. -->
+  <div class="mt-auto border-t border-[#e3e7ef] pt-space-sm">
+    <a href="mailto:@@email" class="inline-flex items-center gap-space-xs rounded-radius-sm text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+      @@include('../icon.html', {"name": "mail", "class": "h-5 w-5 text-text-secondary"})
+      <span class="link-underline">@@email</span>
+    </a>
+  </div>
+</article>

@@ -1,0 +1,280 @@
+// Akce page (src/events.html, design/akce/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place (utilities still win). Reuses .articles-pills / .articles-pill / .articles-h2 / .articles-title /
+// .stretched-link from _articles.scss and the page head via components/page-head.html.
+
+// Sampled from design/akce/lav.png; no matching tokens in tailwind.config.js.
+$events-muted: #5b6479; // weekday row, other-month days, labels, month in the date badge
+$events-divider: #dfe3ea; // divider between date and info in the list rows
+$events-chip-bg: #e4f1fa; // calendar event chip
+$events-chip-bg-hover: #d2e7f6;
+
+// Category dot colors (no legend in the design; matched via the list rows) – TODO(verify).
+$events-categories: (
+  'zavody': #449ad3,
+  'soustredeni': #08964b,
+  'akademie': #221e53,
+  'nabor': #f6b230,
+);
+
+@layer components {
+  // Small caps labels: season period. Play Bold 11 px.
+  .events-label {
+    @apply font-label text-label font-bold uppercase tracking-[0.04em];
+    color: $events-muted;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Toolbar: month switcher | view toggle | category pills, spread over the row (the toggle lands where the design has
+  // it, x 498–678). ≤ 1024 the groups wrap, ≤ 768 they stack (the category pills scroll sideways, .articles-pills).
+  .events-toolbar {
+    @apply flex items-center justify-between gap-space-sm;
+
+    @media (max-width: 1024px) {
+      @apply flex-wrap;
+    }
+
+    // nowrap again: in a wrapping column flexbox each line is as wide as its content, so the pill row would widen the
+    // page instead of scrolling inside itself.
+    @media (max-width: 768px) {
+      @apply flex-col flex-nowrap items-stretch;
+    }
+  }
+
+  // Month switcher: 180×42 white pill, chevron buttons at the ends, "Září 2026" 16 px.
+  .events-month {
+    @apply inline-flex h-[2.625rem] w-[11.25rem] shrink-0 items-center justify-between rounded-radius-full bg-white px-1.5 text-button text-text-primary;
+  }
+
+  .events-month__btn {
+    @apply flex h-8 w-8 cursor-pointer items-center justify-center rounded-radius-full transition-colors hover:bg-surface-page focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Month calendar: 7 columns, 2 px column / 8 px row gaps, 104 px rows.
+  .events-weekdays {
+    @apply mb-[0.9375rem] grid grid-cols-7 gap-x-0.5 text-center font-label text-label font-bold uppercase tracking-[0.08em];
+    color: $events-muted;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .events-calendar {
+    @apply grid grid-cols-7 gap-x-0.5 gap-y-space-xs;
+    filter: drop-shadow(0 16px 24px rgb(18 19 42 / 0.06));
+  }
+
+  // Day cell: white, r 8, number top-left (14 px), chips below.
+  .events-day {
+    @apply flex min-h-[6.5rem] min-w-0 flex-col gap-1 rounded-radius-sm bg-white px-2 pb-2 pt-2;
+  }
+
+  .events-day__date {
+    @apply px-0.5 text-body leading-5 text-text-primary;
+  }
+
+  .events-day--muted .events-day__date {
+    color: $events-muted;
+  }
+
+  // Today: number in a 28 px navy circle.
+  .events-day--today .events-day__num {
+    @apply -ml-0.5 inline-flex h-7 w-7 items-center justify-center rounded-radius-full bg-button-primary-bg text-white;
+  }
+
+  // Full date text ("úterý … září") for screen readers on the grid; shown in the ≤ 768 agenda.
+  .events-day__extra {
+    @apply sr-only;
+  }
+
+  // minmax(0, 1fr) + min-w-0: grid items would otherwise grow to the chip text and break the ellipsis.
+  .events-day__list {
+    @apply grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1;
+
+    > li {
+      @apply min-w-0;
+    }
+  }
+
+  // Event chip: 22 px, light blue, 6 px category dot, 13 px text, one line with an ellipsis for long names
+  // (block + inline dot, so text-overflow works on the bare text node).
+  .events-chip {
+    @apply block h-[1.375rem] min-w-0 truncate rounded px-1.5 text-[0.8125rem] leading-[1.375rem] text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-button-primary-bg;
+    background: $events-chip-bg;
+
+    &::before {
+      content: '';
+      @apply mr-1 inline-block h-1.5 w-1.5 rounded-radius-full align-[0.1em];
+      background: var(--category-color);
+    }
+
+    &:hover {
+      background: $events-chip-bg-hover;
+    }
+  }
+
+  @each $name, $color in $events-categories {
+    .events-chip[data-category='#{$name}'] {
+      --category-color: #{$color};
+    }
+  }
+
+  // ≤ 768: agenda instead of the grid – only days with events, full date visible, one row per day.
+  @media (max-width: 768px) {
+    .events-calendar {
+      @apply grid-cols-1 gap-y-space-xs;
+    }
+
+    .events-day {
+      @apply min-h-0 flex-row items-start gap-space-sm px-space-sm py-3;
+    }
+
+    .events-day--empty {
+      display: none;
+    }
+
+    .events-day__date {
+      @apply w-[8.5rem] shrink-0 pt-px;
+    }
+
+    .events-day__extra {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+    }
+
+    .events-day__date > .events-day__extra:first-child {
+      @apply capitalize;
+    }
+
+    .events-day--today .events-day__num {
+      @apply ml-0 h-auto w-auto rounded-none bg-transparent text-text-primary;
+    }
+
+    .events-day__list {
+      @apply min-w-0 flex-1;
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // "Nejbližší akce" row: 98 px, r 16, white hairline, no fill. date 74 px | 16 + divider + 16 | info | category, arrow.
+  // Only the <li> is positioned: the stretched title link must cover the whole row (the divider hangs off the date).
+  .events-row {
+    @apply relative flex min-h-[6.125rem] items-center rounded-2xl border border-white/80 py-space-sm pl-space-lg pr-space-lg transition-colors;
+  }
+
+  .events-row__date {
+    @apply relative mr-space-lg flex w-[4.625rem] shrink-0 flex-col items-center text-center;
+
+    // 1 px divider, 38 px tall, centered in the 32 px between date and info.
+    &::after {
+      content: '';
+      @apply absolute -right-4 top-1/2 h-[2.375rem] w-px -translate-y-1/2;
+      background: $events-divider;
+    }
+  }
+
+  .events-row__day {
+    @apply text-[1.625rem] leading-none tracking-[-0.02em] text-text-primary;
+  }
+
+  .events-row__month {
+    @apply mt-1 font-label text-label font-bold uppercase tracking-[0.04em];
+    color: $events-muted;
+  }
+
+  .events-row__info {
+    @apply min-w-0 flex-1;
+  }
+
+  .events-row__title {
+    @apply text-lg leading-snug text-text-primary;
+  }
+
+  .events-row__meta {
+    @apply mt-0.5 flex flex-wrap items-center gap-x-space-sm gap-y-1 text-body text-text-secondary;
+  }
+
+  // Category: Play Bold 11 px caps in a faint outline pill.
+  .events-row__category {
+    @apply ml-space-sm inline-flex h-6 shrink-0 items-center rounded-radius-full border border-white/40 bg-white/10 px-2 font-label text-label font-bold uppercase tracking-[0.04em] text-text-secondary;
+  }
+
+  .events-row__arrow {
+    @apply ml-space-sm text-text-primary;
+    transition: transform 250ms ease-out;
+  }
+
+  .events-row .stretched-link::after {
+    border-radius: 1rem;
+  }
+
+  // Hover (not in the design): faint fill + arrow nudge, like the other card links. Keyboard focus: the stretched
+  // link's ring around the whole row (_articles.scss).
+  @media (hover: hover) {
+    .events-row:hover {
+      background: rgb(255 255 255 / 0.3);
+    }
+
+    .events-row:hover .events-row__arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .events-row:hover .events-row__arrow {
+      transform: none;
+    }
+  }
+
+  // ≤ 768: stacked – date badge on top (one line: "21 ZÁŘÍ"), info, then category with the arrow on the right.
+  @media (max-width: 768px) {
+    .events-row {
+      @apply flex-wrap items-center gap-y-space-xs px-space-md py-space-md;
+    }
+
+    .events-row__date {
+      @apply mr-0 w-full flex-row items-baseline gap-space-xs text-left;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    .events-row__info {
+      @apply basis-full;
+    }
+
+    .events-row__category {
+      @apply ml-0 mt-space-2xs;
+    }
+
+    .events-row__arrow {
+      @apply ml-auto mt-space-2xs;
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Season card: same look as the coach cards on athletes.html (410×237, r 16, hairline, 32 px padding).
+  .events-season {
+    @apply flex flex-col rounded-2xl border border-white/80 p-space-lg;
+
+    @media (max-width: 768px) {
+      @apply p-space-md;
+    }
+  }
+
+  .events-season__list {
+    @apply text-body text-text-secondary;
+
+    > li::before {
+      content: '· ';
+    }
+  }
+}

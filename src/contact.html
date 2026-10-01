@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontakty | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  <!-- No .page-scene here: like the other subpages, Kontakty sits on the flat page color (body bg-surface-page, #D2E1EA). -->
+  @@include('./components/header.html', {"active": "Kontakty"})
+
+  <main>
+    @@include('./components/page-head.html', {"id": "contact-title", "title": "Kontakty", "perex": "Ozvěte se nám, rádi vás provedeme akademií.", "breadcrumb": "[['Domů', 'index.html']]", "current": "Kontakty"})
+    @@include('./components/contact/people.html')
+    @@include('./components/contact/location.html')
+    @@include('./components/contact/follow.html')
+  </main>
+
+  @@include('./components/cta-nabor.html')
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>

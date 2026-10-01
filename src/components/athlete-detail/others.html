@@ -1,0 +1,19 @@
+<!-- "Další akademici" (design/akademici_detail/lav.png): 4 cards from athletes/athlete-card.html, same grid as the listing
+     (4 / 3 / 2 columns). "Celá soupiska" = the back link to the listing.
+     In the design these cards are shorter (302×364) and have no boat label: done with a contextual override
+     (.athlete-others in _athlete-detail.scss), the partial itself is used as-is.
+     Data (photos, ages) kept consistent with athletes.html: the design shifts three photos by one card and gives
+     Jakub Malý 18 instead of 19 let – TODO(verify). Bottom padding: 82 + the CTA's 80 px = 162 px, as in this design (Akademici: 155). -->
+<section class="athlete-others mx-auto mt-space-2xl max-w-container px-space-sm pb-space-xl md:px-space-xl min-[1025px]:mt-[6.375rem] min-[1025px]:pb-[5.125rem] xl:px-space-2xl" aria-labelledby="athlete-others-title">
+  <div class="flex items-center justify-between gap-space-sm">
+    <h2 id="athlete-others-title" class="articles-h2">Další akademici</h2>
+    @@include('./section-link.html', {"href": "athletes.html", "label": "Celá soupiska"})
+  </div>
+
+  <div class="mt-space-lg grid grid-cols-2 gap-space-sm min-[769px]:grid-cols-3 min-[769px]:gap-space-md min-[1025px]:grid-cols-4">
+    @@include('../athletes/athlete-card.html', {"href": "#", "img": "img/gallery-3.jpg", "focus": "object-[40%_50%]", "loading": "lazy", "boat": "Dvojskif", "name": "Tomáš Hora", "club": "ČVK Praha", "age": "18"})
+    @@include('../athletes/athlete-card.html', {"href": "#", "img": "img/feed-2.jpg", "focus": "object-center", "loading": "lazy", "boat": "Osma", "name": "Kristýna Bartošová", "club": "VK Ostrava", "age": "16"})
+    @@include('../athletes/athlete-card.html', {"href": "#", "img": "img/feed-3.jpg", "focus": "object-[60%_50%]", "loading": "lazy", "boat": "Párová čtyřka", "name": "Jakub Malý", "club": "TJ Bohemians Praha", "age": "19"})
+    @@include('../athletes/athlete-card.html', {"href": "#", "img": "img/gallery-1.jpg", "focus": "object-[60%_50%]", "loading": "lazy", "boat": "Skif", "name": "Eliška Dvořáková", "club": "SK Hamr", "age": "15"})
+  </div>
+</section>

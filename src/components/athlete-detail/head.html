@@ -1,0 +1,33 @@
+<!-- Athlete head (design/akademici_detail/Page head.png, 1440×324 incl. the 72 px header, which overlaps it: header has -mb-[4.5rem]).
+     Not components/page-head.html: a meta row instead of the perex, 4 px shorter, and its items would have to be passed as
+     strings again. Same pieces otherwise: breadcrumb.html, the rower illustration src/img/scene/page-head.jpg (the export's
+     art is the same image 4 px higher, hence -top-1 at 1440) and the .articles-head__* styles; meta row = .article-meta
+     from the article detail (category with the accent dot, then the details). -->
+<section class="relative isolate overflow-hidden pb-space-xl pt-[6.5rem] md:pt-[7.375rem] min-[1025px]:h-[20.25rem] min-[1025px]:pb-0" aria-labelledby="athlete-title">
+  <div class="pointer-events-none absolute inset-0 -z-10 mx-auto max-w-container min-[1025px]:-top-1">
+    <img
+      src="img/scene/page-head.jpg"
+      alt=""
+      width="820"
+      height="328"
+      class="articles-head__art"
+    >
+  </div>
+
+  <div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+    @@include('../breadcrumb.html', {"items": [["Domů", "index.html"], ["Akademici", "athletes.html"]], "current": "Adéla Nováková"})
+
+    <h1 id="athlete-title" class="articles-head__title mt-space-xs font-display font-bold text-text-primary">Adéla Nováková</h1>
+
+    <p class="article-meta mt-space-md min-[1025px]:mt-[1.9375rem]">
+      <span class="article-meta__category">Juniorka</span>
+      <span class="article-meta__details">
+        <span>VK Slavia Praha</span>
+        <span aria-hidden="true">·</span>
+        <span>17 let</span>
+        <span aria-hidden="true">·</span>
+        <span>Skif</span>
+      </span>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+<!-- Body + left column (design/o_akademii/lav.png): the article detail's 12-column grid (left column 3 cols = 300 px,
+     body 9 cols = 954 px at 1440, 24 px gutters). Unlike the article detail, the aside comes FIRST in the DOM: it is the
+     page's table of contents, so keyboard and screen-reader users should reach it before the text.
+     Sticky below the header at > 1024 (72 px header + 24 px); ≤ 1024: one column, contents above the body. -->
+<div class="mx-auto mt-2 grid max-w-container gap-y-space-xl px-space-sm md:px-space-xl min-[1025px]:grid-cols-12 min-[1025px]:gap-x-space-md xl:px-space-2xl">
+  <div class="min-[1025px]:sticky min-[1025px]:top-24 min-[1025px]:col-span-3 min-[1025px]:self-start">
+    @@include('./aside.html')
+  </div>
+
+  <div class="min-w-0 min-[1025px]:col-span-9">
+    @@include('./body.html')
+    @@include('./documents.html')
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<!-- "Kdo vám poradí" (design/kontakty/lav.png): 6 cards from contact-person.html, 3 / 2 / 1 columns (> 1024 / 769–1024 /
+     ≤ 768), 24 px gaps. Names, roles and e-mails as on athletes.html for the three coaches.
+     TODO(verify): personal phone numbers are from the design (Ivana Marková's is also the number the design shows for the
+     academy itself). -->
+<section class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl" aria-labelledby="contact-people-title">
+  <h2 id="contact-people-title" class="articles-h2">Kdo vám poradí</h2>
+
+  <div class="mt-space-md grid gap-space-md min-[769px]:grid-cols-2 min-[1025px]:grid-cols-3">
+    @@include('./contact-person.html', {"initials": "PD", "name": "Petr Dvořák", "role": "Hlavní trenér", "phone": "+420 777 123 456", "phoneHref": "+420777123456", "email": "petr.dvorak@lav-usti.cz"})
+    @@include('./contact-person.html', {"initials": "LH", "name": "Lenka Horáková", "role": "Trenérka juniorek", "phone": "+420 605 234 567", "phoneHref": "+420605234567", "email": "lenka.horakova@lav-usti.cz"})
+    @@include('./contact-person.html', {"initials": "MS", "name": "Martin Sýkora", "role": "Kondiční trenér", "phone": "+420 731 345 678", "phoneHref": "+420731345678", "email": "martin.sykora@lav-usti.cz"})
+    @@include('./contact-person.html', {"initials": "JV", "name": "Jana Veselá", "role": "Ředitelka akademie", "phone": "+420 602 456 789", "phoneHref": "+420602456789", "email": "jana.vesela@lav-usti.cz"})
+    @@include('./contact-person.html', {"initials": "MK", "name": "Michal Kučera", "role": "Sportovní ředitel", "phone": "+420 725 567 890", "phoneHref": "+420725567890", "email": "michal.kucera@lav-usti.cz"})
+    @@include('./contact-person.html', {"initials": "IM", "name": "Ivana Marková", "role": "Sekretariát a KIS", "phone": "+420 475 123 456", "phoneHref": "+420475123456", "email": "ivana.markova@lav-usti.cz"})
+  </div>
+</section>

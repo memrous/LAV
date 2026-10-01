@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Partneři | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  <!-- No .page-scene here: like the other subpages, Partneři sits on the flat page color (body bg-surface-page, #D2E1EA). -->
+  @@include('./components/header.html', {"active": "Partneři"})
+
+  <main>
+    @@include('./components/page-head.html', {"id": "partners-title", "title": "Děkujeme partnerům", "perex": "Bez podpory partnerů by akademie nemohla fungovat.", "breadcrumb": "[['Domů', 'index.html']]", "current": "Partneři", "size": "compact"})
+    @@include('./components/partners/tiers.html')
+    @@include('./components/partners/become-partner.html')
+  </main>
+
+  @@include('./components/cta-nabor.html')
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>

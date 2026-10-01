@@ -13,7 +13,7 @@
   @@include('./components/header.html', {"active": "Aktuality"})
 
   <main>
-    @@include('./components/articles/head.html')
+    @@include('./components/page-head.html', {"id": "articles-title", "title": "Články", "perex": "Závody, soustředění a život na Labi.", "breadcrumb": "[['Domů', 'index.html']]", "current": "Články"})
     @@include('./components/articles/toolbar.html')
     @@include('./components/articles/featured.html')
     @@include('./components/articles/grid.html')

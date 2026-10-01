@@ -1,0 +1,35 @@
+<!-- "Úspěchy" (design/akademici_detail/lav.png): glass card (.article-card), 5 rows of 72 px + 1 px dividers, 24 px side padding:
+     year (Play 11 px) | medal dot + event | discipline (right) | place (Play 11 px caps, right).
+     A real table; the design has no header row, so the column headers are visually hidden (screen readers keep them).
+     The card is the scroll container: on narrow screens the table keeps its min width and scrolls sideways inside it,
+     focusable (tabindex + region label) so keyboard users can scroll it with the arrow keys; the page never scrolls sideways.
+     Medal dots are decorative (aria-hidden), the place text carries the meaning. Full modifier class names in the data,
+     so Tailwind's content scan keeps them.
+     TODO(verify): the design colors the 3rd-place dot red (#e22447), not bronze – kept as designed (as on the article detail). -->
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-24 xl:px-space-2xl" aria-labelledby="athlete-results-title">
+  <h2 id="athlete-results-title" class="articles-h2">Úspěchy</h2>
+
+  <div class="article-card athlete-results mt-[1.625rem]" role="region" tabindex="0" aria-label="Úspěchy – tabulka, lze posouvat do stran">
+    <table class="athlete-results__table">
+      <caption class="sr-only">Úspěchy – Adéla Nováková</caption>
+      <thead>
+        <tr>
+          <th scope="col"><span class="sr-only">Rok</span></th>
+          <th scope="col"><span class="sr-only">Závod</span></th>
+          <th scope="col"><span class="sr-only">Disciplína</span></th>
+          <th scope="col"><span class="sr-only">Umístění</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        @@for (var i = 0, rows = [["2026", "Mistrovství ČR juniorů, Račice", "JW1x", "1. místo", "athlete-results__medal--gold"], ["2026", "Primátorky, Praha", "JW2x", "2. místo", "athlete-results__medal--silver"], ["2025", "Mezinárodní regata, Brno", "JW1x", "3. místo", "athlete-results__medal--bronze"], ["2025", "Mistrovství ČR dorostu, Račice", "1x dorky", "1. místo", "athlete-results__medal--gold"], ["2024", "Kontrolní závody ČVS, Račice", "JW1x", "2. místo", "athlete-results__medal--silver"]]; i < rows.length; i++) {
+        <tr>
+          <td class="athlete-results__year">`+rows[i][0]+`</td>
+          <td class="athlete-results__event"><span class="athlete-results__medal `+rows[i][4]+`" aria-hidden="true"></span>`+rows[i][1]+`</td>
+          <td class="athlete-results__discipline">`+rows[i][2]+`</td>
+          <td class="athlete-results__place">`+rows[i][3]+`</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

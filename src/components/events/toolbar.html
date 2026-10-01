@@ -1,0 +1,28 @@
+<!-- Toolbar (design/akce/lav.png, directly under the page head): month switcher | view toggle | category filter.
+     Markup only; month paging, the view switch and filtering come with the events JS (next step). Default = the design:
+     September 2026, "Kalendář" and "Vše" pressed. The view toggle is a pair of toggle buttons (aria-pressed), not tabs:
+     the design shows no separate panels for it (the list "Nejbližší akce" is on the page in both cases – TODO(verify)).
+     Pills reuse .articles-pills / .articles-pill (_articles.scss). ≤ 1024 the three groups wrap; ≤ 768 they stack and
+     the category pills become a horizontally scrollable row like on articles.html. -->
+<div class="events-toolbar mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+  <div class="events-month" role="group" aria-label="Měsíc">
+    <button type="button" class="events-month__btn" aria-label="Předchozí měsíc" aria-controls="events-calendar">
+      @@include('../icon.html', {"name": "chevron-right", "class": "h-5 w-5 rotate-180"})
+    </button>
+    <p class="events-month__label" aria-live="polite"><time datetime="2026-09">Září 2026</time></p>
+    <button type="button" class="events-month__btn" aria-label="Další měsíc" aria-controls="events-calendar">
+      @@include('../icon.html', {"name": "chevron-right", "class": "h-5 w-5"})
+    </button>
+  </div>
+
+  <div role="group" aria-label="Zobrazení" class="articles-pills events-toolbar__view">
+    <button type="button" class="articles-pill pill-press" aria-pressed="true" aria-controls="events-calendar">Kalendář</button>
+    <button type="button" class="articles-pill pill-press" aria-pressed="false" aria-controls="events-calendar">Seznam</button>
+  </div>
+
+  <div role="group" aria-label="Kategorie" class="articles-pills">
+    @@for (var i = 0, cats = ["Vše", "Závody", "Soustředění", "Akademie", "Nábor"]; i < cats.length; i++) {
+    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`" aria-controls="events-calendar events-upcoming-list">`+cats[i]+`</button>
+    }
+  </div>
+</div>

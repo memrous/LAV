@@ -1,0 +1,112 @@
+// Kontakty page (src/contact.html, design/kontakty/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place (utilities still win). Reuses .article-card (_article-detail.scss), .athletes-coach__avatar /
+// .athletes-label (_athletes.scss), .articles-h2 / .articles-title (_articles.scss) and .partners-become(__btn)
+// (_partners.scss).
+
+$contact-divider: #dce0e8; // same hairline as the article detail / athlete detail cards
+
+@layer components {
+  // Link row with an icon: phone / e-mail in the person cards and the location card. 20 px icon, 8 px gap, 14 px.
+  // Block-level flex (w-fit), not inline-flex: inside a block <li> an inline box adds a line box and ~6 px per row.
+  .contact-link {
+    @apply flex w-fit items-center gap-space-xs rounded-radius-sm text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Person card: glass card (.article-card) 410×326, 32 px padding; divider 16 px under the role, rows 16 px apart.
+  .contact-person {
+    @apply flex flex-col p-space-lg;
+
+    @media (max-width: 768px) {
+      @apply p-space-md;
+    }
+  }
+
+  // The design's avatar is flat here (the coach cards on athletes.html have a shadow).
+  .contact-person .athletes-coach__avatar {
+    box-shadow: none;
+  }
+
+  .contact-person__links {
+    @apply mt-4 grid gap-4 pt-4;
+    border-top: 1px solid $contact-divider;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Location card: hairline, no fill, r 20, 32 px padding, 24 px between all blocks (dividers 24 px above and below).
+  .contact-location {
+    @apply rounded-[1.25rem] border border-white/80 p-space-lg;
+
+    @media (max-width: 768px) {
+      @apply p-space-md;
+    }
+  }
+
+  .contact-location__title {
+    @apply mt-space-md text-[1.625rem] leading-[1.2] tracking-[-0.01em] text-text-primary;
+  }
+
+  .contact-location__list {
+    @apply mt-space-md grid gap-space-md pt-space-md;
+    border-top: 1px solid $contact-divider;
+  }
+
+  .contact-location__item {
+    @apply flex items-center gap-space-xs text-body text-text-primary;
+  }
+
+  .contact-location__divider {
+    @apply mt-space-md pt-space-md;
+    border-top: 1px solid $contact-divider;
+  }
+
+  // "Navigovat ↗": outline pill, same as "Stáhnout termínovou listinu (PDF)" on events.html.
+  .contact-location__nav {
+    @apply mt-space-md inline-flex h-11 items-center gap-space-xs rounded-radius-full border border-white/80 px-space-md text-body text-text-primary hover:bg-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page;
+  }
+
+  // Inline <dl>s: "Po–Pá 14:00–19:00 · So 9:00–12:00" and "… z. s. · IČ 12 34 56 78 · zapsán …".
+  // Plain inline text (wraps like a sentence); the " · " separators are CSS, as a <dl> can't hold loose text.
+  .contact-hours,
+  .contact-billing {
+    > div,
+    dt,
+    dd {
+      display: inline;
+    }
+
+    // Each pair stays on one line ("IČ 12 34 56 78" must not break); lines wrap between pairs.
+    > div {
+      white-space: nowrap;
+    }
+
+    // The space before the dot is the whitespace between the <div>s in the markup.
+    > div + div::before {
+      content: '· ';
+      white-space: pre;
+    }
+  }
+
+  .contact-billing {
+    @apply mt-space-md text-body text-text-secondary;
+  }
+
+  // Map illustration: 628×520 r 20, caption bottom-left on the image (13 px secondary).
+  .contact-map {
+    @apply relative overflow-hidden rounded-[1.25rem];
+  }
+
+  .contact-map__img {
+    @apply block aspect-[628/520] w-full object-cover;
+  }
+
+  .contact-map__caption {
+    @apply absolute bottom-6 left-6 text-[0.8125rem] leading-4 text-text-secondary;
+  }
+
+  // Social icon buttons in "Sledujte nás": 36 px like the header's, but borderless with a softer fill (design).
+  .contact-social {
+    @apply flex h-9 w-9 items-center justify-center rounded-radius-sm bg-white/30 text-text-primary transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page;
+  }
+}

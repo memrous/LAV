@@ -1,0 +1,37 @@
+<!-- Profile (design/akademici_detail/Content.png): portrait 628×720 r 16 | "Osobní údaje" + "Bio" glass cards (.article-card from
+     the article detail), two equal columns with a 24 px gap. ≤ 1024 the portrait goes on top (landscape crop), cards below.
+     Portrait = the same photo as Adéla's card on athletes.html (img/gallery-2.jpg); above the fold, so not lazy. -->
+<section class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl" aria-label="Profil">
+  <div class="grid gap-space-md min-[1025px]:grid-cols-2 min-[1025px]:items-start">
+    <img
+      src="img/gallery-2.jpg"
+      alt="Adéla Nováková"
+      width="628"
+      height="720"
+      class="athlete-portrait"
+    >
+
+    <div class="grid gap-space-md">
+      <!-- 32 px padding; the last row's own 56 px height leaves 16 px below it. -->
+      <div class="article-card px-space-lg pb-space-sm pt-space-lg max-[768px]:px-space-md">
+        <h2 class="article-label">Osobní údaje</h2>
+        <dl>
+          @@for (var i = 0, facts = [["Věk", "17 let"], ["Klub", "VK Slavia Praha"], ["Disciplína", "Skif, dvojskif"], ["V akademii od", "2024"], ["Trenér", "Petr Dvořák"], ["Výška", "178 cm"]]; i < facts.length; i++) {
+          <div class="athlete-facts__row">
+            <dt>`+facts[i][0]+`</dt>
+            <dd>`+facts[i][1]+`</dd>
+          </div>
+          }
+        </dl>
+      </div>
+
+      <div class="article-card p-space-lg max-[768px]:p-space-md">
+        <h2 class="article-label">Bio</h2>
+        <!-- CMS rich text: .article-body (see _article-detail.scss); _athlete-detail.scss drops the lead style for this card. -->
+        <div class="article-body athlete-bio mt-space-sm">
+          <p>S veslováním začala v jedenácti letech v Ústí nad Labem, do akademie nastoupila v roce 2024. Od sezóny 2026 je členkou juniorské reprezentace ČR. Jejím snem je start na juniorském mistrovství světa.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

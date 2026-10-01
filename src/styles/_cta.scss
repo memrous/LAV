@@ -1,7 +1,7 @@
 // "Uvidíme se na Labi." CTA (src/components/cta-nabor.html, design/clanky/Footer block.png).
 // @use-d at the top of main.scss like _articles.scss, so it lands in @layer components (utilities still win).
 //
-// Scene = img/scene/bridge-*.{webp,jpg}: bridge.png (2880×1440) cropped to source rows 196–1090 → 2880×894, shown at
+// Scene = img/scene/bridge-*.{webp,jpg}: design/bridge.png (2880×1440) cropped to source rows 196–1090 → 2880×894, shown at
 // 1:2 (1440×447 at the 1440 frame, where the design places the image 1:1 with its top edge at y 256). Scaled by width
 // like the homepage scene, capped at max-w-container; below 1031 px a min height keeps room for heading + button and
 // the image is cover-cropped from the left, since the pylon sits at x 0–3.5 % (a centered crop would cut it off).

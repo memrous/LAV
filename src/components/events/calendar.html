@@ -1,0 +1,52 @@
+<!-- Month calendar (design/akce/lav.png): weekday row + 5 weeks × 7 days, 181×104 cells, 2 px column / 8 px row gaps.
+     Days come from calendar-day.html (one call per day, so it can later be rendered from data); other-month days muted,
+     today (15. 9., as in the design) marked with aria-current="date". The weekday row is decorative for screen readers:
+     every day carries its full date ("úterý 15. září") in visually hidden text.
+     ≤ 768 a 7-column grid is unreadable, so it becomes an agenda: only days with events, full date visible.
+     Category colors (no legend in the design; matched via the list below): Závody #449AD3, Soustředění #08964B,
+     Akademie #221E53, Nábor #F6B230 ("Den otevřených dveří" – the only Nábor event, not in the list) – TODO(verify). -->
+<section class="mx-auto mt-14 max-w-container px-space-sm md:px-space-xl xl:px-space-2xl" aria-label="Kalendář akcí – září 2026">
+  <div class="events-weekdays" aria-hidden="true">
+    @@for (var i = 0, days = ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"]; i < days.length; i++) {
+    <span>`+days[i]+`</span>
+    }
+  </div>
+
+  <ol id="events-calendar" class="events-calendar">
+    @@include('./calendar-day.html', {"date": "2026-08-31", "day": "31", "weekday": "pondělí", "month": "srpna", "state": "events-day--muted", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-01", "day": "1", "weekday": "úterý", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-02", "day": "2", "weekday": "středa", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-03", "day": "3", "weekday": "čtvrtek", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-04", "day": "4", "weekday": "pátek", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-05", "day": "5", "weekday": "sobota", "month": "září", "state": "", "events": [["Primátorky", "zavody"]]})
+    @@include('./calendar-day.html', {"date": "2026-09-06", "day": "6", "weekday": "neděle", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-07", "day": "7", "weekday": "pondělí", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-08", "day": "8", "weekday": "úterý", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-09", "day": "9", "weekday": "středa", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-10", "day": "10", "weekday": "čtvrtek", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-11", "day": "11", "weekday": "pátek", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-12", "day": "12", "weekday": "sobota", "month": "září", "state": "", "events": [["MČR juniorů", "zavody"]]})
+    @@include('./calendar-day.html', {"date": "2026-09-13", "day": "13", "weekday": "neděle", "month": "září", "state": "", "events": [["MČR juniorů", "zavody"]]})
+    @@include('./calendar-day.html', {"date": "2026-09-14", "day": "14", "weekday": "pondělí", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-15", "day": "15", "weekday": "úterý", "month": "září", "state": "events-day--today", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-16", "day": "16", "weekday": "středa", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-17", "day": "17", "weekday": "čtvrtek", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-18", "day": "18", "weekday": "pátek", "month": "září", "state": "", "events": [["Den otevřených dveří", "nabor"]]})
+    @@include('./calendar-day.html', {"date": "2026-09-19", "day": "19", "weekday": "sobota", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-20", "day": "20", "weekday": "neděle", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-21", "day": "21", "weekday": "pondělí", "month": "září", "state": "", "events": [["Podzimní regata", "zavody"]]})
+    @@include('./calendar-day.html', {"date": "2026-09-22", "day": "22", "weekday": "úterý", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-23", "day": "23", "weekday": "středa", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-24", "day": "24", "weekday": "čtvrtek", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-25", "day": "25", "weekday": "pátek", "month": "září", "state": "", "events": [["Soustředění Račice", "soustredeni"]]})
+    @@include('./calendar-day.html', {"date": "2026-09-26", "day": "26", "weekday": "sobota", "month": "září", "state": "", "events": [["Soustředění Račice", "soustredeni"]]})
+    @@include('./calendar-day.html', {"date": "2026-09-27", "day": "27", "weekday": "neděle", "month": "září", "state": "", "events": [["Soustředění Račice", "soustredeni"]]})
+    @@include('./calendar-day.html', {"date": "2026-09-28", "day": "28", "weekday": "pondělí", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-29", "day": "29", "weekday": "úterý", "month": "září", "state": "", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-09-30", "day": "30", "weekday": "středa", "month": "září", "state": "", "events": [["Schůze rodičů", "akademie"]]})
+    @@include('./calendar-day.html', {"date": "2026-10-01", "day": "1", "weekday": "čtvrtek", "month": "října", "state": "events-day--muted", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-10-02", "day": "2", "weekday": "pátek", "month": "října", "state": "events-day--muted", "events": []})
+    @@include('./calendar-day.html', {"date": "2026-10-03", "day": "3", "weekday": "sobota", "month": "října", "state": "events-day--muted", "events": [["Labská regata", "zavody"]]})
+    @@include('./calendar-day.html', {"date": "2026-10-04", "day": "4", "weekday": "neděle", "month": "října", "state": "events-day--muted", "events": []})
+  </ol>
+</section>

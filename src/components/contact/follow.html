@@ -1,0 +1,35 @@
+<!-- "Sledujte nás" (design/kontakty/lav.png): the same box and navy pill as "Staňte se partnerem akademie" on partners.html
+     (.partners-become / .partners-become__btn from _partners.scss): label + handle + text left; social icon buttons
+     (header style: 36 px, hairline, light fill) + "Sledovat" right; stacks ≤ 768.
+     Instagram URL as in footer.html; TODO(verify): Facebook URL (the footer has "#" too).
+     Bottom padding: 75 + the CTA's 80 px = 155 px from the box to the CTA scene, as in the design. -->
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm pb-space-xl md:px-space-xl min-[1025px]:mt-24 min-[1025px]:pb-[4.6875rem] xl:px-space-2xl" aria-labelledby="contact-follow-title">
+  <div class="partners-become">
+    <div>
+      <p class="athletes-label">Sledujte nás</p>
+      <h2 id="contact-follow-title" class="mt-space-xs font-display text-[1.75rem] font-bold leading-[1.15] tracking-[-0.03em] text-text-primary md:text-display-md">@labskaakademie</h2>
+      <p class="mt-space-xs text-button text-text-secondary">Fotky z tréninků a závodů každý týden.</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-space-sm">
+      <ul class="flex gap-space-sm" aria-label="Sociální sítě">
+        <li>
+          <a href="https://www.instagram.com/labskaakademie/" target="_blank" rel="noopener" aria-label="Instagram (otevře se v novém okně)" class="contact-social">
+            @@include('../icon.html', {"name": "Group", "class": "h-5 w-5"})
+          </a>
+        </li>
+        <li>
+          <a href="#" target="_blank" rel="noopener" aria-label="Facebook (otevře se v novém okně)" class="contact-social">
+            @@include('../icon.html', {"name": "Group-1", "class": "h-5 w-5"})
+          </a>
+        </li>
+      </ul>
+      <a href="https://www.instagram.com/labskaakademie/" target="_blank" rel="noopener" aria-label="Sledovat @labskaakademie na Instagramu (otevře se v novém okně)" class="partners-become__btn pill-press">
+        Sledovat
+        <span class="arrow-mask h-5 w-5">
+          @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+          @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+        </span>
+      </a>
+    </div>
+  </div>
+</section>

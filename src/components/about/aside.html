@@ -1,0 +1,31 @@
+<!-- Left column (design/o_akademii/lav.png, 300 px): "Obsah" (in-page links) and "Ke stažení", 1 px divider between.
+     Sticky below the header at > 1024 (CSS only, on the grid item in content.html). The first item is highlighted as in the design (.is-active, visual only);
+     moving the highlight with the scroll position (and aria-current) is for the JS step.
+     TODO(verify): the design lists "Tým" in the contents but has no Tým section – the item is left out until it exists.
+     TODO(verify): document URLs; the design names the statutes "Stanovy.pdf" here and "Stanovy akademie.pdf" in Dokumenty;
+     the camera icon is as designed (as on the article detail). -->
+<aside class="about-aside" aria-label="Obsah stránky">
+  <nav aria-labelledby="about-toc-title">
+    <h2 id="about-toc-title" class="article-label">Obsah</h2>
+    <ol class="about-toc">
+      @@for (var i = 0, toc = [["kdo-jsme", "Kdo jsme"], ["poslani", "Poslání"], ["historie", "Historie"], ["zazemi", "Zázemí"], ["dokumenty", "Dokumenty"]]; i < toc.length; i++) {
+      <li><a href="#`+toc[i][0]+`" class="about-toc__link`+(i === 0 ? ' is-active' : '')+`">`+toc[i][1]+`</a></li>
+      }
+    </ol>
+  </nav>
+
+  <div class="mt-space-md border-t border-surface-icon-border pt-space-md">
+    <h2 class="article-label">Ke stažení</h2>
+    <ul class="mt-space-sm grid gap-space-xs">
+      @@for (var i = 0, docs = [["Stanovy.pdf", "PDF, 0,8 MB"], ["Výroční zpráva 2025.pdf", "PDF, 4,2 MB"]]; i < docs.length; i++) {
+      <li>
+        <!-- TODO(verify): document URL -->
+        <a href="#" class="about-download">
+          @@include('../icon.html', {"name": "camera", "class": "h-4 w-4 shrink-0 text-[#69707f]"})
+          <span class="link-underline">`+docs[i][0]+`</span><span class="sr-only"> (`+docs[i][1]+`)</span>
+        </a>
+      </li>
+      }
+    </ul>
+  </div>
+</aside>

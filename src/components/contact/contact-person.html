@@ -1,0 +1,32 @@
+@@if (false) {
+Contact person card for "Kdo vám poradí" (design/kontakty/lav.png: 410×326 glass card r 16, 32 px padding): 96 px navy
+initials avatar (the design has no photos), name, role, divider, phone + e-mail links. One partial for every person.
+Same pieces as the coach cards on athletes.html (.athletes-coach__avatar, .articles-title, .athletes-label) on the
+article detail's glass card (.article-card).
+Params (all required):
+  initials  – shown in the avatar (decorative, the name follows)
+  name      – full name
+  role      – as displayed (uppercased by CSS)
+  phone     – as displayed, e.g. "+420 777 123 456"
+  phoneHref – international format without spaces for tel:, e.g. "+420777123456"
+  email     – address (also the mailto: target)
+}
+<article class="article-card contact-person">
+  <span class="athletes-coach__avatar" aria-hidden="true">@@initials</span>
+  <h3 class="articles-title mt-4">@@name</h3>
+  <p class="athletes-label mt-4">@@role</p>
+  <ul class="contact-person__links">
+    <li>
+      <a href="tel:@@phoneHref" class="contact-link">
+        @@include('../icon.html', {"name": "phone", "class": "h-5 w-5 shrink-0 text-text-secondary"})
+        <span class="sr-only">Telefon: </span><span class="link-underline">@@phone</span>
+      </a>
+    </li>
+    <li>
+      <a href="mailto:@@email" class="contact-link">
+        @@include('../icon.html', {"name": "mail", "class": "h-5 w-5 shrink-0 text-text-secondary"})
+        <span class="sr-only">E-mail: </span><span class="link-underline">@@email</span>
+      </a>
+    </li>
+  </ul>
+</article>

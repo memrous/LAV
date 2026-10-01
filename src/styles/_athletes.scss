@@ -1,0 +1,148 @@
+// Akademici page (src/athletes.html, design/akademici/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place (utilities still win; the hover/reduced-motion rules come after the base card rules there). Reuses .articles-pills / .articles-pill / .articles-h2 / .articles-title /
+// .stretched-link from _articles.scss and the page head (.articles-head__*) via components/page-head.html.
+
+// Sampled from design/akademici/lav.png; no matching tokens in tailwind.config.js.
+$athletes-muted: #5b6479; // "24 AKADEMIKŮ", coach role (same grey as the articles meta date)
+$athletes-panel: rgb(240 242 245 / 0.72); // frosted panel on the card photo (≈ #CFD1D2 over the dark water photos)
+
+@layer components {
+  // Small caps labels: count, coach role. Play Bold 11 px.
+  .athletes-label {
+    @apply font-label text-label font-bold uppercase tracking-[0.04em];
+    color: $athletes-muted;
+  }
+
+  // Athlete card: 302×472 at 1440 (aspect kept at every width; grows if the text ever needs more room).
+  .athlete-card {
+    @apply relative isolate flex aspect-[302/472] flex-col justify-end rounded-2xl border border-white/80;
+    overflow: clip; // clips the photo + panel to the radius; the focus ring is inset (below), so nothing is cut
+    box-shadow: 0 16px 32px -12px rgb(18 19 42 / 0.18);
+    transition:
+      transform 200ms ease-out,
+      box-shadow 200ms ease-out;
+  }
+
+  .athlete-card__photo {
+    @apply absolute inset-0 -z-10 h-[95%] w-full object-cover;
+    transition: transform 400ms ease-out;
+  }
+
+  // Frosted panel under the text: blurred photo + light veil, faded in from the top so the photo dissolves into it.
+  .athlete-card__body {
+    @apply relative px-space-md pb-space-md pt-20;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: $athletes-panel;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      mask-image: linear-gradient(to bottom, transparent, #000 4.5rem);
+    }
+
+    // ≤ 768 (2 columns, ~165 px wide cards on phones): tighter padding and smaller text (.athlete-card__meta), so the
+    // panel doesn't veil most of the photo.
+    @media (max-width: 768px) {
+      @apply px-3 pb-3 pt-10;
+    }
+  }
+
+  // Name: Schibsted Grotesk Bold 20 px (16 px ≤ 768).
+  .athlete-card__name {
+    @apply font-display text-[1.25rem] font-bold leading-[1.3] tracking-[-0.01em] text-text-primary;
+
+    @media (max-width: 768px) {
+      @apply text-base leading-[1.25];
+    }
+  }
+
+  // "Club · age" and "Profil": 14 px (12 px ≤ 768).
+  .athlete-card__meta {
+    @apply text-body;
+
+    @media (max-width: 768px) {
+      @apply text-xs;
+    }
+  }
+
+  // Boat class: Play Bold 11 px, white, wide tracking, 6 px accent dot. Top-left over the photo.
+  .athlete-card__boat {
+    @apply absolute left-space-sm top-space-sm flex items-center gap-1.5 font-label text-label font-bold uppercase tracking-[0.1em] text-white;
+    text-shadow: 0 1px 2px rgb(18 19 42 / 0.35); // readable on bright photos too
+
+    &::before {
+      content: '';
+      @apply h-1.5 w-1.5 shrink-0 rounded-radius-full bg-button-accent-bg;
+    }
+  }
+
+  // Focus ring drawn inside the card (an outside ring on the stretched ::after would be clipped by overflow).
+  .athlete-card .stretched-link:focus-visible::after {
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 3px theme('colors.button.primary-bg');
+  }
+
+  .athlete-card .stretched-link::after {
+    border-radius: 1rem;
+  }
+
+  // Coach card: 410×386 at 1440, no fill (page color shows through), white hairline, r 16, 32 px padding.
+  .athletes-coach {
+    @apply flex flex-col rounded-2xl border border-white/80 p-space-lg;
+
+    @media (max-width: 768px) {
+      @apply p-space-md;
+    }
+  }
+
+  // 96 px navy avatar with initials (Schibsted Grotesk Bold 32 px), soft shadow below.
+  .athletes-coach__avatar {
+    @apply flex h-24 w-24 shrink-0 items-center justify-center rounded-radius-full bg-button-primary-bg font-display text-[2rem] font-bold text-white;
+    box-shadow: 0 12px 24px -8px rgb(34 30 83 / 0.35);
+  }
+}
+
+// Card hover (no hover in the design): same idea as the homepage crossroad cards (main.scss) – lift + deeper shadow,
+// here without the tilt, plus a slow photo zoom; the arrow-mask on "Profil" runs too (the stretched link is hovered).
+// Only on devices that really hover; keyboard focus gets the same via :has(). Two rules on purpose, so a browser
+// without :has() doesn't drop the hover rule as well.
+@mixin athlete-card-lifted {
+  transform: translateY(-6px);
+  box-shadow: 0 32px 56px -20px rgb(18 19 42 / 0.32);
+
+  .athlete-card__photo {
+    transform: scale(1.04);
+  }
+}
+
+@layer components {
+  @media (hover: hover) {
+    .athlete-card:hover {
+      @include athlete-card-lifted;
+    }
+  }
+
+  .athlete-card:has(a:focus-visible) {
+    @include athlete-card-lifted;
+  }
+
+  // Reduced motion: no lift/zoom, only the shadow change, as a ≤150 ms crossfade.
+  @media (prefers-reduced-motion: reduce) {
+    .athlete-card {
+      transition-duration: 150ms;
+    }
+
+    .athlete-card:hover,
+    .athlete-card:has(a:focus-visible) {
+      transform: none;
+
+      .athlete-card__photo {
+        transform: none;
+      }
+    }
+  }
+}

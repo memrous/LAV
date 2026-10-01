@@ -1,0 +1,25 @@
+@@if (false) {
+Season card for "Celá sezóna" (design/akce/lav.png: 410×237, r 16, white hairline, no fill, 32 px padding – the same
+card look as the coaches on athletes.html). One partial per period. Params (all required):
+  label – period ("Podzim 2026"; uppercased by CSS)
+  title – heading
+  items – array of event names as displayed
+  href  – target of "Zobrazit" (no season/filter view yet: "#")
+}
+<article class="events-season">
+  <p class="events-label">@@label</p>
+  <h3 class="articles-title mt-space-sm">@@title</h3>
+  <ul class="events-season__list mt-space-sm">
+    @@for (var i = 0; i < items.length; i++) {
+    <li>`+items[i]+`</li>
+    }
+  </ul>
+  <!-- TODO(verify): season view / filtered list -->
+  <a href="@@href" class="mt-auto inline-flex items-center gap-0.5 self-start rounded-radius-sm pt-space-sm text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+    <span class="link-underline">Zobrazit</span><span class="sr-only">: @@title</span>
+    <span class="arrow-mask h-3.5 w-3.5">
+      @@include('../icon.html', {"name": "arrow-right", "class": "h-3.5 w-3.5"})
+      @@include('../icon.html', {"name": "arrow-right", "class": "h-3.5 w-3.5"})
+    </span>
+  </a>
+</article>

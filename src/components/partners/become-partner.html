@@ -1,0 +1,20 @@
+<!-- "Staňte se partnerem akademie" (design/partneri/lav.png): a CTA box, not a form – hairline card r 20, 48 px padding,
+     label + title + text on the left, navy pill button on the right (stacks ≤ 768).
+     Bottom padding: 75 + the CTA's 80 px = 155 px from the box to the CTA scene, as in the design.
+     TODO(verify): "Kontaktovat nás" target (no Kontakty page yet; could be mailto:info@lav-usti.cz from the footer). -->
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm pb-space-xl md:px-space-xl min-[1025px]:mt-[6.375rem] min-[1025px]:pb-[4.6875rem] xl:px-space-2xl" aria-labelledby="partners-become-title">
+  <div class="partners-become">
+    <div>
+      <p class="athletes-label">Spolupráce</p>
+      <h2 id="partners-become-title" class="mt-space-xs font-display text-[1.75rem] font-bold leading-[1.15] tracking-[-0.03em] text-text-primary md:text-display-md">Staňte se partnerem akademie</h2>
+      <p class="mt-space-xs text-button text-text-secondary">Podpořte mladé veslaře z Ústeckého kraje.</p>
+    </div>
+    <a href="#" class="partners-become__btn pill-press">
+      Kontaktovat nás
+      <span class="arrow-mask h-5 w-5">
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+      </span>
+    </a>
+  </div>
+</section>

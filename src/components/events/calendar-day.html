@@ -1,0 +1,24 @@
+@@if (false) {
+One day of the month calendar (design/akce/lav.png: 181×104 white cell, r 8, number top-left, event chips below).
+One partial for every day, so the calendar can later be rendered from data. Params (all required):
+  date     – ISO date, e.g. "2026-09-05"
+  day      – day number as displayed
+  weekday  – full weekday ("sobota"): visually hidden on desktop (the column header says it), shown in the ≤ 768 agenda
+  month    – month in the genitive ("září", "srpna", "října"): same as weekday
+  state    – "" | "events-day--muted" (other month) | "events-day--today" (also gets aria-current="date")
+  events   – array of [name, category], category one of "zavody" | "soustredeni" | "akademie" | "nabor";
+             empty days get .events-day--empty (hidden in the ≤ 768 agenda)
+Category = data-category (dot color in _events.scss; also the hook for the filter JS) + visually hidden text, so the
+meaning isn't carried by color only. Chips link to the event detail (none yet).
+}
+<li class="events-day @@state@@if (events.length === 0) { events-day--empty}"@@if (state === "events-day--today") { aria-current="date"}>
+  <time datetime="@@date" class="events-day__date"><span class="events-day__extra">@@weekday </span><span class="events-day__num">@@day</span><span class="events-day__extra">. @@month</span></time>
+  @@if (events.length > 0) {<ul class="events-day__list">
+    @@for (var j = 0; j < events.length; j++) {
+    <li>
+      <!-- TODO(verify): event detail page -->
+      <a href="#" class="events-chip" data-category="`+events[j][1]+`"><span class="sr-only">`+({zavody: "Závody", soustredeni: "Soustředění", akademie: "Akademie", nabor: "Nábor"})[events[j][1]]+`: </span>`+events[j][0]+`</a>
+    </li>
+    }
+  </ul>}
+</li>

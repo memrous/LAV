@@ -1,0 +1,36 @@
+@@if (false) {
+Event row for "Nejbližší akce" (design/akce/lav.png: 1280×98 row, r 16, white hairline, no fill):
+date badge (day 26 px + month Play 11 px) | 1 px divider | title (18 px) + place (pin) and time (clock) | category label + arrow.
+One partial for every event, so the list can later be rendered from data. Params (all required):
+  date          – ISO date of the (first) day, e.g. "2026-09-21"
+  day           – day number as displayed
+  month         – month as displayed in the badge ("září", "říj" – the design abbreviates October; uppercased by CSS)
+  title         – event name
+  place         – as displayed
+  timeDatetime  – machine value of the time: "2026-09-21T09:00", or a duration for multi-day events ("P3D")
+  time          – as displayed ("9:00", "pá–ne")
+  category      – "zavody" | "soustredeni" | "akademie" | "nabor" (data-category, the hook for the filter JS)
+  categoryLabel – as displayed ("Závody"; uppercased by CSS)
+Whole row clickable: the title link is stretched over it (.stretched-link). ≤ 768 the row stacks: date badge on top.
+}
+<li class="events-row" data-category="@@category">
+  <time datetime="@@date" class="events-row__date"><span class="events-row__day">@@day</span> <span class="events-row__month">@@month</span></time>
+  <div class="events-row__info">
+    <h3 class="events-row__title">
+      <!-- TODO(verify): event detail page -->
+      <a href="#" class="stretched-link">@@title</a>
+    </h3>
+    <p class="events-row__meta">
+      <span class="inline-flex items-center gap-1.5">
+        @@include('../icon.html', {"name": "location-pin", "class": "h-4 w-4 shrink-0"})
+        <span class="sr-only">Místo: </span>@@place
+      </span>
+      <span class="inline-flex items-center gap-1.5">
+        @@include('../icon.html', {"name": "clock", "class": "h-4 w-4 shrink-0"})
+        <span class="sr-only">Čas: </span><time datetime="@@timeDatetime">@@time</time>
+      </span>
+    </p>
+  </div>
+  <p class="events-row__category"><span class="sr-only">Kategorie: </span>@@categoryLabel</p>
+  @@include('../icon.html', {"name": "arrow-right", "class": "events-row__arrow h-5 w-5 shrink-0"})
+</li>

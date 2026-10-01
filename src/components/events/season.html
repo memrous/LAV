@@ -1,0 +1,11 @@
+<!-- "Celá sezóna 2026/27" (design/akce/lav.png): 3 / 2 / 1 columns (> 1024 / 769–1024 / ≤ 768), 24 px gaps, cards from
+     season-card.html. Bottom padding: 75 + the CTA's 80 px = 155 px from the cards to the CTA scene, as in the design. -->
+<section class="mx-auto mt-12 max-w-container px-space-sm pb-space-xl md:px-space-xl min-[1025px]:pb-[4.6875rem] xl:px-space-2xl" aria-labelledby="events-season-title">
+  <h2 id="events-season-title" class="articles-h2">Celá sezóna 2026/27</h2>
+
+  <div class="mt-space-md grid gap-space-md min-[769px]:grid-cols-2 min-[1025px]:grid-cols-3">
+    @@include('./season-card.html', {"label": "Podzim 2026", "title": "Regaty a MČR", "items": ["Primátorky, Praha", "MČR juniorů, Račice", "Podzimní regata, Ústí nad Labem"], "href": "#"})
+    @@include('./season-card.html', {"label": "Zima 2026/27", "title": "Ergometry a soustředění", "items": ["MČR na ergometrech", "Zimní soustředění", "Testování akademiků"], "href": "#"})
+    @@include('./season-card.html', {"label": "Jaro 2027", "title": "Hlavní sezóna", "items": ["Jarní regata, Račice", "MČR dorostu a juniorů", "Mezinárodní regaty"], "href": "#"})
+  </div>
+</section>

@@ -1,0 +1,36 @@
+@@if (false) {
+Athlete card for the "Soupiska" grid (design/akademici/Content.png: 302×472, r 16, photo full-bleed, its bottom dissolving
+into a frosted panel with the text). One partial for every athlete, so the grid can later be rendered from data.
+Params (all required):
+  href     – profile URL
+  img      – photo path from the dist root
+  focus    – Tailwind object-position class for the portrait crop of a landscape photo, e.g. "object-center", "object-[60%_50%]"
+  loading  – "eager" for the first row (above the fold at 1440×900), "lazy" for the rest
+  boat     – boat class as displayed (uppercased by CSS): "Skif", "Dvojskif", "Osma", "Párová čtyřka"
+  name     – full name (also the photo's alt text)
+  club     – club as displayed
+  age      – age in years, number only (" let" is added here; ages are always ≥ 5, so "let" is always the right form)
+Whole card clickable: the "Profil" link (the only <a>) is stretched over it by .stretched-link.
+}
+<article class="athlete-card">
+  <img
+    src="@@img"
+    alt="@@name"
+    width="302"
+    height="472"
+    loading="@@loading"
+    class="athlete-card__photo @@focus"
+  >
+  <p class="athlete-card__boat">@@boat</p>
+  <div class="athlete-card__body">
+    <h3 class="athlete-card__name">@@name</h3>
+    <p class="athlete-card__meta mt-space-2xs text-text-secondary">@@club · @@age let</p>
+    <a href="athlete-detail.html" class="athlete-card__meta stretched-link mt-3 inline-flex items-center gap-0.5 text-text-primary max-[768px]:mt-2">
+      Profil<span class="sr-only">: @@name</span>
+      <span class="arrow-mask h-3.5 w-3.5">
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-3.5 w-3.5"})
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-3.5 w-3.5"})
+      </span>
+    </a>
+  </div>
+</article>

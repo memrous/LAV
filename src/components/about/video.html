@@ -1,0 +1,12 @@
+<!-- Video (design/o_akademii/lav.png): 954×536 poster r 12, white 72 px play button, "Přehrát video · 2:10" below it.
+     No YouTube/Vimeo iframe (third-party cookies): poster + <button> for the click-to-load player of the JS step; until
+     then the visible label is a plain link to the video (works without JS).
+     TODO(verify): video URL / provider. Poster = placeholder cropped from the design (play button removed). -->
+<div class="about-video">
+  <img src="img/about/video-poster.jpg" alt="" width="954" height="536" loading="lazy" class="about-video__poster">
+  <div class="about-video__controls">
+    <button type="button" class="about-video__play" aria-label="Přehrát video o akademii (2:10)"></button>
+    <!-- TODO(verify): video URL -->
+    <a href="#" target="_blank" rel="noopener" class="about-video__label" aria-label="Přehrát video o akademii, 2:10 (otevře se v novém okně)">Přehrát video · <span class="tabular-nums">2:10</span></a>
+  </div>
+</div>
