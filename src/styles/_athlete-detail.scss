@@ -1,7 +1,7 @@
 // Athlete detail page (src/athlete-detail.html, design/akademici_detail/*.png).
 // @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
 // to the right place (utilities still win). Reuses from the article detail: .article-card (glass card), .article-label,
-// .article-meta, .article-body; from the listings: .articles-head__*, .articles-h2, .athlete-card.
+// .article-meta; from _rich-text.scss: .rich-text; from the listings: .articles-head__*, .articles-h2, .athlete-card.
 
 // Sampled from design/akademici_detail/lav.png (same values as the article detail; its variables are module-private).
 $athlete-muted: #5b6479; // results year
@@ -38,8 +38,8 @@ $athlete-medal-bronze: #e22447; // the design's 3rd-place dot is red, not bronze
     }
   }
 
-  // Bio = CMS rich text in .article-body, but the design sets it as plain 16 / 24 secondary text, not the 20 px lead.
-  .athlete-bio.article-body > p:first-child {
+  // Bio = CMS rich text in .rich-text, but the design sets it as plain 16 / 24 secondary text, not the 20 px lead.
+  .athlete-bio.rich-text > p:first-child {
     @apply text-button text-text-secondary;
   }
 

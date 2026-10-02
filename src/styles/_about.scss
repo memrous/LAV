@@ -1,6 +1,6 @@
 // O akademii page (src/about.html, design/o_akademii/*.png).
 // @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
-// to the right place (utilities still win). Builds on .article-body / .article-label (_article-detail.scss); only the
+// to the right place (utilities still win). Builds on .rich-text (_rich-text.scss) / .article-label (_article-detail.scss); only the
 // differences from the article detail live here.
 
 $about-muted: #69707f; // document icons / arrows (as on the article detail's attachment)
@@ -26,8 +26,7 @@ $about-divider: #dce0e8;
   }
 
   // ---------------------------------------------------------------------------------------------------------------
-  // Body overrides (.article-body.about-body): H2 = bold display 36 px with more air above; navy dot bullets;
-  // the quote is a hairline box without the glass fill.
+  // .about-h2: section headings outside the rich text ("Dokumenty", "Soubory ke stažení"), same as the rich-text H2.
   @mixin about-h2 {
     @apply font-display text-display-md font-bold text-text-primary;
     scroll-margin-top: 6rem; // in-page links from "Obsah" land below the header
@@ -37,40 +36,18 @@ $about-divider: #dce0e8;
     @include about-h2;
   }
 
+  // Body overrides (.rich-text.about-body, O akademii + Uchazeči). The base .rich-text already has this look
+  // (lead, H2, dots, quote box – design/text); only two differences are left:
   .about-body {
-    // Lead: 18 / 28 here (the article detail's is 20 px).
-    > p:first-child {
-      @apply text-lg leading-[1.55];
-    }
-
+    // An H2 that opens the block keeps its 36 px top margin (Uchazeči "Kontakt" relies on it for the gap above).
     h2 {
-      @include about-h2;
       margin-top: 2.25rem;
     }
 
-    ul {
-      @apply list-none pl-0;
-    }
-
-    ul > li {
-      @apply relative pl-3.5;
-
-      &::before {
-        content: '';
-        @apply absolute left-0 top-[0.6875rem] h-1.5 w-1.5 rounded-radius-full bg-button-primary-bg;
-      }
-    }
-
-    li + li {
-      margin-top: 0.5rem;
-    }
-
-    blockquote {
-      border: 1px solid rgb(255 255 255 / 0.8);
-      border-radius: 1.25rem;
-      background: none;
-      box-shadow: none;
-      padding-bottom: 2.625rem; // the design leaves more air under the source than the article detail
+    // 24 px around photos / video / quote (design/o_akademii, design/uchazeci), not the text page's 32 px.
+    > :is(figure, blockquote, table, iframe, video, embed, object, pre, hr, div) + :not(h1, h2),
+    > * + :is(figure, blockquote, table, iframe, video, embed, object, pre, hr, div) {
+      margin-top: 1.5rem;
     }
   }
 
@@ -80,8 +57,8 @@ $about-divider: #dce0e8;
     @apply relative overflow-hidden rounded-radius-md;
   }
 
-  // Specific enough to beat `.article-body img` (rounded, auto height).
-  .about-body .about-video__poster {
+  // Specific enough to beat `.rich-text img` (rounded, auto height).
+  .rich-text .about-video__poster {
     @apply block aspect-[954/536] w-full rounded-none object-cover;
   }
 
@@ -101,8 +78,8 @@ $about-divider: #dce0e8;
     }
   }
 
-  // Beats `.article-body a` (always underlined, primary color): white label, underline only on hover/focus.
-  .about-body .about-video__label {
+  // Beats `.rich-text a` (always underlined, primary color): white label, underline only on hover/focus.
+  .rich-text .about-video__label {
     @apply whitespace-nowrap text-body text-white no-underline hover:underline focus-visible:ring-white focus-visible:ring-offset-0;
     text-shadow: 0 1px 2px rgb(18 19 42 / 0.4);
   }

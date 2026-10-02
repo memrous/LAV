@@ -1,0 +1,26 @@
+@@if (false) {
+Album card (design/fotogalerie/Content.png: 410×300, r 16): cover photo with a frosted caption at the bottom (title + "48 fotek · 13. 9. 2026").
+Params: href, img (410w cover, also the fallback src), srcset (string, e.g. "img/gallery/a-410.jpg 410w, img/gallery/a-820.jpg 820w"),
+        alt, title, photos (count incl. the word, e.g. "48 fotek" – Czech plural differs: 1 fotka, 2–4 fotky, 5+ fotek),
+        datetime (ISO), date.
+        eager – OPTIONAL. true for the first row: no loading="lazy"/decoding="async". Omitted = lazy.
+Whole card is clickable: one <a> on the title, stretched over the card by .stretched-link (styles in _articles.scss).
+}<article class="gallery-album">
+  <img
+    src="@@img"
+    srcset="@@srcset"
+    sizes="(min-width: 1440px) 410px, (min-width: 1280px) calc((100vw - 208px) / 3), (min-width: 1025px) calc((100vw - 128px) / 3), (min-width: 769px) calc((100vw - 104px) / 2), calc(100vw - 32px)"
+    alt="@@alt"
+    width="410"
+    height="300"
+    @@if (typeof eager === 'undefined' || eager !== true) {loading="lazy"
+    decoding="async"}
+    class="gallery-album__img"
+  >
+  <div class="gallery-album__caption">
+    <h3 class="gallery-album__title">
+      <a href="@@href" class="stretched-link">@@title</a>
+    </h3>
+    <p class="gallery-album__meta">@@photos · <time datetime="@@datetime">@@date</time></p>
+  </div>
+</article>

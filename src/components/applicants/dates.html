@@ -1,0 +1,10 @@
+<!-- "Termíny" (design/uchazeci/lav.png): H2 + glass card (.article-card, r 16, 24 px padding) with 3 rows from
+     date-row.html. TODO(verify): dates and place for the 2026/27 intake. -->
+<section aria-labelledby="terminy">
+  <h2 id="terminy" class="about-h2 mt-[2.25rem]">Termíny</h2>
+  <dl class="article-card mt-space-md p-space-md">
+    @@include('./date-row.html', {"label": "Uzávěrka přihlášek", "datetime": "2026-09-30", "date": "30. 9. 2026"})
+    @@include('./date-row.html', {"label": "Výběrové řízení", "datetime": "2026-10-10", "date": "10. 10. 2026", "place": "Labe Aréna"})
+    @@include('./date-row.html', {"label": "Zahájení přípravy", "datetime": "2026-11-01", "date": "1. 11. 2026"})
+  </dl>
+</section>

@@ -1,0 +1,200 @@
+@@if (false) {
+Text page body = CMS rich text: plain editor HTML, no classes, styled only by .rich-text (src/styles/_rich-text.scss).
+Doubles as the test page for the CMS output: the first part is the design's text (design/text/lav.png, verbatim), the
+"Další prvky editoru" part (not in the design) uses every remaining element the editor can produce.
+Exceptions to "no classes": the video block is the O akademii component (about/video.html – poster + play button, no
+third-party iframe), and ids on the figure / video wrapper / quote are only there for the "Obsah" links.
+Photos: existing project photos (src/img/about, src/img/text = 930×600 crops of gallery-1 / gallery-3).
+}
+<article class="rich-text" aria-labelledby="text-title">
+  <p>Úvodní odstavec (perex) shrne obsah stránky ve dvou větách. Je větší než běžný text a stojí vždy na začátku.</p>
+
+  <h2 id="nadpisy-a-text">Nadpis druhé úrovně</h2>
+
+  <p>Základní odstavec textu v Inter 16 px. Redaktor píše běžný text, editor mu umožní tučné zvýraznění, kurzívu a odkazy. Odstavce mají mezi sebou 24 px a řádky 1,6násobek velikosti písma, aby se dlouhé texty dobře četly i na velkém monitoru.</p>
+
+  <p>Druhý odstavec ukazuje, jak vypadá delší souvislý text. Doporučená délka řádku je do 90 znaků, proto má sloupec 954 px a text nepřekročí šířku obsahu.</p>
+
+  <h3>Nadpis třetí úrovně</h3>
+
+  <p>Podnadpisy člení delší stránku. H3 se používá pro podkapitoly, H4 pro drobné oddíly uvnitř nich. Všechny nadpisy jsou Schibsted Grotesk Bold, text Inter.</p>
+
+  <h4>Nadpis čtvrté úrovně</h4>
+
+  <p>Text s <a href="about.html">odkazem na další stránku akademie</a> a s tučně zvýrazněným termínem uzávěrky <strong>30. 9. 2026</strong>.</p>
+
+  <h2 id="seznamy">Seznamy</h2>
+
+  <p>Odrážkový seznam pro výčty, číslovaný seznam pro postupy.</p>
+
+  <ul>
+    <li>Odrážka s krátkým textem</li>
+    <li>Odrážka, která je delší a zalomí se na více řádků, aby bylo vidět zarovnání textu vedle tečky</li>
+    <li>Třetí položka seznamu</li>
+    <li>Čtvrtá položka seznamu</li>
+  </ul>
+
+  <figure id="fotografie">
+    <img src="img/about/boathouse.jpg" alt="Loděnice akademie: závodní lodě uložené v regálech" width="954" height="540" loading="lazy">
+    <figcaption>Popisek fotografie · Foto: archiv akademie</figcaption>
+  </figure>
+
+  <figure>
+    <figure>
+      <img src="img/text/osma-na-startu.jpg" alt="Ženská osmiveslice na startu závodní dráhy u červených bójí" width="930" height="600" loading="lazy">
+      <figcaption>Osma na startu · Račice</figcaption>
+    </figure>
+    <figure>
+      <img src="img/text/dvojskif-pred-tribunou.jpg" alt="Dvojskif se dvěma veslařkami na dráze před tribunou" width="930" height="600" loading="lazy">
+      <figcaption>Dvojskif před tribunou</figcaption>
+    </figure>
+  </figure>
+
+  <h2>Číslovaný seznam</h2>
+
+  <p>Postupy a kroky, kde záleží na pořadí.</p>
+
+  <ol>
+    <li>Vyplňte online přihlášku na webu akademie.</li>
+    <li>Doložte lékařský posudek od sportovního lékaře.</li>
+    <li>Přijďte na výběrové řízení do Labe Arény.</li>
+    <li>Podepište smlouvu s akademií a mateřským klubem.</li>
+  </ol>
+
+  <div id="video">
+    @@include('../about/video.html')
+  </div>
+
+  <h2 id="tabulka">Tabulka</h2>
+
+  <p>Jednoduchá tabulka pro rozpisy a přehledy. Na mobilu se roluje do strany.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Skupina</th>
+        <th>Den</th>
+        <th>Čas</th>
+        <th>Místo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Dorost</td>
+        <td>Po · St · Pá</td>
+        <td>15:30–17:30</td>
+        <td>Loděnice Ústí</td>
+      </tr>
+      <tr>
+        <td>Junioři</td>
+        <td>Út · Čt · So</td>
+        <td>15:00–17:30</td>
+        <td>Labe Aréna Račice</td>
+      </tr>
+      <tr>
+        <td>Juniorky</td>
+        <td>Út · Čt · So</td>
+        <td>15:00–17:30</td>
+        <td>Labe Aréna Račice</td>
+      </tr>
+      <tr>
+        <td>Kondiční příprava</td>
+        <td>Po · Čt</td>
+        <td>18:00–19:30</td>
+        <td>Posilovna Labe Aréna</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <blockquote id="citace">
+    <p>„Citace nebo zvýrazněná věta, kterou chce redaktor vytáhnout z textu.“</p>
+    <footer>Jméno autora, funkce</footer>
+  </blockquote>
+
+  <!-- Kitchen sink (not in the design): every other element the editor can produce. Remove with the demo content. -->
+  <h2>Další prvky editoru</h2>
+
+  <p>Běžný text s <strong>tučným</strong>, <em>kurzívou</em>, <u>podtržením</u>, <s>přeškrtnutím</s> a <mark>zvýrazněním</mark>. Zkratka <abbr title="Labská akademie veslování">LAV</abbr>, chemický vzorec H<sub>2</sub>O, plocha 25 m<sup>2</sup>, kód <code>prihlaska-2026</code> a klávesa <kbd>Enter</kbd>. <small>Drobný text, například poznámka pod čarou.</small></p>
+
+  <p>Dlouhý odkaz bez mezer se musí zalomit: <a href="#">https://www.lav-usti.cz/dokumenty/2026/prihlasky/prihlaska-do-akademie-veslovani-sezona-2026-2027-junior-dorost-final-verze.pdf</a> a stejně tak dlouhý název souboru prihlaska_do_akademie_veslovani_2026_2027_junior_dorost_final_verze_podepsana.pdf.</p>
+
+  <p></p>
+
+  <p>Odstavec po prázdném odstavci (prázdný &lt;p&gt; nezabírá místo).<br>Řádek po jednom zalomení.<br><br>Řádek po dvojitém zalomení.</p>
+
+  <h3>Vnořené seznamy</h3>
+
+  <ul>
+    <li>Tréninkové skupiny
+      <ul>
+        <li>Dorost (15–16 let)</li>
+        <li>Junioři a juniorky (17–18 let)</li>
+      </ul>
+    </li>
+    <li>Kondiční příprava</li>
+  </ul>
+
+  <ol start="3">
+    <li>Seznam začínající trojkou (atribut start)
+      <ol type="a">
+        <li>vnořená položka a)</li>
+        <li>vnořená položka b)</li>
+      </ol>
+    </li>
+    <li>Další krok
+      <ul>
+        <li>odrážka uvnitř číslovaného seznamu</li>
+      </ul>
+    </li>
+  </ol>
+
+  <h4>Obrázek vložený do odstavce</h4>
+
+  <p><img src="img/event-1.jpg" alt="Diváci na nábřeží při závodech na řece" width="1200" height="800" style="width: 1200px; height: 800px;"> Editor vložil fotku přímo do odstavce s pevnou šířkou 1200 px – na stránce nepřeteče sloupec.</p>
+
+  <hr>
+
+  <h3>Široká tabulka</h3>
+
+  <table>
+    <caption>Výsledky sezóny 2026 (na mobilu se tabulka roluje do strany)</caption>
+    <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Závod</th>
+        <th>Místo</th>
+        <th>Kategorie</th>
+        <th>Loď</th>
+        <th>Posádka</th>
+        <th>Umístění</th>
+        <th>Čas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>13. 9. 2026</td>
+        <td>MČR juniorů</td>
+        <td>Račice</td>
+        <td>Junioři</td>
+        <td>Osma</td>
+        <td>Hora, Novák, Svoboda, Dvořák, Černý, Procházka, Kučera, Veselý</td>
+        <td>1. místo</td>
+        <td>5:58,21</td>
+      </tr>
+      <tr>
+        <td>5. 9. 2026</td>
+        <td>Primátorky</td>
+        <td>Praha</td>
+        <td>Juniorky</td>
+        <td>Dvojskif</td>
+        <td>Malá, Veselá</td>
+        <td>2. místo</td>
+        <td>7:12,40</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h5>Nadpis páté úrovně (jako H4)</h5>
+
+  <p>Poslední odstavec ukázky.</p>
+</article>

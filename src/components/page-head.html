@@ -1,9 +1,12 @@
 @@if (false) {
 Shared page head: breadcrumb + H1 + perex, rower illustration on the right (Články, Akademici).
-Params (all required, otherwise the literal placeholder ends up in the output):
+Params (required unless marked OPTIONAL, otherwise the literal placeholder ends up in the output):
   id          – id of the H1 (the section is aria-labelledby it), e.g. "articles-title"
   title       – H1 text
-  perex       – text under the H1
+  perex       – OPTIONAL. Text under the H1. Omitted: no perex, and the head is 40 px shorter at > 1024 (288 px,
+                design/uchazeci/Page head.png); with it the output is byte-identical to the version without this option.
+                The two height classes sit in if-blocks glued to braces, where Tailwind can't extract them; listed here
+                as plain tokens so they are generated: min-[1025px]:h-[20.5rem] min-[1025px]:h-[18rem]
   breadcrumb  – linked crumbs before the current page, as a JSON5 STRING of [label, href] pairs (single quotes inside),
                 e.g. "[['Domů', 'index.html']]". A string, because gulp-file-include substitutes only scalar params into
                 the nested breadcrumb include below (arrays get flattened); the string becomes its "items" array there.
@@ -12,6 +15,8 @@ Params (all required, otherwise the literal placeholder ends up in the output):
                 (design/partneri/Page head.png). Adds .page-head--compact (styles in _partners.scss, its only user so far).
                 Omitted = the standard head; the output is then byte-identical to the version without this param.
   art         – OPTIONAL. false: no rower illustration (design/o_akademii/Page head.png). Omitted = with illustration.
+  perexNarrow – OPTIONAL. true: the perex wraps at 624 px (design/text/Page head.png: two lines). Omitted = full width;
+                the output is then byte-identical to the version without this param.
   include('./components/page-head.html', {"id": "athletes-title", "title": "Naši akademici", "perex": "…",
     "breadcrumb": "[['Domů', 'index.html']]", "current": "Akademici"})   from src/*.html (prefix the call with @@)
 The closing brace of this block is directly followed by the first output line on purpose: no extra blank line in the
@@ -19,7 +24,7 @@ output (keep braces in this text balanced, a lone closing one ends the block ear
 }<!-- Page head (design/clanky/Page head.png, 1440×328 incl. the 72 px header, which overlaps it: header has -mb-[4.5rem]).
      Illustration = right part of the export (x ≥ 620) flattened onto the page color: src/img/scene/page-head.jpg (820×328,
      1× – the export has no 2× source). Anchored to the right edge of the 1440 frame; left edge faded by .articles-head__art. -->
-<section class="relative isolate overflow-hidden pb-space-xl pt-[6.5rem] md:pt-[7.375rem] min-[1025px]:h-[20.5rem] min-[1025px]:pb-0@@if (typeof size !== 'undefined') { page-head--@@size}" aria-labelledby="@@id">
+<section class="relative isolate overflow-hidden pb-space-xl pt-[6.5rem] md:pt-[7.375rem] @@if (typeof perex !== 'undefined') {min-[1025px]:h-[20.5rem]}@@if (typeof perex === 'undefined') {min-[1025px]:h-[18rem]} min-[1025px]:pb-0@@if (typeof size !== 'undefined') { page-head--@@size}" aria-labelledby="@@id">
   @@if (typeof art === 'undefined' || art !== false) {<div class="pointer-events-none absolute inset-0 -z-10 mx-auto max-w-container">
     <img
       src="img/scene/page-head.jpg"
@@ -35,6 +40,6 @@ output (keep braces in this text balanced, a lone closing one ends the block ear
 
     <h1 id="@@id" class="articles-head__title mt-space-xs font-display font-bold text-text-primary">@@title</h1>
 
-    <p class="mt-space-sm text-[1.125rem] leading-[1.5] text-text-secondary md:mt-space-lg">@@perex</p>
+    @@if (typeof perex !== 'undefined' && typeof perexNarrow === 'undefined') {<p class="mt-space-sm text-[1.125rem] leading-[1.5] text-text-secondary md:mt-space-lg">@@perex</p>}@@if (typeof perex !== 'undefined' && typeof perexNarrow !== 'undefined') {<p class="mt-space-sm max-w-[39rem] text-[1.125rem] leading-[1.5] text-text-secondary md:mt-space-lg">@@perex</p>}
   </div>
 </section>

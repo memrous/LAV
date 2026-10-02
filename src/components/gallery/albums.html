@@ -1,0 +1,36 @@
+<!-- "Alba" (design/fotogalerie/Content.png): heading + year toggle in one row (stacked ≤ 768), album grid
+     3 / 2 / 1 columns (> 1024 / 769–1024 / ≤ 768), 24 px gaps, cards from album-card.html, "Načíst další alba" below.
+     Markup only: year switching and loading more come with the gallery JS (next step).
+     Covers: 410w/820w crops in src/img/gallery/ made from existing project photos. Real album photos for
+     "Křest nové osmy", "Mezinárodní regata Brno" and "Ergometry v Labe Aréně" don't exist yet – substituted (TODO: real covers). -->
+<section class="mx-auto mt-12 max-w-container px-space-sm pb-space-2xl md:px-space-xl min-[1025px]:pb-24 xl:px-space-2xl" aria-labelledby="gallery-albums-title">
+  <div class="flex flex-col gap-space-md min-[769px]:flex-row min-[769px]:items-center min-[769px]:justify-between">
+    <h2 id="gallery-albums-title" class="articles-h2">Alba</h2>
+
+    <div role="group" aria-label="Rok" class="articles-pills">
+      @@for (var i = 0, years = ["2026", "2025", "2024", "2023"]; i < years.length; i++) {
+      <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`">`+years[i]+`</button>
+      }
+    </div>
+  </div>
+
+  <!-- TODO(verify): album detail page – all album links are href="#" until it exists -->
+  <div class="mt-space-md grid gap-space-md min-[769px]:grid-cols-2 min-[1025px]:grid-cols-3">
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-mcr-junioru-410.jpg", "srcset": "img/gallery/album-mcr-junioru-410.jpg 410w, img/gallery/album-mcr-junioru-820.jpg 820w", "alt": "Juniorská osmiveslice v plném záběru na závodní trati, v pozadí zalesněný břeh", "title": "MČR juniorů, Račice", "photos": "48 fotek", "datetime": "2026-09-13", "date": "13. 9. 2026", "eager": true})
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-primatorky-410.jpg", "srcset": "img/gallery/album-primatorky-410.jpg 410w, img/gallery/album-primatorky-820.jpg 820w", "alt": "Diváci u cílové rampy na nábřeží, za řekou historické domy a komín", "title": "Primátorky 2026", "photos": "32 fotek", "datetime": "2026-09-05", "date": "5. 9. 2026", "eager": true})
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-krest-osmy-410.jpg", "srcset": "img/gallery/album-krest-osmy-410.jpg 410w, img/gallery/album-krest-osmy-820.jpg 820w", "alt": "Veslařky ve čtyřce na klidné vodě pod zalesněným břehem", "title": "Křest nové osmy", "photos": "20 fotek", "datetime": "2026-08-21", "date": "21. 8. 2026", "eager": true})
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-soustredeni-racice-410.jpg", "srcset": "img/gallery/album-soustredeni-racice-410.jpg 410w, img/gallery/album-soustredeni-racice-820.jpg 820w", "alt": "Dvojskif se dvěma veslařkami na závodní dráze v Račicích", "title": "Podzimní soustředění Račice", "photos": "64 fotek", "datetime": "2026-08-14", "date": "14. 8. 2026"})
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-den-otevrenych-dveri-410.jpg", "srcset": "img/gallery/album-den-otevrenych-dveri-410.jpg 410w, img/gallery/album-den-otevrenych-dveri-738.jpg 738w", "alt": "Regály s loděmi a vesly v hangáru loděnice", "title": "Den otevřených dveří", "photos": "26 fotek", "datetime": "2026-08-01", "date": "1. 8. 2026"})
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-regata-brno-410.jpg", "srcset": "img/gallery/album-regata-brno-410.jpg 410w, img/gallery/album-regata-brno-820.jpg 820w", "alt": "Skifař v žlutém dresu uprostřed záběru na hladké vodě", "title": "Mezinárodní regata Brno", "photos": "40 fotek", "datetime": "2026-07-12", "date": "12. 7. 2026"})
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-trenink-na-labi-410.jpg", "srcset": "img/gallery/album-trenink-na-labi-410.jpg 410w, img/gallery/album-trenink-na-labi-820.jpg 820w", "alt": "Skifařka při tréninku na řece podél řady bójí", "title": "Trénink na Labi", "photos": "18 fotek", "datetime": "2026-06-20", "date": "20. 6. 2026"})
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-ergometry-410.jpg", "srcset": "img/gallery/album-ergometry-410.jpg 410w, img/gallery/album-ergometry-820.jpg 820w", "alt": "Čtyřka veslařů v modrých dresech při tréninku", "title": "Ergometry v Labe Aréně", "photos": "15 fotek", "datetime": "2026-03-08", "date": "8. 3. 2026"})
+    @@include('./album-card.html', {"href": "#", "img": "img/gallery/album-vanocni-regata-410.jpg", "srcset": "img/gallery/album-vanocni-regata-410.jpg 410w, img/gallery/album-vanocni-regata-820.jpg 820w", "alt": "Ženská osmiveslice na závodní trati u červených bójí", "title": "Vánoční regata 2025", "photos": "30 fotek", "datetime": "2025-12-13", "date": "13. 12. 2025"})
+  </div>
+
+  <div class="mt-space-md flex justify-center">
+    <button type="button" class="pill-press inline-flex h-14 items-center gap-space-xs rounded-radius-full border border-[#c5cbd6] px-space-lg text-button text-text-primary hover:bg-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
+      Načíst další alba
+      @@include('../icon.html', {"name": "arrow-right", "class": "h-4 w-4"})
+    </button>
+  </div>
+</section>

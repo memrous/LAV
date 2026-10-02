@@ -1,21 +1,32 @@
-<!-- Toolbar: search + category filter. Markup only; filtering comes with the articles JS (next step).
+@@if (false) {
+Search + category filter row (articles page; also reused by the gallery page).
+Params (all OPTIONAL; omitted = the articles toolbar, output byte-identical to the version without params):
+  id           – id of the search input, default "articles-search"
+  label        – visually hidden label of the input, default "Hledat článek"
+  placeholder  – input placeholder, default "Hledat článek…"
+  categories   – array of pill labels (first one pressed), default ["Vše", "Závody", "Soustředění", "Akademie", "Nábor"].
+                 Pass it from a page directly (an array param does not survive a nested include).
+  include('./components/articles/toolbar.html', {"id": "gallery-search", "label": "Hledat album",
+    "placeholder": "Hledat album…", "categories": ["Vše", "Závody"]})   from src/*.html (prefix the call with @@)
+The closing brace of this block is directly followed by the first output line on purpose (no extra blank line).
+}<!-- Toolbar: search + category filter. Markup only; filtering comes with the articles JS (next step).
      Pills are toggle buttons (aria-pressed); .articles-pill styles the pressed state. -->
 <div class="mx-auto flex max-w-container flex-col gap-space-sm px-space-sm md:px-space-xl min-[769px]:flex-row min-[769px]:items-center min-[769px]:justify-between xl:px-space-2xl">
   <div role="search" class="relative w-full min-[769px]:w-[22.5rem] min-[769px]:shrink-0">
-    <label for="articles-search" class="sr-only">Hledat článek</label>
+    <label for="@@if (typeof id === 'undefined') {articles-search}@@if (typeof id !== 'undefined') {@@id}" class="sr-only">@@if (typeof label === 'undefined') {Hledat článek}@@if (typeof label !== 'undefined') {@@label}</label>
     @@include('../icon.html', {"name": "search", "class": "pointer-events-none absolute left-space-sm top-1/2 h-5 w-5 -translate-y-1/2 text-[#6b7280]"})
     <input
-      id="articles-search"
+      id="@@if (typeof id === 'undefined') {articles-search}@@if (typeof id !== 'undefined') {@@id}"
       type="search"
       name="q"
-      placeholder="Hledat článek…"
+      placeholder="@@if (typeof placeholder === 'undefined') {Hledat článek…}@@if (typeof placeholder !== 'undefined') {@@placeholder}"
       autocomplete="off"
       class="h-14 w-full rounded-radius-full border border-surface-icon-border bg-white pl-11 pr-space-md text-button text-text-primary placeholder:text-[#5b6479] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg"
     >
   </div>
 
   <div role="group" aria-label="Kategorie" class="articles-pills">
-    @@for (var i = 0, cats = ["Vše", "Závody", "Soustředění", "Akademie", "Nábor"]; i < cats.length; i++) {
+    @@for (var i = 0, cats = (typeof categories !== 'undefined' ? categories : ["Vše", "Závody", "Soustředění", "Akademie", "Nábor"]); i < cats.length; i++) {
     <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`">`+cats[i]+`</button>
     }
   </div>

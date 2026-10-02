@@ -1,0 +1,11 @@
+<!-- "Soubory ke stažení" (design/text/lav.png): H2 (same style as the rich-text H2, 36 px above like one) + the hairline
+     document card of O akademii (rows from about/document-item.html). Not part of the rich text: in the CMS this is a
+     list of attached files. TODO(verify): document URLs. -->
+<section aria-labelledby="soubory">
+  <h2 id="soubory" class="about-h2 mt-9">Soubory ke stažení</h2>
+  <ul class="about-docs mt-space-md">
+    @@include('../about/document-item.html', {"name": "Stanovy akademie.pdf", "type": "PDF", "size": "0,8 MB", "href": "#"})
+    @@include('../about/document-item.html', {"name": "Výroční zpráva 2025.pdf", "type": "PDF", "size": "4,2 MB", "href": "#"})
+    @@include('../about/document-item.html', {"name": "Etický kodex.pdf", "type": "PDF", "size": "0,3 MB", "href": "#"})
+  </ul>
+</section>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Template / demo page for CMS rich text (doubles as the test page for the editor output): keep it out of search
+       engines. Remove this meta when real pages are generated from this template. -->
+  <meta name="robots" content="noindex">
+  <title>Obecná podstránka | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  <!-- Generic pages have no nav item (the design highlights "O akademii" – TODO(verify)). -->
+  @@include('./components/header.html', {"active": ""})
+
+  <main>
+    @@include('./components/page-head.html', {"id": "text-title", "title": "Obecná podstránka", "perex": "Šablona pro libovolný text z editoru: nadpisy, odstavce, seznamy, fotky, video, tabulka, soubory.", "breadcrumb": "[['Domů', 'index.html']]", "current": "Obecná podstránka", "art": false, "perexNarrow": true})
+    @@include('./components/text/content.html')
+  </main>
+
+  @@include('./components/cta-nabor.html')
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>

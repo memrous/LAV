@@ -1,0 +1,15 @@
+<!-- Body + left column (design/uchazeci/lav.png): the same grid as about/content.html (aside 3 cols = 300 px, body 9 cols
+     = 954 px at 1440, 24 px gutters; aside first in the DOM, sticky below the header at > 1024, ≤ 1024 one column).
+     Aside = about/aside.html with this page's lists. The design shows no file sizes for the downloads. -->
+<div class="mx-auto mt-2 grid max-w-container gap-y-space-xl px-space-sm md:px-space-xl min-[1025px]:grid-cols-12 min-[1025px]:gap-x-space-md xl:px-space-2xl">
+  <div class="min-[1025px]:sticky min-[1025px]:top-24 min-[1025px]:col-span-3 min-[1025px]:self-start">
+    @@include('../about/aside.html', {"toc": [["pro-koho", "Pro koho"], ["co-nabizime", "Co nabízíme"], ["jak-se-prihlasit", "Jak se přihlásit"], ["terminy", "Termíny"], ["kontakt", "Kontakt"]], "docs": [["Přihláška 2026-27.pdf"], ["Lékařský posudek.pdf"]]})
+  </div>
+
+  <div class="min-w-0 min-[1025px]:col-span-9">
+    @@include('./body.html')
+    @@include('./steps.html')
+    @@include('./dates.html')
+    @@include('./contact.html')
+  </div>
+</div>

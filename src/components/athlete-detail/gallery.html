@@ -1,10 +1,10 @@
 <!-- "Fotogalerie" (design/akademici_detail/lav.png): 4 photos 302×202 r 12, 24 px gaps; "Všechny fotky" link on the right.
      4 / 2 columns (> 768 / ≤ 768). Markup only: each thumbnail links to the full photo (works without JS); the lightbox
-     comes with the JS step. TODO(verify): "Všechny fotky" target (no gallery page yet). Photos: existing src/img. -->
+     comes with the JS step. Photos: existing src/img. -->
 <section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-[6.375rem] xl:px-space-2xl" aria-labelledby="athlete-gallery-title">
   <div class="flex items-center justify-between gap-space-sm">
     <h2 id="athlete-gallery-title" class="articles-h2">Fotogalerie</h2>
-    @@include('./section-link.html', {"href": "#", "label": "Všechny fotky"})
+    @@include('./section-link.html', {"href": "gallery.html", "label": "Všechny fotky"})
   </div>
 
   <ul class="mt-space-lg grid grid-cols-2 gap-space-sm min-[769px]:grid-cols-4 min-[769px]:gap-space-md">

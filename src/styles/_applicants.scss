@@ -1,0 +1,72 @@
+// Uchazeči page (src/applicants.html, design/uchazeci/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place (utilities still win). Reuses from other pages: .rich-text / .about-body / .about-h2 / the aside
+// (O akademii), .article-card (article detail), .athlete-facts__row (athlete detail); only the new pieces live here.
+
+// Sampled from design/uchazeci/lav.png.
+$applicants-muted: #5b6479; // step numbers (same as the article detail's muted)
+$applicants-divider: #dfe3ea; // between the steps
+$applicants-apply-bg: #454571; // "Přihlaste se do akademie" banner
+
+@layer components {
+  // ---------------------------------------------------------------------------------------------------------------
+  // "Jak se přihlásit": 72 px number column, 85 px pitch at 1440 (16 px above the title, 20 px below the text, 1 px
+  // divider); the first step has no space above, the last none below.
+  .applicants-step {
+    @apply grid grid-cols-[4.5rem_minmax(0,1fr)] items-baseline;
+
+    &:not(:last-child) {
+      padding-bottom: 1.25rem;
+    }
+
+    & + & {
+      padding-top: 1rem;
+      border-top: 1px solid $applicants-divider;
+    }
+
+    @media (max-width: 768px) {
+      @apply grid-cols-[3rem_minmax(0,1fr)];
+    }
+  }
+
+  .applicants-step__number {
+    @apply font-label text-label font-bold tracking-[0.1em];
+    color: $applicants-muted;
+  }
+
+  // Only Inter 500 is self-hosted; the design's title looks a touch heavier (as the other Inter titles). TODO(verify).
+  .applicants-step__title {
+    @apply text-lg leading-6 text-text-primary;
+  }
+
+  .applicants-step__text {
+    @apply mt-1 text-body leading-5 text-text-secondary;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // "Přihlaste se do akademie": 360 px tall, r 24, 64 px side padding, text and button vertically centered with a 70 px
+  // gap; the decoration sits in the right part of the box. ≤ 1024 the button goes below the text; ≤ 768 smaller padding.
+  .applicants-apply {
+    @apply relative isolate flex min-h-[22.5rem] items-center gap-[4.375rem] overflow-hidden rounded-3xl px-16 py-space-xl;
+    background-color: $applicants-apply-bg;
+
+    @media (max-width: 1024px) {
+      @apply flex-col items-start justify-center gap-space-lg;
+    }
+
+    @media (max-width: 768px) {
+      @apply min-h-0 px-space-md py-space-xl;
+    }
+  }
+
+  // 620×360 at 1440 (right 620 px of the 1280 box); cover-cropped from the right when the box gets taller (stacked text).
+  .applicants-apply__art {
+    @apply pointer-events-none absolute inset-y-0 right-0 -z-10 h-full w-[38.75rem] max-w-full object-cover object-right;
+  }
+
+  // Yellow button, 56 px, r 6 (the design's only non-pill button), accent text + sliding arrow.
+  .applicants-apply__btn {
+    @apply relative inline-flex h-14 shrink-0 items-center gap-space-xs rounded-md bg-button-accent-bg px-space-lg text-button text-button-accent-text hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2;
+    --tw-ring-offset-color: #{$applicants-apply-bg};
+  }
+}

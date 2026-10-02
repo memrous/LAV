@@ -1,0 +1,11 @@
+<!-- "Jak se přihlásit" (design/uchazeci/lav.png): H2 as in the body (.about-h2) + 4 steps from step.html, hairline
+     dividers between them. Not part of the rich text: it is a fixed component. -->
+<section aria-labelledby="jak-se-prihlasit">
+  <h2 id="jak-se-prihlasit" class="about-h2 mt-[2.25rem]">Jak se přihlásit</h2>
+  <ol class="applicants-steps mt-space-md">
+    @@include('./step.html', {"number": "01", "title": "Vyplňte přihlášku", "text": "Online formulář nebo PDF ke stažení. Přihlášku posílá zákonný zástupce společně s mateřským klubem."})
+    @@include('./step.html', {"number": "02", "title": "Doložte lékařský posudek", "text": "Posudek sportovního lékaře pro výkonnostní sport, ne starší než 3 měsíce."})
+    @@include('./step.html', {"number": "03", "title": "Přijďte na výběrové řízení", "text": "Testy na trenažéru, na vodě a pohovor s trenéry v Labe Aréně Ústeckého kraje."})
+    @@include('./step.html', {"number": "04", "title": "Podepište smlouvu s akademií", "text": "Smlouva upravuje tréninkový režim, zdravotní péči a spolupráci s klubem a školou."})
+  </ol>
+</section>

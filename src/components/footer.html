@@ -35,10 +35,10 @@
 
       <nav aria-labelledby="footer-web">
         <h2 id="footer-web" class="font-label text-label font-bold uppercase tracking-[0.08em] text-white/70">Web</h2>
-        <!-- TODO(verify): link targets -->
+        <!-- TODO(verify): link target of "Aktuality" -->
         <ul class="mt-space-sm grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-space-lg gap-y-space-xs text-body">
           @@for (var i = 0; i < 7; i++) {
-          <li><a href="`+(i === 1 ? "athletes.html" : i === 2 ? "about.html" : i === 4 ? "events.html" : i === 5 ? "partners.html" : i === 6 ? "contact.html" : "#")+`" class="link-underline rounded-radius-sm text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a></li>
+          <li><a href="`+(i === 1 ? "athletes.html" : i === 2 ? "about.html" : i === 3 ? "applicants.html" : i === 4 ? "events.html" : i === 5 ? "partners.html" : i === 6 ? "contact.html" : "#")+`" class="link-underline rounded-radius-sm text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">`+["Aktuality", "Akademici", "O akademii", "Uchazeči", "Akce", "Partneři", "Kontakty"][i]+`</a></li>
           }
         </ul>
       </nav>
@@ -71,7 +71,7 @@
           <li><a href="#" class="link-underline rounded-radius-sm text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">`+["KIS — přihlášení", "Dokumenty", "Rozpis tréninků"][i]+`</a></li>
           }
         </ul>
-        <a href="#" class="pill-press mt-space-md inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-white px-space-md text-body text-text-primary transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#17264f]">
+        <a href="applicants.html" class="pill-press mt-space-md inline-flex h-11 items-center gap-space-xs rounded-radius-full bg-white px-space-md text-body text-text-primary transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#17264f]">
           Přihlásit se na nábor
           <span class="arrow-mask arrow-mask--diagonal h-4 w-4">
             @@include('./icon.html', {"name": "arrow-up-right", "class": "h-4 w-4"})

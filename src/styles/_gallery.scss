@@ -1,0 +1,74 @@
+// Fotogalerie page (src/gallery.html, design/fotogalerie/*.png).
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
+// to the right place (utilities still win). Toolbar, pills, section heading and .stretched-link come from _articles.scss.
+
+// Frosted caption tint, sampled from design/fotogalerie/Content.png (≈ #d0d5d6 at the card bottom over the blurred photo).
+$gallery-frost: rgba(228, 233, 236, 0.8);
+$gallery-meta: #5b6479;
+
+@layer components {
+  // Album card: 410×300 at 1440 (41:30, kept at every width), r 16 (no radius token for 16 – radius-md is 12).
+  .gallery-album {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    @apply bg-surface-icon-border;
+
+    // Focus ring of the stretched link follows the card radius.
+    .stretched-link::after {
+      border-radius: 1rem;
+    }
+  }
+
+  .gallery-album__img {
+    display: block;
+    width: 100%;
+    height: 95%;
+    aspect-ratio: 41 / 30;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+
+    // Hover isn't in the design – a subtle zoom only (TODO(verify)).
+    .gallery-album:hover & {
+      transform: scale(1.03);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      .gallery-album:hover & {
+        transform: none;
+      }
+    }
+  }
+
+  // Caption: 24 px padding, frosted band ≈ 100 px tall at 1440 whose top 40 px fades in (grows with 2-line titles).
+  .gallery-album__caption {
+    position: absolute;
+    inset: auto 0 0;
+    isolation: isolate;
+    padding: 2.5rem 1.5rem 1.5rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: $gallery-frost;
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      mask-image: linear-gradient(to bottom, transparent, #000 2.5rem);
+    }
+  }
+
+  // Title: Schibsted Grotesk Bold ≈ 21 px (ink width of "Podzimní soustředění Račice" = 311 px at 1440).
+  .gallery-album__title {
+    @apply font-display text-[1.3125rem] font-bold leading-[1.2] tracking-[-0.01em] text-text-primary;
+  }
+
+  // "48 fotek · 13. 9. 2026": Inter 14 px, grey.
+  .gallery-album__meta {
+    @apply mt-space-xs text-body;
+    color: $gallery-meta;
+  }
+}

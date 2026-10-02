@@ -1,35 +1,13 @@
 // Article detail page (src/article-detail.html, design/clanky_detail/*.png).
 // @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components and Tailwind moves it
 // to the right place (utilities still win). Shares .articles-h2 / .articles-head__art / .stretched-link with _articles.scss.
+// The CMS body text (.rich-text) plus the shared muted color, card/h2/label mixins live in _rich-text.scss.
+
+@use 'rich-text' as *;
 
 // Colors sampled from design/clanky_detail/lav.png; no matching tokens in tailwind.config.js.
-$article-muted: #5b6479; // category, captions, author role, quote source
 $article-accent: #449ad3; // category dot (same blue as the nav's active underline in main.scss)
 $article-divider: #dce0e8; // rows in the results card
-$article-card-top: #e6edf2; // glass card fill, top → bottom
-$article-card-bottom: #e1e7ee;
-
-// Glass card: blockquote, results, attachment. r 16, white hairline, soft shadow below.
-@mixin article-card {
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 1rem;
-  background: linear-gradient(to bottom, $article-card-top, $article-card-bottom);
-  box-shadow: 0 16px 32px -12px rgba(18, 19, 42, 0.14);
-}
-
-// H2 inside the body and "Výsledky akademie": 26 px, like .articles-h2 (widths match the design at 1440). Same Inter 500 stand-in for the lighter Schibsted Grotesk cut as
-// .articles-h2 (only Schibsted 700 is self-hosted). TODO(verify) / add the font.
-@mixin article-h2 {
-  font-size: 1.625rem;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  @apply text-text-primary;
-}
-
-// Small caps labels: "SDÍLET", "AUTOR", "1. MÍSTO", "PDF · 1,2 MB", quote source. Play Bold 11 px.
-@mixin article-label {
-  @apply font-label text-label font-bold uppercase tracking-[0.04em];
-}
 
 @layer components {
   // Meta row under the H1: "● ZÁVODY   12. 9. 2026 · JAN NOVÁK · 4 MIN ČTENÍ".
@@ -66,109 +44,37 @@ $article-card-bottom: #e1e7ee;
     @include article-card;
   }
 
-  // Results card rows: 56 px, dot / discipline / place, 1 px dividers between rows.
-  .article-results__row {
-    @apply flex h-14 items-center gap-space-sm;
-
-    & + & {
-      border-top: 1px solid $article-divider;
-    }
-  }
-
-  // -------------------------------------------------------------------------------------------------------------
-  // Rich text from the CMS: plain HTML, no classes. Everything is styled from this wrapper by element selectors.
-  // Rhythm (design/clanky_detail/lav.png, 954 px column): 24 px between all blocks, headings included; the first
-  // paragraph is the lead.
-  // Elements the design doesn't show (h3, lists, inline links, strong) are styled from the same tokens – TODO(verify).
-  .article-body {
-    > * + * {
-      margin-top: 1.5rem;
-    }
-
-    p,
-    li {
-      @apply text-button text-text-secondary; // 16 / 24
-    }
-
-    // Lead / perex: 20 / 29, primary color.
+  // Article body (.rich-text.rich-text--article, design/clanky_detail): where the article differs from the base
+  // .rich-text look (design/text): 20 px lead, 26 px Inter H2 with the normal 24 px above, glass-card quote, 24 px
+  // around photos and quotes.
+  .rich-text--article {
     > p:first-child {
       @apply text-[1.25rem] leading-[1.45] text-text-primary;
     }
 
     h2 {
       @include article-h2;
+      @apply font-body font-medium;
     }
 
-    h3 {
-      @apply text-[1.25rem] leading-[1.4] text-text-primary;
+    > * + h2,
+    > :is(figure, blockquote, table, iframe, video, embed, object, pre, hr, div) + *,
+    > * + :is(figure, blockquote, table, iframe, video, embed, object, pre, hr, div) {
+      margin-top: 1.5rem;
     }
 
-    // Tighter below an h3 (not in the design) so it groups with its text.
-    > h3 + * {
-      margin-top: 1rem;
-    }
-
-    ul,
-    ol {
-      padding-left: 1.5rem;
-    }
-
-    ul {
-      list-style: disc;
-    }
-
-    ol {
-      list-style: decimal;
-    }
-
-    li + li,
-    li > ul,
-    li > ol {
-      margin-top: 0.5rem;
-    }
-
-    li::marker {
-      color: $article-muted;
-    }
-
-    // Quote card: 32 px padding, quote 22 px primary, source as a small caps label 8 px below.
     blockquote {
       @include article-card;
-      @apply p-space-lg;
-
-      p {
-        @apply text-[1.375rem] leading-[1.3] text-text-primary;
-      }
-
-      footer,
-      cite {
-        @include article-label;
-        display: block;
-        margin-top: 0.5rem;
-        font-style: normal;
-        color: $article-muted;
-      }
+      padding: 2rem;
     }
+  }
 
-    img {
-      @apply h-auto w-full rounded-radius-md;
-    }
+  // Results card rows: 56 px, dot / discipline / place, 1 px dividers between rows.
+  .article-results__row {
+    @apply flex h-14 items-center gap-space-sm;
 
-    figcaption {
-      @apply mt-[0.6875rem] text-[0.8125rem] leading-4; // 13 px, 11 px below the photo
-      color: $article-muted;
-    }
-
-    // Inline links: always underlined. .link-underline only shows its line on hover, which isn't enough for a link
-    // inside grey running text (it must be distinguishable without color/hover).
-    a {
-      @apply rounded-radius-sm text-text-primary underline decoration-1 underline-offset-[3px] transition-colors hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2;
-    }
-
-    // Only Inter 500 is self-hosted, so bold is synthesized by the browser. TODO(verify) / add Inter 700.
-    strong,
-    b {
-      @apply font-bold text-text-primary;
+    & + & {
+      border-top: 1px solid $article-divider;
     }
   }
 }

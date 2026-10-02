@@ -1,0 +1,26 @@
+<!-- "Přihlaste se do akademie" (design/uchazeci/lav.png): full container width (1280 at 1440), 360 px tall, r 24, purple
+     #454571; title 60 px white + note, yellow button right after the text (not pushed to the right edge), as designed.
+     Decoration = right part of the banner from the export with the button and title cut out (src/img/scene/applicants-cta.jpg,
+     620×360, 1× – no 2× source); its left edge is the flat banner color, so it needs no fade.
+     Bottom padding: 75 + the CTA's 80 px = 155 px to the CTA scene, as on O akademii.
+     TODO(verify): "Vyplnit přihlášku" target – the design has no online form; until it exists this could link to the
+     "Přihláška 2026-27.pdf" download. The button is r 6 here, unlike the pill buttons elsewhere – as designed. -->
+<section class="mx-auto mt-space-2xl max-w-container px-space-sm pb-space-xl md:px-space-xl min-[1025px]:mt-24 min-[1025px]:pb-[4.6875rem] xl:px-space-2xl" aria-labelledby="applicants-apply-title">
+  <div class="applicants-apply">
+    <img src="img/scene/applicants-cta.jpg" alt="" width="620" height="360" loading="lazy" class="applicants-apply__art">
+
+    <div class="relative">
+      <h2 id="applicants-apply-title" class="font-display text-display-md font-bold text-text-inverse md:text-display-lg min-[1025px]:text-display-xl">Přihlaste se do akademie</h2>
+      <p class="mt-space-sm text-[1.125rem] leading-[1.5] text-white/75">Uzávěrka přihlášek <time datetime="2026-09-30">30. 9. 2026</time>.</p>
+    </div>
+
+    <!-- TODO(verify): online application form URL -->
+    <a href="#" class="applicants-apply__btn pill-press">
+      Vyplnit přihlášku
+      <span class="arrow-mask h-5 w-5">
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+        @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+      </span>
+    </a>
+  </div>
+</section>

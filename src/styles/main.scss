@@ -2,6 +2,8 @@
 @use '../../node_modules/swiper/swiper';
 // Articles listing page (all in @layer components, see the partial)
 @use 'articles';
+// Shared CMS rich text (.rich-text; all in @layer components, see the partial)
+@use 'rich-text';
 // Article detail page (all in @layer components, see the partial)
 @use 'article-detail';
 // Akademici page (all in @layer components, see the partial)
@@ -16,6 +18,10 @@
 @use 'contact';
 // O akademii page (all in @layer components, see the partial)
 @use 'about';
+// Uchazeči page (all in @layer components, see the partial)
+@use 'applicants';
+// Fotogalerie page (all in @layer components, see the partial)
+@use 'gallery';
 // "Uvidíme se na Labi." CTA above the footer (articles page)
 @use 'cta';
 

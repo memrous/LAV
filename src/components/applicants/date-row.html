@@ -1,0 +1,13 @@
+@@if (false) {
+One row of the "Termíny" card: label left, date (+ optional place) right – the athlete detail's "Osobní údaje" row
+(.athlete-facts__row in _athlete-detail.scss: 56 px rows, 1 px dividers, dt 14 px secondary, dd 16 px primary).
+Params:
+  label    – as displayed ("Uzávěrka přihlášek")
+  datetime – ISO date for <time> ("2026-09-30")
+  date     – as displayed ("30. 9. 2026")
+  place    – OPTIONAL, shown after the date and a comma ("Labe Aréna")
+}
+<div class="athlete-facts__row">
+  <dt>@@label</dt>
+  <dd><time datetime="@@datetime">@@date</time>@@if (typeof place !== 'undefined') {, @@place}</dd>
+</div>

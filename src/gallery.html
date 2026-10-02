@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fotogalerie | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  <!-- No nav item for Fotogalerie in the design: header without an active item (TODO(verify): add one?). -->
+  @@include('./components/header.html', {"active": ""})
+
+  <main>
+    @@include('./components/page-head.html', {"id": "gallery-title", "title": "Fotogalerie", "perex": "Alba z tréninků, závodů a života akademie.", "breadcrumb": "[['Domů', 'index.html']]", "current": "Fotogalerie"})
+    @@include('./components/articles/toolbar.html', {"id": "gallery-search", "label": "Hledat album", "placeholder": "Hledat album…", "categories": ["Vše", "Závody", "Soustředění", "Akademie", "Ze života"]})
+    @@include('./components/gallery/albums.html')
+  </main>
+
+  @@include('./components/cta-nabor.html')
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>

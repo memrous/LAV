@@ -1,0 +1,16 @@
+@@if (false) {
+One step of "Jak se přihlásit" (design/uchazeci/lav.png): number (Play 11 px, muted) in a 72 px column | title 18 px +
+text 14 px. Dividers and spacing: .applicants-steps in _applicants.scss. The <ol> carries the order for screen readers,
+so the visible number is decorative.
+Params (all required):
+  number – as displayed ("01")
+  title  – step title
+  text   – description
+}
+<li class="applicants-step">
+  <span class="applicants-step__number" aria-hidden="true">@@number</span>
+  <div>
+    <h3 class="applicants-step__title">@@title</h3>
+    <p class="applicants-step__text">@@text</p>
+  </div>
+</li>

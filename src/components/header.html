@@ -11,14 +11,14 @@
       </svg>
     </a>
 
-    <!-- Nav items: `nav` = label + href (TODO(verify): the other pages don't exist yet).
+    <!-- Nav items: `nav` = label + href.
          Active item = the `active` include parameter (e.g. {"active": "Aktuality"}; pass "" for none). It gets
          aria-current="page"; styles: aria-[current=page]: utilities + .link-underline in main.scss. -->
     <!-- Desktop -->
     <div class="hidden items-center gap-space-lg xl:flex">
       <nav aria-label="Hlavní navigace">
         <ul class="flex items-center gap-space-md min-[1400px]:gap-space-xl">
-          @@for (var i = 0, nav = [["Aktuality", "articles.html"], ["Akademici", "athletes.html"], ["O akademii", "about.html"], ["Uchazeči", "#"], ["Akce", "events.html"], ["Partneři", "partners.html"], ["Kontakty", "contact.html"]]; i < nav.length; i++) {
+          @@for (var i = 0, nav = [["Aktuality", "articles.html"], ["Akademici", "athletes.html"], ["O akademii", "about.html"], ["Uchazeči", "applicants.html"], ["Akce", "events.html"], ["Partneři", "partners.html"], ["Kontakty", "contact.html"]]; i < nav.length; i++) {
           <li>
             <a href="`+nav[i][1]+`"`+(nav[i][0] === active ? ' aria-current="page"' : '')+` class="link-underline rounded-radius-sm text-body text-text-secondary transition-colors hover:text-text-primary aria-[current=page]:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">`+nav[i][0]+`</a>
           </li>
@@ -58,7 +58,7 @@
       <div class="absolute inset-x-space-sm top-[4.5rem] rounded-radius-md border border-surface-card-border bg-surface-page p-space-md shadow-xl md:inset-x-space-xl">
         <nav aria-label="Hlavní navigace (mobilní)">
           <ul class="flex flex-col">
-            @@for (var i = 0, nav = [["Aktuality", "articles.html"], ["Akademici", "athletes.html"], ["O akademii", "about.html"], ["Uchazeči", "#"], ["Akce", "events.html"], ["Partneři", "partners.html"], ["Kontakty", "contact.html"]]; i < nav.length; i++) {
+            @@for (var i = 0, nav = [["Aktuality", "articles.html"], ["Akademici", "athletes.html"], ["O akademii", "about.html"], ["Uchazeči", "applicants.html"], ["Akce", "events.html"], ["Partneři", "partners.html"], ["Kontakty", "contact.html"]]; i < nav.length; i++) {
             <li>
               <a href="`+nav[i][1]+`"`+(nav[i][0] === active ? ' aria-current="page"' : '')+` class="block rounded-radius-sm py-space-xs text-button text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg"><span class="link-underline">`+nav[i][0]+`</span></a>
             </li>

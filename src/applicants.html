@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Uchazeči | Labská akademie veslování</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  @@include('./components/sprite.html')
+
+  @@include('./components/header.html', {"active": "Uchazeči"})
+
+  <main>
+    @@include('./components/page-head.html', {"id": "applicants-title", "title": "Uchazeči", "breadcrumb": "[['Domů', 'index.html']]", "current": "Uchazeči", "art": false})
+    @@include('./components/applicants/content.html')
+    @@include('./components/applicants/apply.html')
+  </main>
+
+  <!-- design/uchazeci/lav.png shows the "Uvidíme se na Labi." CTA on this page too, so it stays, although its
+       "Přihlásit se na nábor" button links to this very page. -->
+  @@include('./components/cta-nabor.html')
+
+  @@include('./components/footer.html')
+
+  <script type="module" src="js/main.parcel.js"></script>
+</body>
+</html>
