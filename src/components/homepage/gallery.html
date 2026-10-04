@@ -6,12 +6,15 @@
     </h2>
 
     <!-- Full-bleed drag carousel: the swiper sits in the page container (first photo aligns with the gutter)
-         and overflows both viewport edges; the section clips it. -->
+         and overflows both viewport edges; the section clips it. Each photo links to the full image (works without JS);
+         with JS a click (not a drag – Swiper cancels that click) opens the lightbox (lightbox.js, group "homepage").
+         Links are draggable="false" so a mouse drag moves the carousel instead of dragging the link. -->
     <div class="swiper js-gallery mt-space-md !overflow-visible">
       <!-- TODO(replace with real gallery photos): only gallery-1..3 exist, cycled 4× to fill the row -->
       <ul class="swiper-wrapper">
         @@for (var i = 0; i < 12; i++) {
         <li class="swiper-slide !w-60 sm:!w-72 lg:!w-[18.875rem]">
+          <a href="img/gallery-`+(i % 3 + 1)+`.jpg" data-lightbox="homepage" draggable="false" class="block overflow-hidden rounded-radius-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4 focus-visible:ring-offset-surface-page">
           <img
             src="img/gallery-`+(i % 3 + 1)+`.jpg"
             alt="`+["Ženská osmiveslice na závodní trati", "Skifařka během závodu", "Dvojskif na závodní trati"][i % 3]+`"
@@ -21,6 +24,7 @@
             draggable="false"
             class="aspect-square w-full select-none rounded-radius-md object-cover"
           >
+          </a>
         </li>
         }
       </ul>

@@ -1,21 +1,22 @@
 @@if (false) {
 Left column of a text page: "Obsah" (in-page links) + "Ke stažení". Used by O akademii (no params) and Uchazeči.
 Params (both OPTIONAL; omitted = the O akademii lists, output byte-identical to the version without params):
-  toc  – [id, label] pairs; id = the target heading's id. The first item is highlighted (.is-active).
+  toc  – [id, label] pairs; id = the target heading's id. No item is highlighted in the markup: js/modules/toc.js
+         (via [data-toc]) sets aria-current="true" on the item for the section in view.
   docs – [file name, size] pairs; the size is read out to screen readers only and may be left out (["Soubor.pdf"]).
 The O akademii notes below are printed only without params. Keep braces in this text balanced.
 }@@if (typeof toc === 'undefined') {<!-- Left column (design/o_akademii/lav.png, 300 px): "Obsah" (in-page links) and "Ke stažení", 1 px divider between.
-     Sticky below the header at > 1024 (CSS only, on the grid item in content.html). The first item is highlighted as in the design (.is-active, visual only);
-     moving the highlight with the scroll position (and aria-current) is for the JS step.
+     Sticky below the header at > 1024 (CSS only, on the grid item in content.html). The highlight (aria-current="true")
+     follows the scroll position, set by js/modules/toc.js; without JS nothing is highlighted and the anchors still work.
      TODO(verify): the design lists "Tým" in the contents but has no Tým section – the item is left out until it exists.
      TODO(verify): document URLs; the design names the statutes "Stanovy.pdf" here and "Stanovy akademie.pdf" in Dokumenty;
-     the camera icon is as designed (as on the article detail). -->
+     the design shows a camera icon next to the files (placeholder) – a file icon (src/icons/file.svg) is used instead. -->
 }<aside class="about-aside" aria-label="Obsah stránky">
-  <nav aria-labelledby="about-toc-title">
+  <nav aria-labelledby="about-toc-title" data-toc>
     <h2 id="about-toc-title" class="article-label">Obsah</h2>
     <ol class="about-toc">
       @@for (var i = 0, items = (typeof toc !== 'undefined' ? toc : [["kdo-jsme", "Kdo jsme"], ["poslani", "Poslání"], ["historie", "Historie"], ["zazemi", "Zázemí"], ["dokumenty", "Dokumenty"]]); i < items.length; i++) {
-      <li><a href="#`+items[i][0]+`" class="about-toc__link`+(i === 0 ? ' is-active' : '')+`">`+items[i][1]+`</a></li>
+      <li><a href="#`+items[i][0]+`" class="about-toc__link">`+items[i][1]+`</a></li>
       }
     </ol>
   </nav>
@@ -27,7 +28,7 @@ The O akademii notes below are printed only without params. Keep braces in this 
       <li>
         <!-- TODO(verify): document URL -->
         <a href="#" class="about-download">
-          @@include('../icon.html', {"name": "camera", "class": "h-4 w-4 shrink-0 text-[#69707f]"})
+          @@include('../icon.html', {"name": "file", "class": "h-4 w-4 shrink-0 text-[#69707f]"})
           <span class="link-underline">`+files[i][0]+`</span>`+(files[i][1] ? '<span class="sr-only"> (' + files[i][1] + ')</span>' : '')+`
         </a>
       </li>

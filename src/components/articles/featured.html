@@ -1,7 +1,9 @@
 <!-- Featured article (design/clanky/Content.png: image 760×480 r 12, 48 px gap, text column vertically centered).
      Whole card clickable via the "Číst článek" link (.stretched-link) – the only <a> in the card.
-     Stacks (image on top) up to 1024 px. -->
-<section class="mx-auto mt-space-xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-12 xl:px-space-2xl" aria-labelledby="articles-featured-title">
+     Stacks (image on top) up to 1024 px.
+     Search (src/js/modules/search.js): the whole section is one search item – hidden while a query is active unless it
+     matches. data-search-text = the visible perex below (later filled by the CMS; full-text search will be server-side). -->
+<section id="articles-featured" class="mx-auto mt-space-xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-12 xl:px-space-2xl" aria-labelledby="articles-featured-title" data-search-text="Osma juniorů zlatá, skif a dvojskif se stříbrem a bronzem v Račicích.">
   <article class="relative grid items-center gap-space-md min-[1025px]:grid-cols-[minmax(0,760fr)_minmax(0,472fr)] min-[1025px]:gap-12">
     <!-- Above the fold: not lazy-loaded. -->
     <img
@@ -13,9 +15,7 @@
     >
 
     <div class="min-[1025px]:max-w-[26rem]">
-      <h2 id="articles-featured-title" class="font-display text-[1.75rem] font-bold leading-[1.1] tracking-[-0.03em] text-text-primary md:text-display-md">
-        Tři medaile z Mistrovství ČR juniorů
-      </h2>
+      <h2 id="articles-featured-title" class="font-display text-[1.75rem] font-bold leading-[1.1] tracking-[-0.03em] text-text-primary md:text-display-md" data-search-title>Tři medaile z Mistrovství ČR juniorů</h2>
       <p class="mt-space-sm text-[1.125rem] leading-[1.6] text-text-secondary">
         Osma juniorů zlatá, skif a dvojskif se stříbrem a bronzem v Račicích.
       </p>

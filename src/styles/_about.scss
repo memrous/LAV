@@ -9,14 +9,16 @@ $about-divider: #dce0e8;
 @layer components {
   // ---------------------------------------------------------------------------------------------------------------
   // "Obsah": 14 px links, 28 px rows, 10 px indent; the active one primary with a 2 px navy bar on the left.
+  // Active = aria-current="true", set only by js/modules/toc.js (scrollspy) – nothing is active without JS.
+  // The bar fades between items (color + border-color, 180 ms); instant under reduced motion.
   .about-toc {
     @apply mt-space-sm grid;
   }
 
   .about-toc__link {
-    @apply block border-l-2 border-transparent py-1 pl-2.5 text-body leading-5 text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg;
+    @apply block border-l-2 border-transparent py-1 pl-2.5 text-body leading-5 text-text-secondary transition-[color,border-color] duration-[180ms] ease-out hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg motion-reduce:transition-none;
 
-    &.is-active {
+    &[aria-current='true'] {
       @apply border-button-primary-bg text-text-primary;
     }
   }
@@ -103,4 +105,10 @@ $about-divider: #dce0e8;
   .about-doc {
     @apply flex h-14 items-center gap-space-sm rounded-radius-sm text-body text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg;
   }
+}
+
+// Outside @layer (attribute selector, nothing for Tailwind to match): a target focused by toc.js after a TOC click
+// (tabindex="-1" on headings / figure / quote) only moves the Tab order and the screen-reader position – no ring.
+[data-toc-target]:focus {
+  outline: none;
 }

@@ -3,10 +3,35 @@ import { A11y, Keyboard, Navigation, Pagination } from 'swiper/modules';
 import { FreeMode } from 'swiper/modules';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initFilters } from './modules/filters.js';
+import { initTocs } from './modules/toc.js';
+import { initSearch } from './modules/search.js';
+import { initLoadMore } from './modules/load-more.js';
+import { initLightbox } from './modules/lightbox.js';
+import { initEmbeds } from './modules/embed.js';
 
-const heroArticles = document.querySelector('.js-hero-articles');
+// Initialization pattern: every feature is an init function that does nothing when its elements aren't on the page,
+// and each one runs through run(), so an exception in one feature is logged ("[init] <name> failed: …") and the rest
+// of the page still works. This bundle is a <script type="module"> at the end of <body> – deferred, so the DOM is
+// parsed when it runs; no DOMContentLoaded handler is needed.
+// The "JS is running" flag for CSS (filter bars, search box, load-more / embed buttons are hidden without it). Set here,
+// before any init, so it doesn't depend on any one feature succeeding.
+document.documentElement.classList.add('js');
 
-if (heroArticles) {
+function run(name, init) {
+  try {
+    init();
+  } catch (error) {
+    console.error(`[init] ${name} failed:`, error);
+  }
+}
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function initHeroArticles() {
+  const heroArticles = document.querySelector('.js-hero-articles');
+  if (!heroArticles) return;
+
   new Swiper(heroArticles, {
     modules: [A11y, Keyboard, Navigation, Pagination],
     slidesPerView: 1.1,
@@ -34,9 +59,10 @@ if (heroArticles) {
 }
 
 // Gallery: free-drag row (mouse + touch, with momentum), no arrows/dots.
-const gallery = document.querySelector('.js-gallery');
+function initGalleryCarousel() {
+  const gallery = document.querySelector('.js-gallery');
+  if (!gallery) return;
 
-if (gallery) {
   new Swiper(gallery, {
     modules: [FreeMode],
     slidesPerView: 'auto',
@@ -53,10 +79,11 @@ if (gallery) {
 // Header Transparent → Light (spec: animace/01-hero-river.png): past 80 px of scroll the header gets a light
 // background, backdrop blur and a hairline. Scroll events are coalesced to one check per frame and the class is
 // only touched when the state actually changes. Transition timing (300 ms / reduced motion) lives in main.scss.
-const HEADER_SCROLL_THRESHOLD = 80;
-const siteHeader = document.querySelector('.js-site-header');
+function initHeaderScroll() {
+  const HEADER_SCROLL_THRESHOLD = 80;
+  const siteHeader = document.querySelector('.js-site-header');
+  if (!siteHeader) return;
 
-if (siteHeader) {
   let ticking = false;
   let scrolled = null;
 
@@ -84,9 +111,10 @@ if (siteHeader) {
 
 // Rozcestník grain drift: the 12 s loop only runs while a card is on screen (paused, not reset, when it leaves).
 // Reduced motion is handled in CSS (animation: none), so toggling the class there is harmless.
-const crossroadCards = document.querySelectorAll('.js-crossroad-card');
+function initCrossroadDrift() {
+  const crossroadCards = document.querySelectorAll('.js-crossroad-card');
+  if (!crossroadCards.length) return;
 
-if (crossroadCards.length) {
   const driftObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => entry.target.classList.toggle('is-drifting', entry.isIntersecting));
   });
@@ -97,10 +125,10 @@ if (crossroadCards.length) {
 // once at 20 % visibility. Cards entering in the same batch are staggered 80 ms (--reveal-delay, also used by the
 // bars in CSS); the medal counts in the results card count up 0 → target (1.2 s ease-out-expo, 600 ms apart).
 // Under reduced motion nothing is armed, so everything stays at its final state from the start (spec 08).
-const rightNow = document.querySelector('.js-right-now');
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function initRightNowReveal() {
+  const rightNow = document.querySelector('.js-right-now');
+  if (!rightNow || prefersReducedMotion || !('IntersectionObserver' in window)) return;
 
-if (rightNow && !prefersReducedMotion && 'IntersectionObserver' in window) {
   const CARD_STAGGER = 80;
   const COUNT_DURATION = 1200;
   const COUNT_STAGGER = 600;
@@ -149,9 +177,10 @@ if (rightNow && !prefersReducedMotion && 'IntersectionObserver' in window) {
 // Trigger: once the final baseline (the crop line) is 10 % above the viewport bottom. ScrollTrigger measures the
 // element in its offset start state, hence "bottom-=travel". clamp(): on viewports where that point lies past the
 // end of the page it fires at the very bottom instead of never. Reduced motion / no JS: the wordmark just sits there.
-const footerWordmark = document.querySelector('.js-footer-wordmark');
+function initFooterWordmark() {
+  const footerWordmark = document.querySelector('.js-footer-wordmark');
+  if (!footerWordmark || prefersReducedMotion) return;
 
-if (footerWordmark && !prefersReducedMotion) {
   const CAP_HEIGHT_PER_EM = 480 / 684; // Schibsted Grotesk Bold "LAV" ink height / font size (canvas measureText)
   const capHeight = () => parseFloat(getComputedStyle(footerWordmark).fontSize) * CAP_HEIGHT_PER_EM;
   const travel = () => Math.round((capHeight() * 40) / 78);
@@ -176,3 +205,17 @@ if (footerWordmark && !prefersReducedMotion) {
     }
   );
 }
+
+// Order matters only for the listing pipeline: filters → search → load-more (each later stage builds on the earlier).
+run('filters', initFilters); // category / year filters (articles, athletes, events, gallery) – modules/filters.js
+run('search', initSearch); // article + album search, combined with the filters – modules/search.js
+run('load-more', initLoadMore); // "Načíst další" pagination, last stage of the same pipeline – modules/load-more.js
+run('lightbox', initLightbox); // photo lightbox – modules/lightbox.js
+run('embeds', initEmbeds); // click-to-load map / video – modules/embed.js
+run('toc', initTocs); // "Obsah" scrollspy – modules/toc.js
+run('hero-articles', initHeroArticles);
+run('gallery-carousel', initGalleryCarousel);
+run('header-scroll', initHeaderScroll);
+run('crossroad-drift', initCrossroadDrift);
+run('right-now-reveal', initRightNowReveal);
+run('footer-wordmark', initFooterWordmark);

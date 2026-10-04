@@ -9,11 +9,11 @@ One partial for every event, so the list can later be rendered from data. Params
   place         – as displayed
   timeDatetime  – machine value of the time: "2026-09-21T09:00", or a duration for multi-day events ("P3D")
   time          – as displayed ("9:00", "pá–ne")
-  category      – "zavody" | "soustredeni" | "akademie" | "nabor" (data-category, the hook for the filter JS)
+  category      – "zavody" | "soustredeni" | "akademie" | "nabor" (data-category for the color, data-filter-tags for filters.js)
   categoryLabel – as displayed ("Závody"; uppercased by CSS)
 Whole row clickable: the title link is stretched over it (.stretched-link). ≤ 768 the row stacks: date badge on top.
 }
-<li class="events-row" data-category="@@category">
+<li class="events-row" data-category="@@category" data-filter-tags="@@category">
   <time datetime="@@date" class="events-row__date"><span class="events-row__day">@@day</span> <span class="events-row__month">@@month</span></time>
   <div class="events-row__info">
     <h3 class="events-row__title">

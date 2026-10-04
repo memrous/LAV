@@ -135,6 +135,11 @@ $events-categories: (
       display: none;
     }
 
+    // Days whose chips are all filtered out by the category pills (filters.js) leave the agenda too.
+    .events-day:has(.events-day__list):not(:has(.events-day__list > li:not([hidden]))) {
+      display: none;
+    }
+
     .events-day__date {
       @apply w-[8.5rem] shrink-0 pt-px;
     }

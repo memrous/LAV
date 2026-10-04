@@ -1,10 +1,12 @@
 <!-- "Nejbližší akce" (design/akce/lav.png): heading + "Stáhnout termínovou listinu (PDF)" outline pill on the right, then
      4 rows from event-row.html, 16 px apart. Event names, places and times exactly as in the design – note it places
      "Labe Aréna" in Račice, and the season card below lists the autumn regatta in Ústí nad Labem – TODO(verify).
-     TODO(verify): PDF URL. -->
+     TODO(verify): PDF URL.
+     Filtered by the toolbar's category pills (filters.js, group "events-category"); the live region counts these rows. -->
 <section class="mx-auto mt-12 max-w-container px-space-sm md:px-space-xl xl:px-space-2xl" aria-labelledby="events-upcoming-title">
   <div class="flex flex-wrap items-center justify-between gap-space-sm">
     <h2 id="events-upcoming-title" class="articles-h2">Nejbližší akce</h2>
+    <p class="sr-only" aria-live="polite" data-filter-live="events-category" data-filter-forms="Zobrazena # akce|Zobrazeny # akce|Zobrazeno # akcí"></p>
     <a href="#" class="pill-press inline-flex h-11 items-center gap-space-xs rounded-radius-full border border-white/80 px-space-md text-body text-text-primary hover:bg-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page">
       <span class="link-underline">Stáhnout termínovou listinu (PDF)</span>
       <span class="arrow-mask arrow-mask--diagonal h-5 w-5">
@@ -19,5 +21,12 @@
     @@include('./event-row.html', {"date": "2026-09-25", "day": "25", "month": "září", "title": "Podzimní soustředění", "place": "Labe Aréna, Račice", "timeDatetime": "P3D", "time": "pá–ne", "category": "soustredeni", "categoryLabel": "Soustředění"})
     @@include('./event-row.html', {"date": "2026-09-30", "day": "30", "month": "září", "title": "Schůze rodičů akademiků", "place": "Loděnice LAV, Ústí nad Labem", "timeDatetime": "2026-09-30T18:00", "time": "18:00", "category": "akademie", "categoryLabel": "Akademie"})
     @@include('./event-row.html', {"date": "2026-10-03", "day": "3", "month": "říj", "title": "Labská regata", "place": "Ústí nad Labem, Labe", "timeDatetime": "2026-10-03T10:00", "time": "10:00", "category": "zavody", "categoryLabel": "Závody"})
+    <!-- DEMO: replace with CMS data -->
+    @@include('./event-row.html', {"date": "2026-10-07", "day": "7", "month": "říj", "title": "Ukázkový trénink pro nové zájemce", "place": "Loděnice LAV, Ústí nad Labem", "timeDatetime": "2026-10-07T16:30", "time": "16:30", "category": "nabor", "categoryLabel": "Nábor"})
+    @@include('./event-row.html', {"date": "2026-10-10", "day": "10", "month": "říj", "title": "Testování akademiků na ergometrech", "place": "Labe Aréna, Račice", "timeDatetime": "2026-10-10T09:00", "time": "9:00", "category": "akademie", "categoryLabel": "Akademie"})
+    @@include('./event-row.html', {"date": "2026-10-14", "day": "14", "month": "říj", "title": "Nábor na základních školách v Ústí", "place": "ZŠ Vojnovičova, Ústí nad Labem", "timeDatetime": "2026-10-14T10:00", "time": "10:00", "category": "nabor", "categoryLabel": "Nábor"})
+    @@include('./event-row.html', {"date": "2026-10-16", "day": "16", "month": "říj", "title": "Soustředění Máchovo jezero", "place": "Doksy, Máchovo jezero", "timeDatetime": "P3D", "time": "pá–ne", "category": "soustredeni", "categoryLabel": "Soustředění"})
+    <!-- /DEMO -->
   </ol>
+  <p data-filter-empty="events-upcoming-list" class="filter-empty mt-space-md" hidden>V této kategorii zatím nic není.</p>
 </section>

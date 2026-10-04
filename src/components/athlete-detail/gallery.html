@@ -1,6 +1,6 @@
 <!-- "Fotogalerie" (design/akademici_detail/lav.png): 4 photos 302×202 r 12, 24 px gaps; "Všechny fotky" link on the right.
-     4 / 2 columns (> 768 / ≤ 768). Markup only: each thumbnail links to the full photo (works without JS); the lightbox
-     comes with the JS step. Photos: existing src/img. -->
+     4 / 2 columns (> 768 / ≤ 768). Each thumbnail links to the full photo (works without JS); with JS it opens in the
+     lightbox (src/js/modules/lightbox.js, group "athlete"). Photos: existing src/img. -->
 <section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-[6.375rem] xl:px-space-2xl" aria-labelledby="athlete-gallery-title">
   <div class="flex items-center justify-between gap-space-sm">
     <h2 id="athlete-gallery-title" class="articles-h2">Fotogalerie</h2>
@@ -10,7 +10,7 @@
   <ul class="mt-space-lg grid grid-cols-2 gap-space-sm min-[769px]:grid-cols-4 min-[769px]:gap-space-md">
     @@for (var i = 0, photos = [["img/gallery-1.jpg", "Osmiveslice na závodní dráze u bójí"], ["img/gallery-3.jpg", "Dvojskif na závodní trati"], ["img/feed-2.jpg", "Skifař při tréninku na klidné řece"], ["img/feed-5.jpg", "Posádka ve veslici pod zalesněným břehem"]]; i < photos.length; i++) {
     <li>
-      <a href="`+photos[i][0]+`" class="athlete-gallery__link">
+      <a href="`+photos[i][0]+`" class="athlete-gallery__link" data-lightbox="athlete">
         <img src="`+photos[i][0]+`" alt="`+photos[i][1]+`" width="302" height="202" loading="lazy" class="athlete-gallery__img">
       </a>
     </li>

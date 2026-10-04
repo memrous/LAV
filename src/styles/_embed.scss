@@ -1,0 +1,152 @@
+// Click-to-load embeds (src/js/modules/embed.js): contact map, about / text page video. Shared look only – the box's
+// size, radius and aspect ratio come from the page component (e.g. .contact-map + aspect-[628/520]), so the placeholder
+// image and the loaded iframe fill exactly the same box.
+// @use-d at the top of main.scss, i.e. before @tailwind, so everything sits in @layer components.
+
+@layer components {
+  .embed {
+    @apply relative;
+
+    &:focus-visible {
+      @apply outline-none ring-2 ring-button-primary-bg ring-offset-2 ring-offset-surface-page;
+    }
+  }
+
+  // The iframe: fills the box; invisible until loaded (it loads underneath the placeholder and its loading state).
+  // `.embed >` so it beats `.rich-text iframe` (16:9, height auto) – the video sits inside rich text.
+  .embed > .embed__frame {
+    @apply absolute inset-0 h-full w-full border-0;
+    visibility: hidden;
+
+    .is-loaded > & {
+      visibility: visible;
+    }
+  }
+
+  // Consent overlay: centered frosted card over the placeholder image; readable at 375 px.
+  .embed__overlay {
+    @apply absolute inset-0 flex items-center justify-center p-space-sm;
+  }
+
+  .embed__card {
+    @apply flex max-w-[22rem] flex-col items-center gap-space-sm rounded-2xl bg-white/80 p-space-sm text-center backdrop-blur-sm min-[480px]:p-space-md;
+  }
+
+  // The site's navy pill (.partners-become__btn) with less side padding, so "Zobrazit interaktivní mapu" stays on one
+  // line at 375 px; on even narrower screens it wraps inside a taller pill instead of overflowing.
+  .embed__card .partners-become__btn {
+    @apply h-auto min-h-14 px-space-md py-space-xs text-center;
+  }
+
+  .embed__note {
+    @apply text-[0.8125rem] leading-[1.4] text-text-secondary;
+  }
+
+  // Loading state of the map's text button: spinner before the label; no clicks while loading.
+  .embed__card [data-embed-load].is-loading {
+    @apply cursor-progress;
+
+    &::before {
+      content: '';
+      @apply h-4 w-4 shrink-0 rounded-radius-full border-2 border-white/30 border-t-white;
+      animation: embed-spin 800ms linear infinite;
+    }
+  }
+
+  @keyframes embed-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------
+  // Video (about/video.html): no card – the design's big white play button with "Přehrát video · 2:10" under it,
+  // centered on the poster; one <button> for both (named by its aria-label). The YouTube note is small, at the bottom.
+  .embed__overlay--video {
+    @apply flex-col;
+  }
+
+  .embed__play {
+    @apply flex cursor-pointer flex-col items-center gap-space-sm rounded-radius-md focus-visible:outline-none;
+  }
+
+  .embed__play-icon {
+    @apply relative flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-radius-full bg-white transition-transform;
+    box-shadow: 0 12px 24px -8px rgb(18 19 42 / 0.35);
+
+    // Navy triangle, optically centered.
+    &::before {
+      content: '';
+      margin-left: 0.25rem;
+      border-style: solid;
+      border-width: 0.5rem 0 0.5rem 0.8125rem;
+      border-color: transparent transparent transparent theme('colors.button.primary-bg');
+    }
+  }
+
+  .embed__play-label {
+    @apply whitespace-nowrap text-body text-white;
+    text-shadow: 0 1px 2px rgb(18 19 42 / 0.4);
+  }
+
+  @media (hover: hover) {
+    .embed__play:hover .embed__play-icon {
+      transform: scale(1.05);
+    }
+
+    .embed__play:hover .embed__play-label {
+      @apply underline underline-offset-[3px];
+    }
+  }
+
+  // White ring around the circle (the navy site ring would be lost on the photo) – as the old about-video button.
+  .embed__play:focus-visible .embed__play-icon {
+    @apply ring-2 ring-white ring-offset-2 ring-offset-button-primary-bg;
+  }
+
+  // Loading: the triangle turns into a navy spinner; no clicks while loading.
+  .embed__play.is-loading {
+    @apply cursor-progress;
+
+    .embed__play-icon::before {
+      @apply h-6 w-6 rounded-radius-full;
+      margin-left: 0;
+      border: 2px solid rgb(34 30 83 / 0.2);
+      border-top-color: theme('colors.button.primary-bg');
+      animation: embed-spin 800ms linear infinite;
+    }
+  }
+
+  // Small dark pill at the bottom: readable on any poster, less prominent than the map's card. `.embed` in front so it
+  // beats `.rich-text p` (the video sits in rich text).
+  .embed .embed__note--video {
+    @apply absolute bottom-space-sm left-1/2 m-0 -translate-x-1/2 whitespace-nowrap rounded-radius-full bg-[#12132a]/60 px-space-xs py-0.5 text-[0.75rem] leading-4 text-white/90;
+  }
+
+  // Under the box: the no-JS path, kept with JS as a small secondary link.
+  .embed__fallback {
+    @apply mt-space-xs text-[0.8125rem] leading-5;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .embed__card [data-embed-load].is-loading::before,
+    .embed__play.is-loading .embed__play-icon::before {
+      animation: none;
+    }
+
+    .embed__play-icon {
+      transition: none;
+    }
+
+    .embed__play:hover .embed__play-icon {
+      transform: none;
+    }
+  }
+
+  // No JS: the button would do nothing – the whole overlay goes and the static image / poster stays; the fallback is
+  // the page's own link (map: "Navigovat"; video: "Zobrazit video na YouTube" under the box).
+  html:not(.js) [data-embed] .embed__overlay,
+  html:not(.js) [data-embed-load] {
+    display: none;
+  }
+}

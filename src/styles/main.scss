@@ -24,6 +24,10 @@
 @use 'gallery';
 // "Uvidíme se na Labi." CTA above the footer (articles page)
 @use 'cta';
+// Photo lightbox (src/js/modules/lightbox.js; all in @layer components, see the partial)
+@use 'lightbox';
+// Click-to-load embeds: contact map, later the about video (src/js/modules/embed.js; @layer components)
+@use 'embed';
 
 @tailwind base;
 @tailwind components;
@@ -423,14 +427,21 @@ a:is(:hover, :focus-visible) .link-underline::after {
   transform: scaleX(1);
 }
 
-// Current page in the header nav (aria-current="page", set via the header include's `active` parameter):
-// permanent 2 px accent underline, 6 px below the text box (design/clanky/Desktop.png: y 52–53 in the 72 px bar).
 // #449AD3 sampled from the design; no matching color token in tailwind.config.js.
-a.link-underline[aria-current='page']::after,
-a[aria-current='page'] .link-underline::after {
+$nav-accent: #449ad3;
+
+// Header nav (desktop + mobile): 2 px accent underline, 6 px below the text box (design/clanky/Desktop.png:
+// y 52–53 in the 72 px bar). Hover/focus animates it in with the shared rule above, so it matches the current page.
+.site-header nav a.link-underline::after,
+.site-header nav a .link-underline::after {
   bottom: -8px;
   height: 2px;
-  background: #449ad3;
+  background: $nav-accent;
+}
+
+// Current page in the header nav (aria-current="page", set via the header include's `active` parameter): permanently shown.
+a.link-underline[aria-current='page']::after,
+a[aria-current='page'] .link-underline::after {
   transform: scaleX(1);
 }
 

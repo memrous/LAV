@@ -1,9 +1,13 @@
 @@if (false) {
 Archive list item (design/clanky/Content.png: thumbnail 200×140, r 12, text vertically centered, 24 px gap).
 Params: href, img (path from dist root), alt, datetime (ISO), date, category, title.
+        tags – OPTIONAL. Filter slugs (data-filter-tags, see src/js/modules/filters.js), e.g. "2025 zavody".
+        perex – OPTIONAL. Short excerpt (1–3 sentences) → data-search-text, searched by src/js/modules/search.js together
+                with the title (read from the DOM: [data-search-title]). Later the CMS fills it with the article's real
+                perex; full-text search over article bodies will be server-side.
 Whole item is clickable: one <a> on the title, stretched over the item by .stretched-link.
 }
-<article class="relative flex items-center gap-space-sm sm:gap-space-md">
+<article class="relative flex items-center gap-space-sm sm:gap-space-md"@@if (typeof tags !== 'undefined') { data-filter-tags="@@tags"}@@if (typeof perex !== 'undefined') { data-search-text="@@perex"}@@if (typeof perex === 'undefined') { data-search-text=""}>
   <img
     src="@@img"
     alt="@@alt"
@@ -15,7 +19,7 @@ Whole item is clickable: one <a> on the title, stretched over the item by .stret
   <div class="min-w-0">
     @@include('./meta.html', {"datetime": "@@datetime", "date": "@@date", "category": "@@category", "class": ""})
     <h3 class="articles-title mt-space-xs line-clamp-3">
-      <a href="@@href" class="stretched-link">@@title</a>
+      <a href="@@href" class="stretched-link" data-search-title>@@title</a>
     </h3>
   </div>
 </article>

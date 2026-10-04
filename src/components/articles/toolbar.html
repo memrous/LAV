@@ -8,8 +8,18 @@ Params (all OPTIONAL; omitted = the articles toolbar, output byte-identical to t
                  Pass it from a page directly (an array param does not survive a nested include).
   include('./components/articles/toolbar.html', {"id": "gallery-search", "label": "Hledat album",
     "placeholder": "Hledat album…", "categories": ["Vše", "Závody"]})   from src/*.html (prefix the call with @@)
+Filters (src/js/modules/filters.js): the pills are the filter group "<prefix>-category" for the item container
+"#<prefix>-list", where <prefix> is the input id without "-search" (articles → #articles-list, gallery → #gallery-list).
+Its live region sits in the listing component (data-filter-live="<prefix>-category"). Pill labels map to ASCII slugs below.
+Search (src/js/modules/search.js): without params (articles) the input is [data-search] over the featured article,
+"Všechny články" and the archive. With params the search is wired only when these are passed too (gallery passes them):
+  searchTarget – data-search-target, e.g. "#gallery-list"
+  searchFilter – filter group "Zrušit hledání" resets to "Vše", e.g. "gallery-category"
+  searchForms  – live-region forms "0|1|2–4|5+", e.g. "Nenalezeno žádné album|Nalezeno # album|…"
+Its live region and the "nothing found" state sit below the row, tied to the input by its id (data-search-live /
+data-search-empty="<id>").
 The closing brace of this block is directly followed by the first output line on purpose (no extra blank line).
-}<!-- Toolbar: search + category filter. Markup only; filtering comes with the articles JS (next step).
+}<!-- Toolbar: search + category filter. Search: search.js; the pills filter via filters.js.
      Pills are toggle buttons (aria-pressed); .articles-pill styles the pressed state. -->
 <div class="mx-auto flex max-w-container flex-col gap-space-sm px-space-sm md:px-space-xl min-[769px]:flex-row min-[769px]:items-center min-[769px]:justify-between xl:px-space-2xl">
   <div role="search" class="relative w-full min-[769px]:w-[22.5rem] min-[769px]:shrink-0">
@@ -20,14 +30,46 @@ The closing brace of this block is directly followed by the first output line on
       type="search"
       name="q"
       placeholder="@@if (typeof placeholder === 'undefined') {Hledat článek…}@@if (typeof placeholder !== 'undefined') {@@placeholder}"
-      autocomplete="off"
-      class="h-14 w-full rounded-radius-full border border-surface-icon-border bg-white pl-11 pr-space-md text-button text-text-primary placeholder:text-[#5b6479] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg"
-    >
+      autocomplete="off"@@if (typeof id === 'undefined') {
+      data-search
+      data-search-target="#articles-featured, #articles-list, #articles-archive-list"
+      data-search-filter="articles-category"
+      aria-describedby="articles-search-hint"}@@if (typeof searchTarget !== 'undefined') {
+      data-search
+      data-search-target="@@searchTarget"
+      data-search-filter="@@searchFilter"
+      aria-describedby="@@id-hint"}
+      class="h-14 w-full rounded-radius-full border border-surface-icon-border bg-white pl-11 @@if (typeof id === 'undefined' || typeof searchTarget !== 'undefined') {pr-12}@@if (typeof id !== 'undefined' && typeof searchTarget === 'undefined') {pr-space-md} text-button text-text-primary placeholder:text-[#5b6479] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg"
+    >@@if (typeof id === 'undefined') {
+    <span id="articles-search-hint" class="sr-only">Výsledky se filtrují při psaní. Escape hledání zruší.</span>
+    <button type="button" class="search-clear" aria-label="Vymazat hledání" data-search-clear hidden>
+      @@include('../icon.html', {"name": "close", "class": "h-4 w-4"})
+    </button>}@@if (typeof searchTarget !== 'undefined') {
+    <span id="@@id-hint" class="sr-only">Výsledky se filtrují při psaní. Escape hledání zruší.</span>
+    <button type="button" class="search-clear" aria-label="Vymazat hledání" data-search-clear hidden>
+      @@include('../icon.html', {"name": "close", "class": "h-4 w-4"})
+    </button>}
   </div>
 
-  <div role="group" aria-label="Kategorie" class="articles-pills">
+  @@for (var k = 0, prefix = (typeof id !== 'undefined' ? id.replace('-search', '') : 'articles'); k < 1; k++) {
+  <div role="group" aria-label="Kategorie" class="articles-pills" data-filter-group="`+prefix+`-category" data-filter-target="#`+prefix+`-list" data-filter-param="kategorie">
+  }
     @@for (var i = 0, cats = (typeof categories !== 'undefined' ? categories : ["Vše", "Závody", "Soustředění", "Akademie", "Nábor"]); i < cats.length; i++) {
-    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`">`+cats[i]+`</button>
+    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`" data-filter-value="`+({"Vše": "vse", "Závody": "zavody", "Soustředění": "soustredeni", "Akademie": "akademie", "Nábor": "nabor", "Ze života": "ze-zivota"})[cats[i]]+`">`+cats[i]+`</button>
     }
   </div>
-</div>
+</div>@@if (typeof id === 'undefined') {
+<div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+  <p class="sr-only" aria-live="polite" data-search-live="articles-search" data-search-forms="Nenalezen žádný článek|Nalezen # článek|Nalezeny # články|Nalezeno # článků"></p>
+  <div class="filter-empty mt-space-xl" data-search-empty="articles-search" hidden>
+    <p>Nic jsme nenašli pro „<span data-search-empty-query></span>“.</p>
+    <button type="button" class="search-reset" data-search-reset>Zrušit hledání</button>
+  </div>
+</div>}@@if (typeof searchTarget !== 'undefined') {
+<div class="mx-auto max-w-container px-space-sm md:px-space-xl xl:px-space-2xl">
+  <p class="sr-only" aria-live="polite" data-search-live="@@id" data-search-forms="@@searchForms"></p>
+  <div class="filter-empty mt-space-xl" data-search-empty="@@id" hidden>
+    <p>Nic jsme nenašli pro „<span data-search-empty-query></span>“.</p>
+    <button type="button" class="search-reset" data-search-reset>Zrušit hledání</button>
+  </div>
+</div>}

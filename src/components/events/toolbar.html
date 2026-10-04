@@ -1,5 +1,6 @@
 <!-- Toolbar (design/akce/lav.png, directly under the page head): month switcher | view toggle | category filter.
-     Markup only; month paging, the view switch and filtering come with the events JS (next step). Default = the design:
+     Month paging and the view switch are markup only (next step). The category pills filter via filters.js (group
+     "events-category" → the "Nejbližší akce" rows and the calendar chips, synced to ?kategorie=). Default = the design:
      September 2026, "Kalendář" and "Vše" pressed. The view toggle is a pair of toggle buttons (aria-pressed), not tabs:
      the design shows no separate panels for it (the list "Nejbližší akce" is on the page in both cases – TODO(verify)).
      Pills reuse .articles-pills / .articles-pill (_articles.scss). ≤ 1024 the three groups wrap; ≤ 768 they stack and
@@ -20,9 +21,9 @@
     <button type="button" class="articles-pill pill-press" aria-pressed="false" aria-controls="events-calendar">Seznam</button>
   </div>
 
-  <div role="group" aria-label="Kategorie" class="articles-pills">
-    @@for (var i = 0, cats = ["Vše", "Závody", "Soustředění", "Akademie", "Nábor"]; i < cats.length; i++) {
-    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`" aria-controls="events-calendar events-upcoming-list">`+cats[i]+`</button>
+  <div role="group" aria-label="Kategorie" class="articles-pills" data-filter-group="events-category" data-filter-target="#events-upcoming-list, #events-calendar" data-filter-param="kategorie">
+    @@for (var i = 0, cats = ["Vše", "Závody", "Soustředění", "Akademie", "Nábor"], slugs = ["vse", "zavody", "soustredeni", "akademie", "nabor"]; i < cats.length; i++) {
+    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`" aria-controls="events-calendar events-upcoming-list" data-filter-value="`+slugs[i]+`">`+cats[i]+`</button>
     }
   </div>
 </div>

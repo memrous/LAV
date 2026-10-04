@@ -3,7 +3,7 @@
      page's table of contents); sticky below the header at > 1024; ≤ 1024: one column, contents above the text. -->
 <div class="mx-auto mt-2 grid max-w-container gap-y-space-xl px-space-sm md:px-space-xl min-[1025px]:grid-cols-12 min-[1025px]:gap-x-space-md xl:px-space-2xl">
   <div class="min-[1025px]:sticky min-[1025px]:top-24 min-[1025px]:col-span-3 min-[1025px]:self-start">
-    <!-- "Obsah" = markup only; generating it from the H2s (and moving the highlight) is for the JS step / the CMS.
+    <!-- "Obsah": the highlight follows the scroll (js/modules/toc.js); generating the list from the H2s is for the CMS.
          TODO(verify): the design lists Fotografie, Video and Citace, which have no heading – the links target the
          figure / video / quote ids in body.html. -->
     @@include('../about/aside.html', {"toc": [["nadpisy-a-text", "Nadpisy a text"], ["seznamy", "Seznamy"], ["fotografie", "Fotografie"], ["video", "Video"], ["citace", "Citace"], ["tabulka", "Tabulka a soubory"]], "docs": [["Stanovy.pdf", "PDF, 0,8 MB"], ["Výroční zpráva 2025.pdf", "PDF, 4,2 MB"]]})

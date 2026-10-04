@@ -3,8 +3,10 @@
      Organisation data = footer.html: same name, address and e-mail. Phone: the footer's placeholder, see the TODO there.
      Map: the design shows an ILLUSTRATION, not a map (3D render of the arena with a pin). No third-party embed:
      src/img/contact/map-labe-arena.jpg = that illustration cropped from the design (placeholder, 1×; its baked-in caption
-     removed and rendered as text below). "Navigovat" opens a Google Maps search for the address in a new window.
-     Candidate for a click-to-load live map in the JS step. -->
+     removed and rendered as text below). "Navigovat" opens a Google Maps search for the address in a new window – also
+     the no-JS / fallback path for the map.
+     Live map = click-to-load (src/js/modules/embed.js): nothing is requested from Google until "Zobrazit interaktivní
+     mapu" is clicked; then the iframe replaces the illustration in the same 628×520 box. -->
 <section class="mx-auto mt-space-2xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-[6.125rem] xl:px-space-2xl" aria-labelledby="contact-location-title">
   <h2 id="contact-location-title" class="articles-h2">Kde nás najdete</h2>
 
@@ -61,7 +63,19 @@
       </a>
     </div>
 
-    <figure class="contact-map">
+    <!-- MAP URL – the only place it lives (data-embed-src). Google Maps embed without an API key; to switch to Mapy.cz,
+         replace it with their embed URL (https://frame.mapy.cz/…) and adjust the note in the overlay below.
+         The query is the street address only: with "Labe Aréna, …" in front Google finds no place and shows the whole
+         world. TODO(verify): the address resolves to Přístavní 3558/1 by the Elbe – confirm it's the boathouse. -->
+    <figure
+      class="contact-map embed aspect-[628/520]"
+      data-embed
+      data-embed-src="https://www.google.com/maps?q=P%C5%99%C3%ADstavn%C3%AD%201%2C%20400%2007%20%C3%9Ast%C3%AD%20nad%20Labem&amp;output=embed"
+      data-embed-title="Mapa – Labe Aréna, Přístavní 1, Ústí nad Labem"
+      data-embed-loading="Načítám mapu…"
+      data-embed-loaded="Mapa načtena"
+      data-embed-error="Mapu se nepodařilo načíst. Použijte odkaz Navigovat."
+    >
       <img
         src="img/contact/map-labe-arena.jpg"
         alt="Ilustrační mapa areálu Labe Aréna Ústeckého kraje v Ústí nad Labem s vyznačenou loděnicí"
@@ -69,8 +83,16 @@
         height="520"
         loading="lazy"
         class="contact-map__img"
+        data-embed-placeholder
       >
-      <figcaption class="contact-map__caption">Ilustrační mapa · Labe Aréna Ústeckého kraje</figcaption>
+      <figcaption class="contact-map__caption" data-embed-placeholder>Ilustrační mapa · Labe Aréna Ústeckého kraje</figcaption>
+      <div class="embed__overlay" data-embed-placeholder>
+        <div class="embed__card">
+          <button type="button" class="partners-become__btn pill-press" data-embed-load>Zobrazit interaktivní mapu</button>
+          <p class="embed__note">Mapa se načte ze služby Google Maps, která může ukládat cookies.</p>
+        </div>
+      </div>
+      <p class="sr-only" aria-live="polite" data-embed-status></p>
     </figure>
   </div>
 </section>

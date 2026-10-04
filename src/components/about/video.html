@@ -1,12 +1,34 @@
 <!-- Video (design/o_akademii/lav.png): 954×536 poster r 12, white 72 px play button, "Přehrát video · 2:10" below it.
-     No YouTube/Vimeo iframe (third-party cookies): poster + <button> for the click-to-load player of the JS step; until
-     then the visible label is a plain link to the video (works without JS).
-     TODO(verify): video URL / provider. Poster = placeholder cropped from the design (play button removed). -->
-<div class="about-video">
-  <img src="img/about/video-poster.jpg" alt="" width="954" height="536" loading="lazy" class="about-video__poster">
-  <div class="about-video__controls">
-    <button type="button" class="about-video__play" aria-label="Přehrát video o akademii (2:10)"></button>
-    <!-- TODO(verify): video URL -->
-    <a href="#" target="_blank" rel="noopener" class="about-video__label" aria-label="Přehrát video o akademii, 2:10 (otevře se v novém okně)">Přehrát video · <span class="tabular-nums">2:10</span></a>
+     Used by O akademii (about/body.html) and the text page (text/body.html, inside <div id="video">).
+     Click-to-load (src/js/modules/embed.js, styles _embed.scss): nothing is requested from YouTube until play is
+     clicked; then the youtube-nocookie player replaces the poster in the same box and starts (autoplay=1).
+     Below the box: "Zobrazit video na YouTube" – the no-JS path (the play button is hidden without JS), kept with JS
+     as a small secondary link. One root <div>, so the rich-text spacing around the block stays as it was.
+     TODO(verify): YouTube video ID – "VIDEO_ID" is a placeholder in data-embed-src and in the link (2 places).
+     TODO(verify): video title ("O akademii") and length (2:10). Poster = placeholder cropped from the design. -->
+<div class="about-video-block">
+  <div
+    class="about-video embed aspect-[954/536]"
+    data-embed
+    data-embed-src="https://www.youtube-nocookie.com/embed/VIDEO_ID?autoplay=1&amp;rel=0"
+    data-embed-title="Video: O akademii"
+    data-embed-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    data-embed-allowfullscreen
+    data-embed-loading="Načítám video…"
+    data-embed-loaded="Video načteno"
+    data-embed-error="Video se nepodařilo načíst. Použijte odkaz Zobrazit video na YouTube."
+  >
+    <img src="img/about/video-poster.jpg" alt="Náhled videa o akademii: Labe v Ústí nad Labem s obloukovým mostem pod zataženou oblohou" width="954" height="536" loading="lazy" class="about-video__poster" data-embed-placeholder>
+    <div class="embed__overlay embed__overlay--video" data-embed-placeholder>
+      <button type="button" class="embed__play" data-embed-load aria-label="Přehrát video: O akademii (2:10)">
+        <span class="embed__play-icon" aria-hidden="true"></span>
+        <span class="embed__play-label" aria-hidden="true">Přehrát video · <span class="tabular-nums">2:10</span></span>
+      </button>
+      <p class="embed__note embed__note--video">Video se načte ze služby YouTube.</p>
+    </div>
+    <p class="sr-only" aria-live="polite" data-embed-status></p>
   </div>
+  <p class="embed__fallback">
+    <a href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank" rel="noopener" aria-label="Zobrazit video na YouTube (otevře se v novém okně)">Zobrazit video na YouTube</a>
+  </p>
 </div>

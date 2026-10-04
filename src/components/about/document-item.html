@@ -1,5 +1,5 @@
 @@if (false) {
-Document row for "Dokumenty" (design/o_akademii/lav.png): camera icon (as designed) | file name | "PDF · 0,8 MB" | ↗.
+Document row for "Dokumenty" (design/o_akademii/lav.png): file icon (the design shows a camera – placeholder) | file name | "PDF · 0,8 MB" | ↗.
 One partial for every document. Params (all required):
   name – file name as displayed
   type – file type as displayed ("PDF")
@@ -9,7 +9,7 @@ One partial for every document. Params (all required):
 <li>
   <!-- TODO(verify): document URL -->
   <a href="@@href" class="about-doc">
-    @@include('../icon.html', {"name": "camera", "class": "h-5 w-5 shrink-0 text-[#69707f]"})
+    @@include('../icon.html', {"name": "file", "class": "h-5 w-5 shrink-0 text-[#69707f]"})
     <span class="min-w-0 flex-1 truncate"><span class="link-underline">@@name</span></span>
     <span class="article-label shrink-0 tracking-[0.1em]">@@type · @@size</span>
     <span class="arrow-mask arrow-mask--diagonal h-5 w-5 text-[#69707f]">

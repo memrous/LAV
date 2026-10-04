@@ -4,8 +4,13 @@ Params: href, img (410w cover, also the fallback src), srcset (string, e.g. "img
         alt, title, photos (count incl. the word, e.g. "48 fotek" – Czech plural differs: 1 fotka, 2–4 fotky, 5+ fotek),
         datetime (ISO), date.
         eager – OPTIONAL. true for the first row: no loading="lazy"/decoding="async". Omitted = lazy.
+        tags  – OPTIONAL. Filter slugs (data-filter-tags, see src/js/modules/filters.js), e.g. "zavody 2026".
+        set   – OPTIONAL. Key of the album's photo set in the page's [data-lightbox-sets] JSON (albums.html): with JS a
+                click opens the album in the lightbox (src/js/modules/lightbox.js); the link stays the no-JS path.
+Search (src/js/modules/search.js): the title is read from the link ([data-search-title]), the cover's alt is the searched
+text (data-search-text); later the CMS can put the album description there.
 Whole card is clickable: one <a> on the title, stretched over the card by .stretched-link (styles in _articles.scss).
-}<article class="gallery-album">
+}<article class="gallery-album"@@if (typeof tags !== 'undefined') { data-filter-tags="@@tags"} data-search-text="@@alt">
   <img
     src="@@img"
     srcset="@@srcset"
@@ -19,7 +24,7 @@ Whole card is clickable: one <a> on the title, stretched over the card by .stret
   >
   <div class="gallery-album__caption">
     <h3 class="gallery-album__title">
-      <a href="@@href" class="stretched-link">@@title</a>
+      <a href="@@href" class="stretched-link" data-search-title@@if (typeof set !== 'undefined') { data-lightbox="gallery" data-lightbox-set="@@set"}>@@title</a>
     </h3>
     <p class="gallery-album__meta">@@photos · <time datetime="@@datetime">@@date</time></p>
   </div>

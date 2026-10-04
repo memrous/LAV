@@ -1,22 +1,34 @@
 <!-- "Archiv": year toggle + 2-column list (1 column ≤ 768), 24 px gaps. Items come from archive-item.html.
-     Design shows "2026" pressed while the listed items are from 2025 – kept as designed (TODO(verify)).
-     Year switching comes with the articles JS (next step). Photos are placeholders from src/img. -->
+     Year switching: filters.js, group "articles-year" → #articles-archive-list, synced to ?rok=. Independent of the
+     category pills in the toolbar (those only filter "Všechny články").
+     The design shows "2026" pressed over 2025 items; with working filters that would hide every design item, so 2025 is
+     the default here (TODO(verify)). Photos are placeholders from src/img. -->
 <section class="mx-auto mt-space-2xl max-w-container px-space-sm pb-space-2xl md:px-space-xl min-[1025px]:mt-12 min-[1025px]:pb-24 xl:px-space-2xl" aria-labelledby="articles-archive-title">
   <h2 id="articles-archive-title" class="articles-h2">Archiv</h2>
 
-  <div role="group" aria-label="Rok" class="articles-pills mt-space-md">
+  <div role="group" aria-label="Rok" class="articles-pills mt-space-md" data-filter-group="articles-year" data-filter-target="#articles-archive-list" data-filter-param="rok">
     @@for (var i = 0, years = ["2026", "2025", "2024", "2023"]; i < years.length; i++) {
-    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`">`+years[i]+`</button>
+    <button type="button" class="articles-pill pill-press" aria-pressed="`+(years[i] === "2025")+`" data-filter-value="`+years[i]+`">`+years[i]+`</button>
     }
   </div>
+  <p class="sr-only" aria-live="polite" data-filter-live="articles-year" data-filter-forms="Zobrazen # článek|Zobrazeny # články|Zobrazeno # článků"></p>
 
   <!-- TODO(verify): article URLs -->
-  <div class="mt-space-md grid gap-space-md min-[769px]:grid-cols-2">
-    @@include('./archive-item.html', {"href": "#", "img": "img/event-1.jpg", "alt": "Diváci na nábřeží při závodech na řece", "datetime": "2025-12-12", "date": "12. 12. 2025", "category": "Ze života", "title": "Vánoční regata a rozloučení se sezónou"})
-    @@include('./archive-item.html', {"href": "#", "img": "img/feed-3.jpg", "alt": "Veslař v kšiltovce během tréninku", "datetime": "2025-09-27", "date": "27. 9. 2025", "category": "Závody", "title": "Akademie na Mistrovství ČR družstev"})
-    @@include('./archive-item.html', {"href": "#", "img": "img/gallery-2.jpg", "alt": "Skifařka při tréninku na řece", "datetime": "2025-11-03", "date": "3. 11. 2025", "category": "Soustředění", "title": "Zimní příprava: ergometry a bazén"})
-    @@include('./archive-item.html', {"href": "#", "img": "img/feed-4.jpg", "alt": "Řeka Labe se zeleným břehem", "datetime": "2025-09-06", "date": "6. 9. 2025", "category": "Závody", "title": "Stříbro z Primátorek 2025"})
-    @@include('./archive-item.html', {"href": "#", "img": "img/article-1.jpg", "alt": "Juniorská čtyřka ve veslici na startu", "datetime": "2025-10-18", "date": "18. 10. 2025", "category": "Akademie", "title": "Nová posilovna v Labe Aréně otevřena"})
-    @@include('./archive-item.html', {"href": "#", "img": "img/feed-1.jpg", "alt": "Vesla s červenobílými listy srovnaná na trávě", "datetime": "2025-08-15", "date": "15. 8. 2025", "category": "Nábor", "title": "Nábor 2025/26: první tréninky"})
+  <div id="articles-archive-list" class="mt-space-md grid gap-space-md min-[769px]:grid-cols-2">
+    @@include('./archive-item.html', {"href": "#", "img": "img/event-1.jpg", "alt": "Diváci na nábřeží při závodech na řece", "datetime": "2025-12-12", "date": "12. 12. 2025", "category": "Ze života", "title": "Vánoční regata a rozloučení se sezónou", "perex": "Tradiční vánoční regata na Labi uzavřela rok 2025. Po závodě následovalo vyhlášení nejlepších akademiků sezóny.", "tags": "2025 ze-zivota"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-3.jpg", "alt": "Veslař v kšiltovce během tréninku", "datetime": "2025-09-27", "date": "27. 9. 2025", "category": "Závody", "title": "Akademie na Mistrovství ČR družstev", "perex": "Družstvo akademie skončilo v celkovém hodnocení na pátém místě. Nejvíc bodů přivezly juniorky ze skifu a dvojskifu.", "tags": "2025 zavody"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/gallery-2.jpg", "alt": "Skifařka při tréninku na řece", "datetime": "2025-11-03", "date": "3. 11. 2025", "category": "Soustředění", "title": "Zimní příprava: ergometry a bazén", "perex": "Když zamrzne Labe, přesouvá se trénink do posilovny a bazénu. Jak vypadá zimní týden akademika?", "tags": "2025 soustredeni"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-4.jpg", "alt": "Řeka Labe se zeleným břehem", "datetime": "2025-09-06", "date": "6. 9. 2025", "category": "Závody", "title": "Stříbro z Primátorek 2025", "perex": "Juniorská osma dojela na Primátorkách druhá jen o dvě desetiny za vítězem. Pro akademii je to nejlepší výsledek v historii závodu.", "tags": "2025 zavody"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/article-1.jpg", "alt": "Juniorská čtyřka ve veslici na startu", "datetime": "2025-10-18", "date": "18. 10. 2025", "category": "Akademie", "title": "Nová posilovna v Labe Aréně otevřena", "perex": "Akademici mají k dispozici dvacet ergometrů a moderní posilovnu přímo u dráhy. Otevření se zúčastnil hejtman Ústeckého kraje.", "tags": "2025 akademie"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-1.jpg", "alt": "Vesla s červenobílými listy srovnaná na trávě", "datetime": "2025-08-15", "date": "15. 8. 2025", "category": "Nábor", "title": "Nábor 2025/26: první tréninky", "perex": "Do akademie přišlo dvanáct nových dětí z celého kraje. První tréninky na vodě proběhly v klidném rameni Labe.", "tags": "2025 nabor"})
+    <!-- DEMO: replace with CMS data -->
+    @@include('./archive-item.html', {"href": "#", "img": "img/gallery-1.jpg", "alt": "Osmiveslice na závodní dráze u bójí", "datetime": "2026-06-14", "date": "14. 6. 2026", "category": "Závody", "title": "MČR dorostu: dvě finále pro akademii", "perex": "Dorostenecký dvojskif a čtyřka postoupily do finále A. Pro mladé veslaře to byl první start na republikovém šampionátu.", "tags": "2026 zavody"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-5.jpg", "alt": "Posádka ve veslici pod zalesněným břehem", "datetime": "2026-04-18", "date": "18. 4. 2026", "category": "Soustředění", "title": "Jarní soustředění na Máchově jezeře", "perex": "Jarní soustředění zahájilo sezónu na vodě. Hlavním cílem byla technika a sehrání nových posádek.", "tags": "2026 soustredeni"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/gallery-3.jpg", "alt": "Dvojskif na závodní trati", "datetime": "2024-09-07", "date": "7. 9. 2024", "category": "Závody", "title": "Primátorky 2024: bronz pro dvojskif", "perex": "Dvojskif juniorek vybojoval na Primátorkách bronz. Medaile přišla po napínavém souboji v závěrečném úseku.", "tags": "2024 zavody"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-6.jpg", "alt": "Loděnice na břehu řeky", "datetime": "2024-05-25", "date": "25. 5. 2024", "category": "Ze života", "title": "Brigáda v loděnici před sezónou", "perex": "Akademici s rodiči opravili mola, natřeli stojany a připravili lodě na novou sezónu.", "tags": "2024 ze-zivota"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/feed-2.jpg", "alt": "Skifař při tréninku na klidné řece", "datetime": "2023-10-14", "date": "14. 10. 2023", "category": "Akademie", "title": "Labská akademie veslování zahajuje první sezónu", "perex": "Ústecký kraj a Český veslařský svaz spustili první krajskou veslařskou akademii. Prvních dvanáct akademiků trénuje v Ústí a v Račicích.", "tags": "2023 akademie"})
+    @@include('./archive-item.html', {"href": "#", "img": "img/event-1.jpg", "alt": "Diváci na nábřeží při závodech na řece", "datetime": "2023-08-19", "date": "19. 8. 2023", "category": "Nábor", "title": "První nábor akademie: přihlásilo se 40 dětí", "perex": "Na první nábor dorazilo čtyřicet dětí z celého kraje. Trenéři vybrali dvanáct talentů do přípravky.", "tags": "2023 nabor"})
+    <!-- /DEMO -->
   </div>
+  <p data-filter-empty="articles-archive-list" class="filter-empty mt-space-md" hidden>V tomto roce zatím nic není.</p>
 </section>

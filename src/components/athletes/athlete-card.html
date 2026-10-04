@@ -10,9 +10,10 @@ Params (all required):
   name     – full name (also the photo's alt text)
   club     – club as displayed
   age      – age in years, number only (" let" is added here; ages are always ≥ 5, so "let" is always the right form)
+  tags     – OPTIONAL. Filter slugs (data-filter-tags, see src/js/modules/filters.js): "juniori" | "juniorky" | "dorost" | "seniori"
 Whole card clickable: the "Profil" link (the only <a>) is stretched over it by .stretched-link.
 }
-<article class="athlete-card">
+<article class="athlete-card"@@if (typeof tags !== 'undefined') { data-filter-tags="@@tags"}>
   <img
     src="@@img"
     alt="@@name"

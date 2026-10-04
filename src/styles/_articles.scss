@@ -83,6 +83,67 @@ $articles-meta-category: #4589bc; // accent blue (sampled #468abd)
     }
   }
 
+  // Filters (src/js/modules/filters.js; also used by athletes, events and gallery). Filtered-out items get the hidden
+  // attribute; cards that set their own display (flex/grid) would override the UA rule, hence !important. Hidden items
+  // take no grid cell, so the grids reflow without gaps. The fade-in of shown items is a Web Animation in filters.js.
+  [data-filter-tags][hidden] {
+    display: none !important;
+  }
+
+  // No JS: every item is visible and the filter bars would be dead buttons, so they're hidden – with visibility (not
+  // display), so the toolbars keep their height and nothing jumps when filters.js adds .js to <html>.
+  html:not(.js) [data-filter-group] {
+    visibility: hidden;
+  }
+
+  // "Načíst další" (src/js/modules/load-more.js, articles + gallery). Items hidden by pagination use the same `hidden` as
+  // filtered ones (rule above). The button is hidden whenever there's nothing more to load – its inline-flex would beat
+  // the UA [hidden] rule, hence !important – and always without JS, where every item is visible anyway.
+  [data-load-more][hidden],
+  html:not(.js) [data-load-more] {
+    display: none !important;
+  }
+
+  // Empty state under a filtered list ("V této kategorii zatím nic není."); also the search's "Nic jsme nenašli…".
+  .filter-empty {
+    @apply rounded-2xl border border-white/80 px-space-lg py-space-xl text-center text-body text-text-secondary;
+  }
+
+  // Article search (src/js/modules/search.js). Items without a match get `hidden` (the featured section too).
+  [data-search-text][hidden] {
+    display: none !important;
+  }
+
+  // No JS: the search can't filter anything, so the box is hidden like the filter bars (visibility: no layout jump).
+  html:not(.js) [role='search']:has([data-search]) {
+    visibility: hidden;
+  }
+
+  // The custom × replaces the browser's own clear button of type="search" (Chrome / Safari), so there's only one.
+  [data-search]::-webkit-search-cancel-button {
+    appearance: none;
+  }
+
+  // × inside the field, right edge: 40 px hit area, vertically centered, same grey as the search icon.
+  .search-clear {
+    @apply absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-radius-full text-[#6b7280] transition-colors hover:bg-surface-page hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg motion-reduce:transition-none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // "Zrušit hledání" under "Nic jsme nenašli…": a text button, underlined like the other inline links.
+  .search-reset {
+    @apply mt-space-sm rounded-radius-sm text-body text-text-primary underline underline-offset-[3px] hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-2;
+  }
+
+  // Match in a title: the rich text's subtle accent marker, but the title keeps its own color.
+  .search-mark {
+    @apply rounded-[0.125rem] bg-button-accent-bg/40;
+    color: inherit;
+  }
+
   // Stretched link: one real <a> per card; its ::after covers the nearest positioned ancestor (the card), so the whole
   // card is clickable without nested links. The focus ring is drawn on the ::after, i.e. around the whole card.
   .stretched-link {

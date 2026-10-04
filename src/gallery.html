@@ -14,7 +14,7 @@
 
   <main>
     @@include('./components/page-head.html', {"id": "gallery-title", "title": "Fotogalerie", "perex": "Alba z tréninků, závodů a života akademie.", "breadcrumb": "[['Domů', 'index.html']]", "current": "Fotogalerie"})
-    @@include('./components/articles/toolbar.html', {"id": "gallery-search", "label": "Hledat album", "placeholder": "Hledat album…", "categories": ["Vše", "Závody", "Soustředění", "Akademie", "Ze života"]})
+    @@include('./components/articles/toolbar.html', {"id": "gallery-search", "label": "Hledat album", "placeholder": "Hledat album…", "categories": ["Vše", "Závody", "Soustředění", "Akademie", "Ze života"], "searchTarget": "#gallery-list", "searchFilter": "gallery-category", "searchForms": "Nenalezeno žádné album|Nalezeno # album|Nalezena # alba|Nalezeno # alb"})
     @@include('./components/gallery/albums.html')
   </main>
 

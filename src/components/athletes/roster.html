@@ -2,22 +2,25 @@
      (16 px ≤ 768). Cards come from athlete-card.html; first row eager (above the fold at 1440×900), the rest lazy.
      Photos are placeholders from src/img: 9 are the photos the design uses; Anna Králová, Tereza Šimková and Nela Pokorná
      have design photos that aren't in the project, so they get stand-ins (hero-article, gallery-2, feed-4).
-     TODO(verify): profile URLs. -->
+     TODO(verify): profile URLs.
+     Filter tags (filters.js, group "athletes-category"): the cards have no category in the design, so it's derived from
+     age and name – Dorost 15–16, Junioři / Juniorky 17–18, Senioři 19+ (TODO(verify) with the real roster). -->
 <section class="mx-auto mt-space-lg max-w-container px-space-sm md:px-space-xl xl:px-space-2xl" aria-labelledby="athletes-roster-title">
   <h2 id="athletes-roster-title" class="articles-h2">Soupiska 2026/27</h2>
 
   <div id="athletes-roster-list" class="mt-space-md grid grid-cols-2 gap-space-sm min-[769px]:grid-cols-3 min-[769px]:gap-space-md min-[1025px]:grid-cols-4">
-    @@include('./athlete-card.html', {"href": "#", "img": "img/gallery-2.jpg", "focus": "object-[15%_50%]", "loading": "eager", "boat": "Skif", "name": "Adéla Nováková", "club": "VK Slavia Praha", "age": "17"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/gallery-3.jpg", "focus": "object-[40%_50%]", "loading": "eager", "boat": "Dvojskif", "name": "Tomáš Hora", "club": "ČVK Praha", "age": "18"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-2.jpg", "focus": "object-center", "loading": "eager", "boat": "Osma", "name": "Kristýna Bartošová", "club": "VK Ostrava", "age": "16"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-3.jpg", "focus": "object-[60%_50%]", "loading": "eager", "boat": "Párová čtyřka", "name": "Jakub Malý", "club": "TJ Bohemians Praha", "age": "19"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/gallery-1.jpg", "focus": "object-[60%_50%]", "loading": "lazy", "boat": "Skif", "name": "Eliška Dvořáková", "club": "SK Hamr", "age": "15"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/article-1.jpg", "focus": "object-[40%_50%]", "loading": "lazy", "boat": "Dvojskif", "name": "Matěj Procházka", "club": "VK Smíchov", "age": "17"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/hero-article.jpg", "focus": "object-[60%_50%]", "loading": "lazy", "boat": "Osma", "name": "Anna Králová", "club": "Dukla Praha", "age": "18"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-5.jpg", "focus": "object-[60%_50%]", "loading": "lazy", "boat": "Párová čtyřka", "name": "Vojtěch Beneš", "club": "VK Blesk", "age": "16"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/gallery-2.jpg", "focus": "object-[30%_50%]", "loading": "lazy", "boat": "Skif", "name": "Tereza Šimková", "club": "VK Slavia Praha", "age": "19"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-1.jpg", "focus": "object-center", "loading": "lazy", "boat": "Dvojskif", "name": "Filip Urban", "club": "ČVK Praha", "age": "15"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-4.jpg", "focus": "object-center", "loading": "lazy", "boat": "Osma", "name": "Nela Pokorná", "club": "VK Ostrava", "age": "17"})
-    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-6.jpg", "focus": "object-center", "loading": "lazy", "boat": "Párová čtyřka", "name": "Ondřej Fiala", "club": "TJ Bohemians Praha", "age": "18"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/gallery-2.jpg", "focus": "object-[15%_50%]", "loading": "eager", "boat": "Skif", "name": "Adéla Nováková", "tags": "juniorky", "club": "VK Slavia Praha", "age": "17"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/gallery-3.jpg", "focus": "object-[40%_50%]", "loading": "eager", "boat": "Dvojskif", "name": "Tomáš Hora", "tags": "juniori", "club": "ČVK Praha", "age": "18"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-2.jpg", "focus": "object-center", "loading": "eager", "boat": "Osma", "name": "Kristýna Bartošová", "tags": "dorost", "club": "VK Ostrava", "age": "16"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-3.jpg", "focus": "object-[60%_50%]", "loading": "eager", "boat": "Párová čtyřka", "name": "Jakub Malý", "tags": "seniori", "club": "TJ Bohemians Praha", "age": "19"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/gallery-1.jpg", "focus": "object-[60%_50%]", "loading": "lazy", "boat": "Skif", "name": "Eliška Dvořáková", "tags": "dorost", "club": "SK Hamr", "age": "15"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/article-1.jpg", "focus": "object-[40%_50%]", "loading": "lazy", "boat": "Dvojskif", "name": "Matěj Procházka", "tags": "juniori", "club": "VK Smíchov", "age": "17"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/hero-article.jpg", "focus": "object-[60%_50%]", "loading": "lazy", "boat": "Osma", "name": "Anna Králová", "tags": "juniorky", "club": "Dukla Praha", "age": "18"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-5.jpg", "focus": "object-[60%_50%]", "loading": "lazy", "boat": "Párová čtyřka", "name": "Vojtěch Beneš", "tags": "dorost", "club": "VK Blesk", "age": "16"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/gallery-2.jpg", "focus": "object-[30%_50%]", "loading": "lazy", "boat": "Skif", "name": "Tereza Šimková", "tags": "seniori", "club": "VK Slavia Praha", "age": "19"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-1.jpg", "focus": "object-center", "loading": "lazy", "boat": "Dvojskif", "name": "Filip Urban", "tags": "dorost", "club": "ČVK Praha", "age": "15"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-4.jpg", "focus": "object-center", "loading": "lazy", "boat": "Osma", "name": "Nela Pokorná", "tags": "juniorky", "club": "VK Ostrava", "age": "17"})
+    @@include('./athlete-card.html', {"href": "#", "img": "img/feed-6.jpg", "focus": "object-center", "loading": "lazy", "boat": "Párová čtyřka", "name": "Ondřej Fiala", "tags": "juniori", "club": "TJ Bohemians Praha", "age": "18"})
   </div>
+  <p data-filter-empty="athletes-roster-list" class="filter-empty mt-space-md" hidden>V této kategorii zatím nikdo není.</p>
 </section>

@@ -1,13 +1,15 @@
 <!-- Toolbar: category filter + athlete count (design/akademici/lav.png, directly under the page head, like articles/toolbar.html
-     without the search). Markup only; filtering and the live count come with the athletes JS (next step).
+     without the search). Filtering: filters.js, group "athletes-category" → #athletes-roster-list, synced to ?kategorie=;
+     the count next to the pills is its live region (number of cards shown, updated on load and on every click).
      Pills are toggle buttons (aria-pressed), styled by .articles-pills / .articles-pill (_articles.scss).
-     Design says "24 akademiků" while the roster shows 12 cards and no "show more" – kept as designed (TODO(verify)). -->
+     Design says "24 akademiků" while the roster shows 12 cards and no "show more": without JS the design text stays,
+     with JS it shows the real count (TODO(verify)). -->
 <div class="mx-auto flex max-w-container flex-col gap-space-sm px-space-sm md:px-space-xl min-[769px]:flex-row min-[769px]:items-center min-[769px]:justify-between xl:px-space-2xl">
-  <div role="group" aria-label="Kategorie" class="articles-pills">
-    @@for (var i = 0, cats = ["Všichni", "Junioři", "Juniorky", "Dorost", "Senioři"]; i < cats.length; i++) {
-    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`" aria-controls="athletes-roster-list">`+cats[i]+`</button>
+  <div role="group" aria-label="Kategorie" class="articles-pills" data-filter-group="athletes-category" data-filter-target="#athletes-roster-list" data-filter-param="kategorie">
+    @@for (var i = 0, cats = ["Všichni", "Junioři", "Juniorky", "Dorost", "Senioři"], slugs = ["vse", "juniori", "juniorky", "dorost", "seniori"]; i < cats.length; i++) {
+    <button type="button" class="articles-pill pill-press" aria-pressed="`+(i === 0)+`" aria-controls="athletes-roster-list" data-filter-value="`+slugs[i]+`">`+cats[i]+`</button>
     }
   </div>
 
-  <p class="athletes-label" aria-live="polite">24 akademiků</p>
+  <p class="athletes-label" aria-live="polite" data-filter-live="athletes-category" data-filter-forms="# akademik|# akademici|# akademiků">24 akademiků</p>
 </div>

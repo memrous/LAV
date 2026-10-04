@@ -59,6 +59,12 @@ $rich-text-table-divider: rgba(255, 255, 255, 0.7);
   .rich-text {
     overflow-wrap: anywhere; // long URLs / words never widen the column
 
+    // Any anchor target (also non-headings: the text page's "Obsah" links a figure, the video and the quote) lands
+    // below the sticky header, like the headings below.
+    [id] {
+      scroll-margin-top: 6rem;
+    }
+
     > * + * {
       margin-top: 1.5rem;
     }
