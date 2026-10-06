@@ -137,6 +137,88 @@ $fonts: (
   margin-block: -0.14em -0.1em;
 }
 
+// Hero preview cards ("Další články"): glass → near-opaque white + 4 px lift (200 ms ease-out), thumbnail zoom
+// (400 ms), title underline (shared .link-underline, 250 ms) and an arrow sliding in. Triggered by real-pointer hover
+// and keyboard focus on the card link; the arrow's box is always in the layout, so the title never reflows.
+.hero-preview-card {
+  transition:
+    background-color 200ms ease-out,
+    border-color 200ms ease-out,
+    box-shadow 200ms ease-out,
+    transform 200ms ease-out;
+}
+
+.hero-preview-card__thumb img {
+  transform-origin: center;
+  transition: transform 400ms ease-out;
+}
+
+.hero-preview-card__arrow {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+}
+
+// The shadow goes through --tw-shadow so it composes with the Tailwind focus ring (also a box-shadow) instead of
+// replacing it. Subtler take on the crossroad card shadow.
+@mixin hero-preview-card-active {
+  border-color: #fff;
+  background-color: rgb(255 255 255 / 0.88);
+  --tw-shadow: 0 20px 40px -20px rgb(18 19 42 / 0.22);
+
+  .hero-preview-card__arrow {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transform: translateY(-4px);
+
+    .hero-preview-card__thumb img {
+      transform: scale(1.06);
+      will-change: transform;
+    }
+
+    .hero-preview-card__arrow {
+      transform: none;
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-preview-card:hover {
+    @include hero-preview-card-active;
+  }
+}
+
+.hero-preview-card:focus-visible {
+  @include hero-preview-card-active;
+}
+
+// The shared .link-underline rule fires on any :hover; on touch that would stick after a tap.
+@media (hover: none), (pointer: coarse) {
+  .hero-preview-card:hover:not(:focus-visible) .link-underline::after {
+    transform: scaleX(0);
+  }
+}
+
+// Reduced motion: no lift, zoom or slide (see mixin); colors, shadow and the arrow fade in ≤150 ms, underline instant.
+@media (prefers-reduced-motion: reduce) {
+  .hero-preview-card,
+  .hero-preview-card__arrow {
+    transition-duration: 150ms;
+  }
+
+  .hero-preview-card__arrow {
+    transform: none;
+  }
+
+  .hero-preview-card .link-underline::after {
+    transition: none;
+  }
+}
+
 // Header Transparent → Light after scrollY > 80 px (class toggled in main.parcel.js): 300 ms ease-out.
 .site-header {
   border-bottom: 1px solid transparent;
@@ -467,6 +549,49 @@ a:active > .pill-press {
   .pill-press {
     transition-duration: 50ms;
   }
+}
+
+// Image zoom on clickable photos (the athlete card's original effect): the photo scales to 1.04, 400 ms ease-out.
+// Markup: .img-zoom = the clipping box, with the photo's radius (e.g. rounded-radius-md); its DIRECT child <img>
+// zooms. .img-zoom-trigger = the card or link whose hover/focus starts it (the whole card, so hovering the title
+// counts too). One element may carry both (a lightbox tile <a>, a card that is its own clipping box).
+//   <article class="relative img-zoom-trigger"><div class="img-zoom rounded-radius-md"><img …></div> … stretched-link</article>
+//   <a href="…" class="img-zoom img-zoom-trigger rounded-radius-md"><img …></a>
+// Hover only with a real pointer (no sticky zoom after a tap); keyboard: the trigger itself focused, or a focused link
+// inside it (stretched-link cards; a separate rule, so a browser without :has() keeps the others). Reduced motion: no
+// zoom (the scale only applies under prefers-reduced-motion: no-preference).
+// isolation: isolate keeps Safari from drawing the scaled photo over the rounded corners during the transition.
+.img-zoom {
+  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
+
+  > img {
+    transition: transform 400ms ease-out;
+  }
+}
+
+@mixin img-zoom-in {
+  @media (prefers-reduced-motion: no-preference) {
+    transform: scale(1.04);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .img-zoom-trigger:hover .img-zoom > img,
+  .img-zoom-trigger.img-zoom:hover > img {
+    @include img-zoom-in;
+  }
+}
+
+.img-zoom-trigger:focus-visible .img-zoom > img,
+.img-zoom-trigger.img-zoom:focus-visible > img {
+  @include img-zoom-in;
+}
+
+.img-zoom-trigger:has(:focus-visible) .img-zoom > img,
+.img-zoom-trigger.img-zoom:has(:focus-visible) > img {
+  @include img-zoom-in;
 }
 
 // ---------------------------------------------------------------------------------------------------------------

@@ -26,20 +26,7 @@ $gallery-meta: #5b6479;
     height: 95%;
     aspect-ratio: 41 / 30;
     object-fit: cover;
-    transition: transform 0.4s ease;
-
-    // Hover isn't in the design – a subtle zoom only (TODO(verify)).
-    .gallery-album:hover & {
-      transform: scale(1.03);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-
-      .gallery-album:hover & {
-        transform: none;
-      }
-    }
+    // Hover isn't in the design – a subtle zoom only (TODO(verify)): the shared .img-zoom utility (main.scss).
   }
 
   // Caption: 24 px padding, frosted band ≈ 100 px tall at 1440 whose top 40 px fades in (grows with 2-line titles).

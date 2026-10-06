@@ -10,7 +10,7 @@ Params: href, img (410w cover, also the fallback src), srcset (string, e.g. "img
 Search (src/js/modules/search.js): the title is read from the link ([data-search-title]), the cover's alt is the searched
 text (data-search-text); later the CMS can put the album description there.
 Whole card is clickable: one <a> on the title, stretched over the card by .stretched-link (styles in _articles.scss).
-}<article class="gallery-album"@@if (typeof tags !== 'undefined') { data-filter-tags="@@tags"} data-search-text="@@alt">
+}<article class="gallery-album img-zoom img-zoom-trigger"@@if (typeof tags !== 'undefined') { data-filter-tags="@@tags"} data-search-text="@@alt">
   <img
     src="@@img"
     srcset="@@srcset"

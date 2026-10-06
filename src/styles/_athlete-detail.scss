@@ -106,33 +106,14 @@ $athlete-medal-bronze: #e22447; // the design's 3rd-place dot is red, not bronze
     @apply pr-0.5 text-right font-label text-label font-bold uppercase tracking-[0.04em] text-text-primary;
   }
 
-  // Gallery thumbnails: 302×202 r 12. The link is the hover/focus target; lightbox comes with the JS step.
+  // Gallery thumbnails: 302×202 r 12. The link is the hover/focus target of the zoom (not in the design): the shared
+  // .img-zoom utility (main.scss), the same as the athlete card photo.
   .athlete-gallery__link {
     @apply block overflow-hidden rounded-radius-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4 focus-visible:ring-offset-surface-page;
   }
 
   .athlete-gallery__img {
     @apply aspect-[302/202] w-full object-cover;
-    transition: transform 400ms ease-out;
-  }
-
-  // Hover (not in the design): the same slow zoom as the athlete card photo. Only on devices that really hover.
-  @media (hover: hover) {
-    .athlete-gallery__link:hover .athlete-gallery__img {
-      transform: scale(1.04);
-    }
-  }
-
-  .athlete-gallery__link:focus-visible .athlete-gallery__img {
-    transform: scale(1.04);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .athlete-gallery__img,
-    .athlete-gallery__link:hover .athlete-gallery__img,
-    .athlete-gallery__link:focus-visible .athlete-gallery__img {
-      transform: none;
-    }
   }
 
   // "Další akademici": the listing's athlete card, but shorter (302×364) and without the boat label, as in the design.

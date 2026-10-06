@@ -24,9 +24,9 @@ $athletes-panel: rgb(240 242 245 / 0.72); // frosted panel on the card photo (â‰
       box-shadow 200ms ease-out;
   }
 
+  // Hover/focus zoom: shared .img-zoom utility (main.scss); the card is both the clipping box and the trigger.
   .athlete-card__photo {
     @apply absolute inset-0 -z-10 h-[95%] w-full object-cover;
-    transition: transform 400ms ease-out;
   }
 
   // Frosted panel under the text: blurred photo + light veil, faded in from the top so the photo dissolves into it.
@@ -107,16 +107,12 @@ $athletes-panel: rgb(240 242 245 / 0.72); // frosted panel on the card photo (â‰
 }
 
 // Card hover (no hover in the design): same idea as the homepage crossroad cards (main.scss) â€“ lift + deeper shadow,
-// here without the tilt, plus a slow photo zoom; the arrow-mask on "Profil" runs too (the stretched link is hovered).
-// Only on devices that really hover; keyboard focus gets the same via :has(). Two rules on purpose, so a browser
-// without :has() doesn't drop the hover rule as well.
+// here without the tilt; the photo zoom is the shared .img-zoom utility (main.scss); the arrow-mask on "Profil" runs
+// too (the stretched link is hovered). Only on devices that really hover; keyboard focus gets the same via :has().
+// Two rules on purpose, so a browser without :has() doesn't drop the hover rule as well.
 @mixin athlete-card-lifted {
   transform: translateY(-6px);
   box-shadow: 0 32px 56px -20px rgb(18 19 42 / 0.32);
-
-  .athlete-card__photo {
-    transform: scale(1.04);
-  }
 }
 
 @layer components {
@@ -130,7 +126,7 @@ $athletes-panel: rgb(240 242 245 / 0.72); // frosted panel on the card photo (â‰
     @include athlete-card-lifted;
   }
 
-  // Reduced motion: no lift/zoom, only the shadow change, as a â‰¤150 ms crossfade.
+  // Reduced motion: no lift (and no zoom, see .img-zoom), only the shadow change, as a â‰¤150 ms crossfade.
   @media (prefers-reduced-motion: reduce) {
     .athlete-card {
       transition-duration: 150ms;
@@ -139,10 +135,6 @@ $athletes-panel: rgb(240 242 245 / 0.72); // frosted panel on the card photo (â‰
     .athlete-card:hover,
     .athlete-card:has(a:focus-visible) {
       transform: none;
-
-      .athlete-card__photo {
-        transform: none;
-      }
     }
   }
 }

@@ -54,28 +54,36 @@
       <!-- TODO(verify): heading is not visible in the design, kept for screen readers -->
       <h2 id="hero-articles-title" class="sr-only">Další články</h2>
 
-      <div class="swiper js-hero-articles !overflow-visible lg:!overflow-hidden">
+      <!-- Vertical padding (cancelled by the negative margin) keeps the lift, shadow and focus ring from being clipped
+           by the overflow-hidden carousel on desktop; Swiper subtracts the padding from its width, so slides don't change. -->
+      <div class="swiper js-hero-articles !overflow-visible lg:-mx-space-2xs lg:-mb-space-md lg:-mt-space-xs lg:!overflow-hidden lg:!px-space-2xs lg:!pb-space-md lg:!pt-space-xs">
         <div class="swiper-wrapper">
+          <!-- DEMO: replace with CMS data -->
           @@for (var i = 0; i < 3; i++) {
           <article class="swiper-slide !h-auto">
             <!-- TODO(verify): article URLs -->
-            <a href="#" class="group flex h-full items-center gap-space-sm rounded-radius-md border border-surface-card-border bg-surface-card p-space-xs pr-space-md shadow-[0_24px_48px_-24px_rgba(34,30,83,0.25)] backdrop-blur-md transition hover:bg-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg">
-              <!-- TODO: only article-1.jpg exists, reused for all 3 cards -->
-              <img
-                src="img/article-1.jpg"
-                alt="`+["Juniorská čtyřka na vodě", "Skifař na závodní trati", "Nová osma na Labi"][i]+`"
-                width="96"
-                height="96"
-                loading="lazy"
-                class="h-24 w-24 shrink-0 rounded-radius-sm object-cover"
-              >
-              <div class="min-w-0">
-                <h3 class="text-body text-text-primary group-hover:underline">`+["Juniorská čtyřka zlatá na Primátorkách", "Skifař Tomáš Hora míří na mistrovství Evropy", "Nová osma pro akademii: křest na Labi"][i]+`</h3>
+            <a href="#" class="hero-preview-card flex h-full items-center gap-space-sm rounded-radius-md border border-surface-card-border bg-surface-card p-space-xs pr-space-sm shadow-[0_24px_48px_-24px_rgba(34,30,83,0.25)] backdrop-blur-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg">
+              <span class="hero-preview-card__thumb isolate block h-24 w-24 shrink-0 overflow-hidden rounded-radius-sm">
+                <img
+                  src="img/`+["article-1.jpg", "feed-2.jpg", "gallery-1.jpg"][i]+`"
+                  alt="`+["Juniorská čtyřka na vodě", "Skifař na závodní trati", "Nová osma na Labi"][i]+`"
+                  width="96"
+                  height="96"
+                  loading="lazy"
+                  class="h-full w-full object-cover"
+                >
+              </span>
+              <div class="min-w-0 flex-1">
+                <h3 class="link-underline w-fit max-w-full text-body text-text-primary"><span class="line-clamp-2">`+["Juniorská čtyřka zlatá na Primátorkách", "Skifař Tomáš Hora míří na mistrovství Evropy", "Nová osma pro akademii: křest na Labi"][i]+`</span></h3>
                 <time datetime="`+["2026-09-05", "2026-08-29", "2026-08-21"][i]+`" class="mt-space-xs block font-label text-label font-bold tracking-[0.15em] text-text-secondary">`+["5. 9. 2026", "29. 8. 2026", "21. 8. 2026"][i]+`</time>
               </div>
+              <span class="hero-preview-card__arrow flex shrink-0 text-text-primary">
+                @@include('../icon.html', {"name": "arrow-right", "class": "h-5 w-5"})
+              </span>
             </a>
           </article>
           }
+          <!-- /DEMO -->
         </div>
       </div>
 

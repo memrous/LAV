@@ -7,15 +7,17 @@ Params: href, img (path from dist root), alt, datetime (ISO), date, category, ti
                 perex; full-text search over article bodies will be server-side.
 Whole item is clickable: one <a> on the title, stretched over the item by .stretched-link.
 }
-<article class="relative flex items-center gap-space-sm sm:gap-space-md"@@if (typeof tags !== 'undefined') { data-filter-tags="@@tags"}@@if (typeof perex !== 'undefined') { data-search-text="@@perex"}@@if (typeof perex === 'undefined') { data-search-text=""}>
-  <img
-    src="@@img"
-    alt="@@alt"
-    width="200"
-    height="140"
-    loading="lazy"
-    class="aspect-[10/7] w-[7.5rem] shrink-0 rounded-radius-md object-cover sm:w-[12.5rem]"
-  >
+<article class="img-zoom-trigger relative flex items-center gap-space-sm sm:gap-space-md"@@if (typeof tags !== 'undefined') { data-filter-tags="@@tags"}@@if (typeof perex !== 'undefined') { data-search-text="@@perex"}@@if (typeof perex === 'undefined') { data-search-text=""}>
+  <div class="img-zoom w-[7.5rem] shrink-0 rounded-radius-md sm:w-[12.5rem]">
+    <img
+      src="@@img"
+      alt="@@alt"
+      width="200"
+      height="140"
+      loading="lazy"
+      class="aspect-[10/7] w-full rounded-radius-md object-cover"
+    >
+  </div>
   <div class="min-w-0">
     @@include('./meta.html', {"datetime": "@@datetime", "date": "@@date", "category": "@@category", "class": ""})
     <h3 class="articles-title mt-space-xs line-clamp-3">

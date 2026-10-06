@@ -4,15 +4,17 @@
      Search (src/js/modules/search.js): the whole section is one search item – hidden while a query is active unless it
      matches. data-search-text = the visible perex below (later filled by the CMS; full-text search will be server-side). -->
 <section id="articles-featured" class="mx-auto mt-space-xl max-w-container px-space-sm md:px-space-xl min-[1025px]:mt-12 xl:px-space-2xl" aria-labelledby="articles-featured-title" data-search-text="Osma juniorů zlatá, skif a dvojskif se stříbrem a bronzem v Račicích.">
-  <article class="relative grid items-center gap-space-md min-[1025px]:grid-cols-[minmax(0,760fr)_minmax(0,472fr)] min-[1025px]:gap-12">
+  <article class="img-zoom-trigger relative grid items-center gap-space-md min-[1025px]:grid-cols-[minmax(0,760fr)_minmax(0,472fr)] min-[1025px]:gap-12">
     <!-- Above the fold: not lazy-loaded. -->
-    <img
-      src="img/hero-article.jpg"
-      alt="Juniorská osmiveslice během závodu na řece"
-      width="760"
-      height="480"
-      class="aspect-[19/12] w-full rounded-radius-md object-cover"
-    >
+    <div class="img-zoom rounded-radius-md">
+      <img
+        src="img/hero-article.jpg"
+        alt="Juniorská osmiveslice během závodu na řece"
+        width="760"
+        height="480"
+        class="aspect-[19/12] w-full rounded-radius-md object-cover"
+      >
+    </div>
 
     <div class="min-[1025px]:max-w-[26rem]">
       <h2 id="articles-featured-title" class="font-display text-[1.75rem] font-bold leading-[1.1] tracking-[-0.03em] text-text-primary md:text-display-md" data-search-title>Tři medaile z Mistrovství ČR juniorů</h2>

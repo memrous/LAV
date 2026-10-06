@@ -9,7 +9,7 @@
   <ul class="mt-space-xl grid gap-space-md min-[1025px]:mt-12 min-[769px]:grid-cols-2 min-[1025px]:grid-cols-4">
     @@for (var i = 0, photos = [["gallery-1.jpg", "Osmiveslice na závodní dráze u bójí"], ["gallery-2.jpg", "Skifařka při tréninku na řece"], ["feed-3.jpg", "Trenér na loďce při tréninku"], ["gallery-3.jpg", "Dvojskif na závodní trati"], ["feed-1.jpg", "Vesla s červenobílými listy srovnaná na trávě"], ["event-1.jpg", "Diváci na nábřeží při závodech na řece"], ["feed-5.jpg", "Posádka ve veslici pod zalesněným břehem"], ["feed-6.jpg", "Loděnice na břehu řeky"]]; i < photos.length; i++) {
     <li>
-      <a href="img/`+photos[i][0]+`" data-lightbox="article" class="block overflow-hidden rounded-radius-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4 focus-visible:ring-offset-surface-page">
+      <a href="img/`+photos[i][0]+`" data-lightbox="article" class="img-zoom img-zoom-trigger block overflow-hidden rounded-radius-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4 focus-visible:ring-offset-surface-page">
         <img src="img/`+photos[i][0]+`" alt="`+photos[i][1]+`" width="302" height="202" loading="lazy" class="aspect-[151/101] w-full rounded-radius-md object-cover">
       </a>
     </li>
