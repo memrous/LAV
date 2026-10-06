@@ -1,4 +1,4 @@
-// Live article search (articles page). No-op on pages without [data-search].
+// Live search (articles page; album search on the gallery page). No-op on pages without [data-search].
 // Filters through the shared visibility in filters.js: the search is one more "source", so an item is visible only when
 // its category / year filter AND the query pass it.
 //

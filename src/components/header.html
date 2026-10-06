@@ -1,6 +1,8 @@
 <!-- Sticky over the hero; -mb pulls the following content up under it (hero keeps its own top padding).
      Not `fixed`: .page-scene uses container-type, which makes it the containing block for fixed children.
-     Transparent → Light after scrollY > 80 px: main.parcel.js toggles .site-header--scrolled (styles in main.scss). -->
+     Transparent → Light after scrollY > 80 px: main.parcel.js toggles .site-header--scrolled (styles in main.scss).
+     Param: active – label of the current nav item ("Aktuality", "Akademici", …; "" = none), gets aria-current="page".
+       include('./components/header.html', {"active": "Aktuality"})   from src/*.html (prefix the call with @@) -->
 <header class="js-site-header site-header sticky inset-x-0 top-0 z-30 -mb-[4.5rem]">
   <div class="mx-auto flex h-[4.5rem] max-w-container items-center justify-between gap-space-md px-space-sm md:px-space-xl xl:px-space-2xl">
     <a href="index.html" class="shrink-0 rounded-radius-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-button-primary-bg focus-visible:ring-offset-4">
